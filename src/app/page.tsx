@@ -19,12 +19,11 @@ export default function Home() {
     {
       mode: "free-snap",
       loop: true,
-      slides: { origin: "center", perView: 2, spacing: 15 },
+      slides: { origin: "center", perView: 1.2, spacing: 15 },
     },
-
     [
       (slider) => {
-        let timeout: NodeJS.Timeout;
+        let timeout: ReturnType<typeof setTimeout>;
         let mouseOver = false;
         function clearNextTimeout() {
           clearTimeout(timeout);
@@ -95,6 +94,7 @@ const NumberSlide = styled.div`
   height: 100px;
   width: 380px;
   max-height: 100vh;
+  border-radius: 15px;
 `;
 
 const NumberSlide1 = styled(NumberSlide)`
