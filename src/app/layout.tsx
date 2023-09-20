@@ -1,7 +1,18 @@
 "use client";
-
-import { Inter } from "next/font/google";
+import styled from "@emotion/styled";
 import { RecoilRoot } from "recoil";
+
+const Body = styled.body`
+  background-color: black;
+`;
+
+const Main = styled.main`
+  background-color: white;
+  width: 440px;
+  margin: 0 auto;
+  height: 100vh;
+  overflow-y: auto;
+`;
 
 export default function RootLayout({
   children,
@@ -11,7 +22,9 @@ export default function RootLayout({
   return (
     <RecoilRoot>
       <html lang="en">
-        <body >{children}</body>
+        <Body>
+          <Main>{children}</Main>
+        </Body>
       </html>
     </RecoilRoot>
   );
