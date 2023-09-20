@@ -1,4 +1,4 @@
-interface QuestionType  {
-     no : number,
-     answer : any,
+interface InfoType  {
+     gender? : string,
+     age : string,
 };
