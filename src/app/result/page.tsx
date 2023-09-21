@@ -7,6 +7,7 @@ import Link from "next/link";
 import Modal from "./components/Modal";
 import Toast from "./components/Toast";
 import Answer from "./components/Answer";
+import BarGraph from "./components/BarGraph";
 
 const Container = styled.div`
   width: 100%;
@@ -25,15 +26,51 @@ const ContentWrapper = styled.div`
   padding: 24px;
 `;
 
-const Button = styled.div`
+const Summary = styled.div`
+  width: 224px;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+`;
+
+const Title = styled.h3<{ size: "sm" | "lg" }>`
+  font-size: ${(props) => (props.size === "lg" ? "30px" : "18px")};
+  margin-bottom: ${(props) => (props.size === "sm" ? "4px" : "0px")};
+`;
+
+const Subtitle = styled.h3`
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.18px;
+`;
+
+const Emphasis = styled.span`
+  color: #ff2020;
+`;
+
+const ShareButton = styled.div`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 64px;
+  margin-top: 24px;
   border: 2px solid;
   cursor: pointer;
+`;
+
+const LinkButton = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 64px;
+  border: 2px solid;
 `;
 
 const ButtonWrapper = styled.div`
@@ -96,40 +133,48 @@ export default function ResultPage() {
         <ResultHeader />
         <ContentWrapper>
           <Content>
-            <h3>
-              언제나 논란의 중심에 있는
-              <br />
-              진라면
-            </h3>
-            <Button onClick={copyToClipBoard}>
+            <div
+              style={{
+                width: "216px",
+                height: "172px",
+                border: "1px solid",
+                marginBottom: "8px",
+              }}
+            />
+            <Title size="sm">언제나 논란의 중심에 있는</Title>
+            <Title size="lg">진라면</Title>
+            <BarGraph />
+            <Summary>
+              유형 설명글 유형 설명글 유형 설명글 유형 설명글 유형 설명글 유형
+              설명글 유형 설명글 유형 설명글 유형 설명글 유형 설명글 유형 설명글
+              유형 설명글 유형 설명글 유형 설명글 유형 설명글
+            </Summary>
+            <ShareButton onClick={copyToClipBoard}>
               <Toast
                 isOpen={showToast}
                 message="복사 완료! 친구에게 공유해 보세요!"
               />
               결과 공유
-            </Button>
+            </ShareButton>
             <ButtonWrapper>
-              <Button>
-                <Link href={"/"} about="to home">
-                  다시하기
-                </Link>
-              </Button>
-              <Button>
-                <Link href={"/"} about="to home">
-                  홈 화면
-                </Link>
-              </Button>
+              <LinkButton href={"/"} about="to home">
+                다시하기
+              </LinkButton>
+              <LinkButton href={"/"} about="to home">
+                홈 화면
+              </LinkButton>
             </ButtonWrapper>
           </Content>
           <Content>
-            <h3>
-              20대 여성은
-              <br />
-              진라면 유형이 가장 많아요
-            </h3>
+            <Subtitle>
+              <Emphasis>20대 여성</Emphasis>은
+            </Subtitle>
+            <Subtitle>
+              <Emphasis>진라면</Emphasis> 유형이 가장 많아요
+            </Subtitle>
           </Content>
           <Content>
-            <h3>불닭볶음면 유형이 많은 연령대는?</h3>
+            <Subtitle>불닭볶음면 유형이 많은 연령대는?</Subtitle>
           </Content>
           <ModalButton onClick={handleModal}>전체 답변 보기</ModalButton>
         </ContentWrapper>
