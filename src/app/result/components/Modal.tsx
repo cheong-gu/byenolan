@@ -4,15 +4,21 @@ import React from "react";
 const ModalContainer = styled.div`
   position: absolute;
   top: 0;
+  bottom: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #aaa;
+  right: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: flex-start;
+  background-color: #aaa;
   z-index: 9999;
+`;
+
+const ModalWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 `;
 
 const ModalHeader = styled.div`
@@ -30,10 +36,9 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   width: 100%;
-  height: 100%;
   padding: 40px 24px;
 `;
 
@@ -59,13 +64,15 @@ interface ModalProps {
 const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   return isOpen ? (
     <ModalContainer>
-      <ModalHeader>
-        <button onClick={onClose}>닫기</button>
-      </ModalHeader>
-      <ModalContent>
-        {children}
-        <ScrollButton>맨 위로 가기</ScrollButton>
-      </ModalContent>
+      <ModalWrapper>
+        <ModalHeader>
+          <button onClick={onClose}>닫기</button>
+        </ModalHeader>
+        <ModalContent>
+          {children}
+          <ScrollButton>맨 위로 가기</ScrollButton>
+        </ModalContent>
+      </ModalWrapper>
     </ModalContainer>
   ) : null;
 };
