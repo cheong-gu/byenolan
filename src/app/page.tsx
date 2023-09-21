@@ -55,8 +55,16 @@ export default function Home() {
   return (
     <HomeWrap>
       <div>
+        deploy test!!!!!!!!!
+        <br />
+        <br />
+        <br />
+        <br />
         오늘의 논란
-        <div>사귄지 얼마 안된 연인이 /n형제를 보여준다고한다</div>
+        <div>
+          사귄지 얼마 안된 연인이 <br />
+          형제를 보여준다고한다
+        </div>
       </div>
       <div>오늘의 질문 영역</div>
       <div>테스트 시작 버튼 영역</div>
