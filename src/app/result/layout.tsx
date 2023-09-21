@@ -1,3 +1,5 @@
+import "./global.css";
+
 export default function ResultLayout({
   children,
 }: {
