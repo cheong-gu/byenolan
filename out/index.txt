@@ -1,4 +1,4 @@
-0:["kfvyq8oV8LH9Sm1lqI879",[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],"$L1",[[],"$L2"]]]]
+0:["LEZGehARqzagmzJjNp7Ea",[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],"$L1",[[],"$L2"]]]]
 3:HL["/byenolan/_next/static/css/b8e302d41b271438.css",{"as":"style"}]
 4:I{"id":5840,"chunks":["691:static/chunks/f4e5f4e1-7fc9da7a729cd071.js","139:static/chunks/139-f62ea8e2e57b149c.js","185:static/chunks/app/layout-9cc7a8bd120e235f.js"],"name":"","async":false}
 5:I{"id":7767,"chunks":["272:static/chunks/webpack-3bd95ba182befb00.js","971:static/chunks/fd9d1056-e39bdba080697df2.js","596:static/chunks/596-d42df32dfc51549d.js"],"name":"default","async":false}
