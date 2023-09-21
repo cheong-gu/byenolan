@@ -9,9 +9,7 @@ import Toast from "./components/Toast";
 import Answer from "./components/Answer";
 
 const Container = styled.div`
-  position: relative;
   width: 100%;
-  height: 100%;
   background-color: #aaa;
   padding-bottom: 64px;
 `;
@@ -79,48 +77,7 @@ export default function ResultPage() {
   };
 
   return (
-    <Container>
-      {/* Header -> 이미지 대체 */}
-      <ResultHeader />
-      <ContentWrapper>
-        <Content>
-          <h3>
-            언제나 논란의 중심에 있는
-            <br />
-            진라면
-          </h3>
-          <Button onClick={copyToClipBoard}>
-            <Toast
-              isOpen={showToast}
-              message="복사 완료! 친구에게 공유해 보세요!"
-            />
-            결과 공유
-          </Button>
-          <ButtonWrapper>
-            <Button>
-              <Link href={"/"} about="to home">
-                다시하기
-              </Link>
-            </Button>
-            <Button>
-              <Link href={"/"} about="to home">
-                홈 화면
-              </Link>
-            </Button>
-          </ButtonWrapper>
-        </Content>
-        <Content>
-          <h3>
-            20대 여성은
-            <br />
-            진라면 유형이 가장 많아요
-          </h3>
-        </Content>
-        <Content>
-          <h3>불닭볶음면 유형이 많은 연령대는?</h3>
-        </Content>
-        <ModalButton onClick={handleModal}>전체 답변 보기</ModalButton>
-      </ContentWrapper>
+    <>
       {showModal && (
         <Modal isOpen={showModal} onClose={handleModal}>
           {DUMMY_DATA.map(({ answer, options, question }, index) => (
@@ -134,7 +91,50 @@ export default function ResultPage() {
           ))}
         </Modal>
       )}
-    </Container>
+      <Container>
+        {/* Header -> 이미지 대체 */}
+        <ResultHeader />
+        <ContentWrapper>
+          <Content>
+            <h3>
+              언제나 논란의 중심에 있는
+              <br />
+              진라면
+            </h3>
+            <Button onClick={copyToClipBoard}>
+              <Toast
+                isOpen={showToast}
+                message="복사 완료! 친구에게 공유해 보세요!"
+              />
+              결과 공유
+            </Button>
+            <ButtonWrapper>
+              <Button>
+                <Link href={"/"} about="to home">
+                  다시하기
+                </Link>
+              </Button>
+              <Button>
+                <Link href={"/"} about="to home">
+                  홈 화면
+                </Link>
+              </Button>
+            </ButtonWrapper>
+          </Content>
+          <Content>
+            <h3>
+              20대 여성은
+              <br />
+              진라면 유형이 가장 많아요
+            </h3>
+          </Content>
+          <Content>
+            <h3>불닭볶음면 유형이 많은 연령대는?</h3>
+          </Content>
+          <ModalButton onClick={handleModal}>전체 답변 보기</ModalButton>
+        </ContentWrapper>
+      </Container>
+    </>
   );
 }
 
