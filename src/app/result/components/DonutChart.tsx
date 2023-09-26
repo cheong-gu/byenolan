@@ -35,13 +35,14 @@ const Wrapper = styled.div`
 
 interface DonutChartProps {
   type: relationshipType;
+  percentage: number;
   data: {
     type: relationshipType;
     point: number;
   }[];
 }
 
-const DonutChart = ({ type, data }: DonutChartProps) => {
+const DonutChart = ({ type, percentage, data }: DonutChartProps) => {
   const DUMMY_POINT = data.map((d) => d.point);
   const svgRef = useRef<SVGSVGElement | null>(null);
 
@@ -109,11 +110,7 @@ const DonutChart = ({ type, data }: DonutChartProps) => {
             .data(pie(DUMMY_POINT))
             .enter()
             .append("g")
-            .filter(
-              (value) =>
-                value.data ===
-                data.filter((value) => value.type === type)[0].point
-            );
+            .filter((value) => value.data === percentage);
 
           labelsGroup
             .append("use")

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
+import Label from "./Label";
 
 const Wrapper = styled.div`
   position: relative;
@@ -11,8 +12,13 @@ const Wrapper = styled.div`
   margin: 24px 0px;
 `;
 
-const Label = styled.div`
+const LabelBox = styled.div`
+  position: relative;
+  display: flex;
+  align-items: start;
+  justify-content: center;
   height: 30px;
+  padding: 1px 0px;
 `;
 
 const Bar = styled.div`
@@ -21,13 +27,15 @@ const Bar = styled.div`
   height: 12px;
   border-radius: 10px;
   background: #e6e6e6;
+  margin-top: 2px;
   margin-bottom: 8px;
+  overflow: hidden;
 `;
 
-const Gauge = styled.div`
+const Gauge = styled.div<{ percentage: number }>`
   position: absolute;
   left: 0;
-  width: 57px;
+  width: ${(props) => props.percentage}%;
   height: 12px;
   border-radius: 10px;
   background: #000;
@@ -42,14 +50,20 @@ const Text = styled.p`
   color: #000;
 `;
 
-const BarGraph = () => {
+interface BarGraphProps {
+  percentage: number;
+}
+
+const BarGraph = ({ percentage }: BarGraphProps) => {
   return (
     <Wrapper>
-      <Label>라벨</Label>
+      <LabelBox>
+        <Label polygon>{percentage}%</Label>
+      </LabelBox>
       <Bar>
-        <Gauge />
+        <Gauge percentage={percentage} />
       </Bar>
-      <Text>당신은 전체 응답자 중 40%에 속해요</Text>
+      <Text>당신은 전체 응답자 중 {percentage}%에 속해요</Text>
     </Wrapper>
   );
 };

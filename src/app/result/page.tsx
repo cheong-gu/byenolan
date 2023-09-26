@@ -100,9 +100,12 @@ const ModalButton = styled.button`
 `;
 
 export default function ResultPage() {
-  const DUMMY_TYPE = "진라면";
+  const DUMMY_TYPE = "사리곰탕";
   const DUMMY_AGE_TYPE = "불닭볶음면";
   const DUMMY_INFO = { age: "20대", gender: "여성" };
+  const DUMMY_PERCENTAGE = DUMMY_CHART_DATA.filter(
+    ({ type, point }) => type === DUMMY_TYPE
+  )[0].point;
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showToast, setShowToast] = useState<boolean>(false);
@@ -153,7 +156,7 @@ export default function ResultPage() {
             />
             <Title size="sm">{DUMMY_RESULT_DATA[DUMMY_TYPE].title}</Title>
             <Title size="lg">{DUMMY_TYPE}</Title>
-            <BarGraph />
+            <BarGraph percentage={DUMMY_PERCENTAGE} />
             <Summary>{DUMMY_RESULT_DATA[DUMMY_TYPE].summary}</Summary>
             <ShareButton onClick={copyToClipBoard}>
               <Toast
@@ -181,7 +184,11 @@ export default function ResultPage() {
             <Subtitle>
               <Emphasis>{DUMMY_AGE_TYPE}</Emphasis> 유형이 가장 많아요
             </Subtitle>
-            <DonutChart type={DUMMY_AGE_TYPE} data={DUMMY_CHART_DATA} />
+            <DonutChart
+              type={DUMMY_AGE_TYPE}
+              percentage={DUMMY_PERCENTAGE}
+              data={DUMMY_CHART_DATA}
+            />
           </Content>
           <Content>
             <Subtitle>{DUMMY_TYPE} 유형이 많은 연령대는?</Subtitle>
