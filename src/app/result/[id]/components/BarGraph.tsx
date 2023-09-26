@@ -12,17 +12,29 @@ const Wrapper = styled.div`
   margin: 24px 0px;
 `;
 
-const LabelBox = styled.div`
+const LabelWrapper = styled.div`
   position: relative;
   display: flex;
-  align-items: start;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 192px;
   height: 30px;
-  padding: 1px 0px;
+`;
+
+const LabelBox = styled.div<{ width: number; percentage: number }>`
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  left: ${(props) =>
+    `${
+      props.width -
+      (props.percentage < 10 ? 20 : props.percentage === 100 ? 32 : 26)
+    }px`};
 `;
 
 const Bar = styled.div`
-  position: relative;
   width: 192px;
   height: 12px;
   border-radius: 10px;
@@ -33,8 +45,6 @@ const Bar = styled.div`
 `;
 
 const Gauge = styled.div<{ percentage: number }>`
-  position: absolute;
-  left: 0;
   width: ${(props) => props.percentage}%;
   height: 12px;
   border-radius: 10px;
@@ -57,11 +67,13 @@ interface BarGraphProps {
 const BarGraph = ({ percentage }: BarGraphProps) => {
   return (
     <Wrapper>
-      <LabelBox>
-        <Label type="number" polygon>
-          {percentage}%
-        </Label>
-      </LabelBox>
+      <LabelWrapper>
+        <LabelBox width={192 * (percentage / 100)} percentage={percentage}>
+          <Label type="number" polygon>
+            {percentage}%
+          </Label>
+        </LabelBox>
+      </LabelWrapper>
       <Bar>
         <Gauge percentage={percentage} />
       </Bar>
