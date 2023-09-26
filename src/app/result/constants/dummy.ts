@@ -68,6 +68,12 @@ export const DUMMY_CHART_DATA: { type: relationshipType; point: number }[] = [
   { type: "사리곰탕", point: 2 },
 ];
 
+export const DUMMY_COLUMN_DATA = [
+  { age: "20대 여성", point: 100 },
+  { age: "10대 여성", point: 65 },
+  { age: "30대 남성", point: 25 },
+];
+
 export const DUMMY_DONUT_COLOR = {
   핵불닭볶음면: "#ff9aa2",
   불닭볶음면: "#ffb7b2",

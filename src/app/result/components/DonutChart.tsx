@@ -51,7 +51,6 @@ const DonutChart = ({ type, percentage, data }: DonutChartProps) => {
     const intervalId = setInterval(() => {
       drawDonutChart();
     }, 10000);
-
     return () => clearInterval(intervalId);
   }, []);
 

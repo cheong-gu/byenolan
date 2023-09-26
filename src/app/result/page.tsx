@@ -11,10 +11,12 @@ import BarGraph from "./components/BarGraph";
 import DonutChart from "./components/DonutChart";
 import {
   DUMMY_CHART_DATA,
+  DUMMY_COLUMN_DATA,
   DUMMY_MODAL_DATA,
   DUMMY_RESULT_DATA,
 } from "./constants/dummy";
 import ChartLegend from "./components/ChartLegend";
+import ColumnGraph from "./components/ColumnChart";
 
 const Container = styled.div`
   width: 100%;
@@ -205,6 +207,7 @@ export default function ResultPage() {
                 type={type}
                 point={point}
                 active={type === DUMMY_TYPE}
+                lastIndex={idx === 5}
               />
             ))}
           </Content>
@@ -214,6 +217,7 @@ export default function ResultPage() {
               <Emphasis>{DUMMY_TYPE} </Emphasis>
               유형이 많은 연령대는?
             </Subtitle>
+            <ColumnGraph data={DUMMY_COLUMN_DATA} />
           </Content>
           <ModalButton onClick={handleModal}>전체 답변 보기</ModalButton>
         </ContentWrapper>
