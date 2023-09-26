@@ -59,6 +59,12 @@ export const DUMMY_RESULT_DATA = {
   },
 };
 
+export const DUMMY_AGE_TYPE = [
+  { age: "20대 여성", point: 100 },
+  { age: "10대 여성", point: 65 },
+  { age: "30대 남성", point: 25 },
+];
+
 export const DUMMY_CHART_DATA: { type: relationshipType; point: number }[] = [
   { type: "핵불닭볶음면", point: 35 },
   { type: "불닭볶음면", point: 25 },
