@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import styled from "@emotion/styled";
+import { DUMMY_DONUT_COLOR, relationshipType } from "../constants/dummy";
 
 const DonutLabel = `
   <svg
@@ -22,17 +23,6 @@ const DonutLabel = `
   </svg>
 `;
 
-const DUMMY_DATA = [50, 30, 9, 8, 2, 1];
-// const data = [8, 12, 14, 16, 20, 30];
-const CHART_COLORS = [
-  "#ff9aa2",
-  "#ffb7b2",
-  "#ffdac1",
-  "#e2f0cb",
-  "#b5ead7",
-  "#c7ceea",
-];
-
 const CHART_WIDTH = 208;
 const CHART_HEIGHT = CHART_WIDTH;
 const CHART_RADIUS = 80;
@@ -43,16 +33,16 @@ const Wrapper = styled.div`
   height: ${CHART_HEIGHT};
 `;
 
-interface D3Selection
-  extends d3.Selection<SVGPathElement, unknown, null, undefined> {
-  _current?: any;
-}
-
 interface DonutChartProps {
-  point: number;
+  type: relationshipType;
+  data: {
+    type: relationshipType;
+    point: number;
+  }[];
 }
 
-const DonutChart = ({ point }: DonutChartProps) => {
+const DonutChart = ({ type, data }: DonutChartProps) => {
+  const DUMMY_POINT = data.map((d) => d.point);
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -86,7 +76,7 @@ const DonutChart = ({ point }: DonutChartProps) => {
     // 부채꼴 그리기 (도넛 섹션)
     const arcs = g
       .selectAll(".arc")
-      .data(pie(DUMMY_DATA))
+      .data(pie(DUMMY_POINT))
       .enter()
       .append("g")
       .attr("class", "arc");
@@ -100,7 +90,7 @@ const DonutChart = ({ point }: DonutChartProps) => {
 
     arcs
       .append("path")
-      .attr("fill", (_, i) => CHART_COLORS[i])
+      .attr("fill", (_, i) => DUMMY_DONUT_COLOR[data[i].type])
       .each(function (this: any, d: any) {
         this._current = d;
       })
@@ -113,13 +103,17 @@ const DonutChart = ({ point }: DonutChartProps) => {
         };
       })
       .on("end", function (_, i) {
-        if (i === DUMMY_DATA.length - 1) {
+        if (i === DUMMY_POINT.length - 1) {
           let labelsGroup = g
             .selectAll(".label-group")
-            .data(pie(DUMMY_DATA))
+            .data(pie(DUMMY_POINT))
             .enter()
             .append("g")
-            .filter(({ data }) => data === point);
+            .filter(
+              (value) =>
+                value.data ===
+                data.filter((value) => value.type === type)[0].point
+            );
 
           labelsGroup
             .append("use")

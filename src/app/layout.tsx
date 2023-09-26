@@ -10,7 +10,7 @@ const Main = styled.main`
   background-color: white;
   width: 440px;
   margin: 0 auto;
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
 `;
 

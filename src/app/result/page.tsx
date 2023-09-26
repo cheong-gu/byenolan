@@ -9,6 +9,11 @@ import Toast from "./components/Toast";
 import Answer from "./components/Answer";
 import BarGraph from "./components/BarGraph";
 import DonutChart from "./components/DonutChart";
+import {
+  DUMMY_CHART_DATA,
+  DUMMY_MODAL_DATA,
+  DUMMY_RESULT_DATA,
+} from "./constants/dummy";
 
 const Container = styled.div`
   width: 100%;
@@ -95,6 +100,10 @@ const ModalButton = styled.button`
 `;
 
 export default function ResultPage() {
+  const DUMMY_TYPE = "진라면";
+  const DUMMY_AGE_TYPE = "불닭볶음면";
+  const DUMMY_INFO = { age: "20대", gender: "여성" };
+
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showToast, setShowToast] = useState<boolean>(false);
 
@@ -118,7 +127,7 @@ export default function ResultPage() {
     <>
       {showModal && (
         <Modal isOpen={showModal} onClose={handleModal}>
-          {DUMMY_DATA.map(({ answer, options, question }, index) => (
+          {DUMMY_MODAL_DATA.map(({ answer, options, question }, index) => (
             <Answer
               key={`${index}_${question}`}
               number={index + 1}
@@ -142,14 +151,10 @@ export default function ResultPage() {
                 marginBottom: "8px",
               }}
             />
-            <Title size="sm">언제나 논란의 중심에 있는</Title>
-            <Title size="lg">진라면</Title>
+            <Title size="sm">{DUMMY_RESULT_DATA[DUMMY_TYPE].title}</Title>
+            <Title size="lg">{DUMMY_TYPE}</Title>
             <BarGraph />
-            <Summary>
-              유형 설명글 유형 설명글 유형 설명글 유형 설명글 유형 설명글 유형
-              설명글 유형 설명글 유형 설명글 유형 설명글 유형 설명글 유형 설명글
-              유형 설명글 유형 설명글 유형 설명글 유형 설명글
-            </Summary>
+            <Summary>{DUMMY_RESULT_DATA[DUMMY_TYPE].summary}</Summary>
             <ShareButton onClick={copyToClipBoard}>
               <Toast
                 isOpen={showToast}
@@ -168,17 +173,18 @@ export default function ResultPage() {
           </Content>
           <Content>
             <Subtitle>
-              <Emphasis>20대 여성</Emphasis>은
+              <Emphasis>
+                {DUMMY_INFO.age} {DUMMY_INFO.gender}
+              </Emphasis>
+              은
             </Subtitle>
             <Subtitle>
-              <Emphasis>진라면</Emphasis> 유형이 가장 많아요
+              <Emphasis>{DUMMY_AGE_TYPE}</Emphasis> 유형이 가장 많아요
             </Subtitle>
-            {/* <DonutChart point={3} /> */}
-            {/* <DonutChart point={8} /> */}
-            <DonutChart point={2} />
+            <DonutChart type={DUMMY_AGE_TYPE} data={DUMMY_CHART_DATA} />
           </Content>
           <Content>
-            <Subtitle>불닭볶음면 유형이 많은 연령대는?</Subtitle>
+            <Subtitle>{DUMMY_TYPE} 유형이 많은 연령대는?</Subtitle>
           </Content>
           <ModalButton onClick={handleModal}>전체 답변 보기</ModalButton>
         </ContentWrapper>
@@ -186,70 +192,3 @@ export default function ResultPage() {
     </>
   );
 }
-
-const DUMMY_DATA = [
-  {
-    question: "친구를 처음 보여주는 자리에서 더 짜증나는 상황은?",
-    answer: 0,
-    options: [
-      {
-        _id: "650bcb9b3be28c9fac971b67",
-        answer: "화장실에 가있는 동안 연락처 주고받음",
-        answer_no: 0,
-      },
-      {
-        _id: "650bcb9b3be28c9fac971b68",
-        answer: "같은 방향이라고 같이 택시탐",
-        answer_no: 1,
-      },
-    ],
-  },
-  {
-    question: "연인과 절친이 몰래 연락하며 나를 위한 이벤트를 준비했다",
-    answer: 1,
-    options: [
-      {
-        _id: "650bcb9b3be28c9fac971b69",
-        answer: "나를 위한거니까 상관없다",
-        answer_no: 0,
-      },
-      {
-        _id: "650bcb9b3be28c9fac971b6a",
-        answer: "몰래 연락한게 불편하다",
-        answer_no: 1,
-      },
-    ],
-  },
-  {
-    question: "일찍 잔다고 했는데 SNS에 접속중인걸 발견했다",
-    answer: 0,
-    options: [
-      {
-        _id: "650bcb9b3be28c9fac971b6b",
-        answer: "왜 거짓말 했는지 물어본다",
-        answer_no: 0,
-      },
-      {
-        _id: "650bcb9b3be28c9fac971b6c",
-        answer: "모른척 해준다",
-        answer_no: 1,
-      },
-    ],
-  },
-  {
-    question: "연인 사이에 스마트폰 확인",
-    answer: 0,
-    options: [
-      {
-        _id: "650bcb9b3be28c9fac971b6b",
-        answer: "난 너를 믿어!",
-        answer_no: 0,
-      },
-      {
-        _id: "650bcb9b3be28c9fac971b6c",
-        answer: "사귀는 사이니깐 볼 수도 있지!!",
-        answer_no: 1,
-      },
-    ],
-  },
-];
