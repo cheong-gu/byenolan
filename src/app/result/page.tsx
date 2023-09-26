@@ -14,6 +14,7 @@ import {
   DUMMY_MODAL_DATA,
   DUMMY_RESULT_DATA,
 } from "./constants/dummy";
+import ChartLegend from "./components/ChartLegend";
 
 const Container = styled.div`
   width: 100%;
@@ -42,11 +43,18 @@ const Summary = styled.div`
 `;
 
 const Title = styled.h3<{ size: "sm" | "lg" }>`
+  /* H1 - Neo */
+  font-family: NeoDunggeunmo Pro;
+  font-style: normal;
+  font-weight: 400;
   font-size: ${(props) => (props.size === "lg" ? "30px" : "18px")};
+  line-height: ${(props) => (props.size === "lg" ? "100%" : "140%")};
+  letter-spacing: ${(props) => (props.size === "lg" ? "-0.3px" : "-0.18px")};
   margin-bottom: ${(props) => (props.size === "sm" ? "4px" : "0px")};
 `;
 
 const Subtitle = styled.h3`
+  font-family: NeoDunggeunmo Pro;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -100,7 +108,7 @@ const ModalButton = styled.button`
 `;
 
 export default function ResultPage() {
-  const DUMMY_TYPE = "사리곰탕";
+  const DUMMY_TYPE = "진라면";
   const DUMMY_AGE_TYPE = "불닭볶음면";
   const DUMMY_INFO = { age: "20대", gender: "여성" };
   const DUMMY_PERCENTAGE = DUMMY_CHART_DATA.filter(
@@ -145,6 +153,7 @@ export default function ResultPage() {
         {/* Header -> 이미지 대체 */}
         <ResultHeader />
         <ContentWrapper>
+          {/* 1. 결과요약 */}
           <Content>
             <div
               style={{
@@ -174,6 +183,7 @@ export default function ResultPage() {
               </LinkButton>
             </ButtonWrapper>
           </Content>
+          {/* 2. 사용자 연령대별 유형 */}
           <Content>
             <Subtitle>
               <Emphasis>
@@ -189,9 +199,21 @@ export default function ResultPage() {
               percentage={DUMMY_PERCENTAGE}
               data={DUMMY_CHART_DATA}
             />
+            {DUMMY_CHART_DATA.map(({ type, point }, idx) => (
+              <ChartLegend
+                key={`${type}_${idx}`}
+                type={type}
+                point={point}
+                active={type === DUMMY_TYPE}
+              />
+            ))}
           </Content>
+          {/* 3. 사용자 유형별 연령대 */}
           <Content>
-            <Subtitle>{DUMMY_TYPE} 유형이 많은 연령대는?</Subtitle>
+            <Subtitle>
+              <Emphasis>{DUMMY_TYPE} </Emphasis>
+              유형이 많은 연령대는?
+            </Subtitle>
           </Content>
           <ModalButton onClick={handleModal}>전체 답변 보기</ModalButton>
         </ContentWrapper>

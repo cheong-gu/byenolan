@@ -37,7 +37,7 @@ const PolygonBox = styled.div`
   bottom: -10px;
 `;
 
-const Text = styled.p`
+const Element3 = styled.p`
   /* Element3 - Dos */
   font-family: DOSGothic;
   font-size: 18px;
@@ -48,12 +48,24 @@ const Text = styled.p`
   color: #fff;
 `;
 
+const Element2 = styled.p`
+  /* Element2 - Neo */
+  font-family: NeoDunggeunmo Pro;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%; /* 14px */
+  color: #fff;
+`;
+
 interface LabelProps {
+  type: "string" | "number";
   polygon?: boolean;
   children: React.ReactNode;
 }
 
-const Label = ({ polygon, children }: LabelProps) => {
+const Label = ({ type, polygon, children }: LabelProps) => {
+  const Text = type === "number" ? Element3 : Element2;
   return (
     <Wrapper>
       <LabelBox>

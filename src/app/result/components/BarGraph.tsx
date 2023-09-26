@@ -58,7 +58,9 @@ const BarGraph = ({ percentage }: BarGraphProps) => {
   return (
     <Wrapper>
       <LabelBox>
-        <Label polygon>{percentage}%</Label>
+        <Label type="number" polygon>
+          {percentage}%
+        </Label>
       </LabelBox>
       <Bar>
         <Gauge percentage={percentage} />
