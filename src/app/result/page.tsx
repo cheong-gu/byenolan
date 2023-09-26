@@ -8,6 +8,7 @@ import Modal from "./components/Modal";
 import Toast from "./components/Toast";
 import Answer from "./components/Answer";
 import BarGraph from "./components/BarGraph";
+import DonutChart from "./components/DonutChart";
 
 const Container = styled.div`
   width: 100%;
@@ -172,6 +173,9 @@ export default function ResultPage() {
             <Subtitle>
               <Emphasis>진라면</Emphasis> 유형이 가장 많아요
             </Subtitle>
+            {/* <DonutChart point={3} /> */}
+            {/* <DonutChart point={8} /> */}
+            <DonutChart point={2} />
           </Content>
           <Content>
             <Subtitle>불닭볶음면 유형이 많은 연령대는?</Subtitle>
