@@ -5,7 +5,7 @@ export const H1 = styled.h1`
   font-size: 30px;
   font-weight: 400;
   line-height: 100%;
-  letter-spacing: -1%;
+  letter-spacing: -0.3px;
 `;
 
 export const H2 = styled.h2`
@@ -13,7 +13,7 @@ export const H2 = styled.h2`
   font-size: 24px;
   font-weight: 400;
   line-height: 100%;
-  letter-spacing: 2%;
+  letter-spacing: 0.48px;
 `;
 
 export const H3 = styled.h3`
@@ -21,7 +21,7 @@ export const H3 = styled.h3`
   font-size: 20px;
   font-weight: 400;
   line-height: 100%;
-  letter-spacing: -1%;
+  letter-spacing: -0.2px;
 `;
 
 export const H4 = styled.h4`
@@ -29,7 +29,7 @@ export const H4 = styled.h4`
   font-size: 22px;
   font-weight: 400;
   line-height: 140%;
-  letter-spacing: -1%;
+  letter-spacing: -0.18px;
 `;
 
 export const H5 = styled.h5`
@@ -37,7 +37,7 @@ export const H5 = styled.h5`
   font-size: 18px;
   font-weight: 400;
   line-height: 140%;
-  letter-spacing: -1%;
+  letter-spacing: -0.18px;
 `;
 
 export const H6 = styled.h6`
@@ -45,7 +45,7 @@ export const H6 = styled.h6`
   font-size: 18px;
   font-weight: 400;
   line-height: 100%;
-  letter-spacing: -1%;
+  letter-spacing: -0.18px;
 `;
 
 export const Body1 = styled.p`
@@ -53,7 +53,7 @@ export const Body1 = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 140%;
-  letter-spacing: -1%;
+  letter-spacing: -0.16ㅔㅌ;
 `;
 
 export const Body2 = styled.p`
@@ -61,7 +61,7 @@ export const Body2 = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 100%;
-  letter-spacing: -1%;
+  letter-spacing: -0.32px;
 `;
 
 export const Body3 = styled.p`
@@ -69,7 +69,6 @@ export const Body3 = styled.p`
   font-size: 16px;
   font-weight: 400;
   line-height: 140%;
-  letter-spacing: -1%;
 `;
 
 export const Element1 = styled.p`
@@ -91,7 +90,7 @@ export const Element3 = styled.p`
   font-size: 18px;
   font-weight: 500;
   line-height: 100%;
-  letter-spacing: 4%;
+  letter-spacing: 0.72px;
 `;
 
 export const Element4 = styled.p`
