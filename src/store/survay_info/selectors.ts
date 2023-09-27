@@ -1,17 +1,17 @@
 import { atom, selector } from "recoil";
-import { questoinState } from "./atoms";
+import { infoState } from "./atoms";
 
 export const questoinsDataSelector = selector({
   key: "questoinStateSelector",
   get: ({ get }) => {
-    const questions = get(questoinState);
+    const questions = get(infoState);
 
-    const numO = questions.filter((q) => q.answer === "o").length;
-    const numX = questions.filter((q) => q.answer === "x").length;
+    // const numO = questions.filter((q) => q.answer === "o").length;
+    // const numX = questions.filter((q) => q.answer === "x").length;
 
     return {
-      numO,
-      numX,
+      // numO,
+      // numX,
     };
   },
 });
