@@ -32,7 +32,7 @@ padding-top: 24px;
 padding-bottom: 24px;
 `;
 
-const TodayNolanBody = styled.div`
+const TodayNolanQuestionDiv = styled.div`
 color: white;
 background: rgb(64, 175, 255);
   font-size: 18px;
@@ -45,7 +45,109 @@ margin: 0 auto;
 width: 392px;
 padding-top: 24px;
 text-align: center;
-padding-bottom: 24px;
+padding-bottom: 24px;  
+`;
+
+const TodayNolanAnswerDiv = styled.div`
+  margin: 16px auto 0 auto;
+    flex-direction: column;
+  display: flex;
+width: 392px;
+  height: 308px;
+background: rgb(64, 175, 255);
+`;
+
+const TodayNolanAnswerItemDiv = styled.div`
+  display: grid;
+  margin: 0 auto;
+  width: 344px;
+    justify-items: center;
+  grid-template-columns: 152px 40px 152px;
+  margin-top: 43px;
+`;
+
+const TodayNolanAnswerVs = styled.div`
+  margin-top: 55px;
+color: white;
+`;
+
+const TodayNolanAnswerItem = styled.span`
+  width: 128px;
+`;
+
+const TodayNolanAnswerIcon = styled.span`
+  width: 128px;
+  height: 128px;
+  display: inline-block;
+  background-color: white;
+`;
+
+const TodayNolanAnswerLabel = styled.span`
+  width: 128px;
+  display: inline-block;
+  color:white;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 16px;
+`;
+
+const TodayNolanAnswerRestTime = styled.div`
+  display: inline-block;
+  margin: 0 auto;
+  margin-top: 24px;
+color: white;
+`;
+
+const CategoryDiv = styled.div`
+  margin: 64px auto 0 auto;
+  width: 240px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 80px;
+  grid-row-gap: 40px;
+`;
+
+const CategoryItem = styled.span`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+`;
+
+const CategoryIcon = styled.span`
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+  background-color: white;
+`;
+
+const CategoryLabel = styled.span`
+  width: 80px;
+  display: inline-block;
+  color:white;
+  text-align: center;
+  font-size: 24px;
+`;
+
+const ParticipatedDiv = styled.div`
+    display: grid;
+    margin: 64px auto;
+    width: 200px;
+    grid-template-columns: auto 12px;
+    grid-row-gap: 8px;
+    grid-template-rows: 10px auto;
+    color: white;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+`;
+const ParticipatedTitle = styled.div`
+   grid-column: 1/3;
+`;
+const ParticipatedNum = styled.div`
+  font-size: 37px;
+`;
+const ParticipatedUnit = styled.div`
   
 `;
 
@@ -54,7 +156,7 @@ export default function Home() {
     {
       mode: "free-snap",
       loop: true,
-      slides: { origin: "center", perView: 1.3, spacing: 15 },
+      slides: { origin: "center", perView: 1.1, spacing: 8 },
     },
 
     [
@@ -90,32 +192,83 @@ export default function Home() {
   );
   return (
     <HomeWrap>
-      <div>
-        <TodayNolanHeader>오늘의 논란</TodayNolanHeader>
-        <TodayNolanBody>
-          사귄지 얼마 안된 연인이 <br />
-          형제를 보여준다고한다</TodayNolanBody>
+      <TodayNolanHeader>오늘의 논란</TodayNolanHeader>
+      <TodayNolanQuestionDiv>
+        사귄지 얼마 안된 연인이 <br />
+        형제를 보여준다고한다
+      </TodayNolanQuestionDiv>
+      <TodayNolanAnswerDiv>
+        <TodayNolanAnswerItemDiv>
+          <TodayNolanAnswerItem>
+            <TodayNolanAnswerIcon></TodayNolanAnswerIcon>
+            <TodayNolanAnswerLabel>
+              부담없이 만난다 부담없이 만난다
+            </TodayNolanAnswerLabel>
+          </TodayNolanAnswerItem>
+          <TodayNolanAnswerVs>vs</TodayNolanAnswerVs>
+          <TodayNolanAnswerItem>
+            <TodayNolanAnswerIcon></TodayNolanAnswerIcon>
+            <TodayNolanAnswerLabel>
+              부담없이 만난다 부담없이 만난다
+            </TodayNolanAnswerLabel>
+          </TodayNolanAnswerItem>
+        </TodayNolanAnswerItemDiv>
+        <TodayNolanAnswerRestTime>남은 시간 12:11:38</TodayNolanAnswerRestTime>
+      </TodayNolanAnswerDiv>
 
-      </div>
-      <div>오늘의 질문 영역</div>
-      <div>테스트 시작 버튼 영역</div>
-      <div>참여한 사람 영역</div>
+      <CategoryDiv>
+        <CategoryItem>
+          <CategoryIcon></CategoryIcon>
+          <CategoryLabel>HOT</CategoryLabel>
+        </CategoryItem>
+        <CategoryItem>
+          <CategoryIcon></CategoryIcon>
+          <CategoryLabel>연애</CategoryLabel>
+        </CategoryItem>
+        <CategoryItem>
+          <CategoryIcon></CategoryIcon>
+          <CategoryLabel>썸</CategoryLabel>
+        </CategoryItem>
+        <CategoryItem>
+          <CategoryIcon></CategoryIcon>
+          <CategoryLabel>꼰대력</CategoryLabel>
+        </CategoryItem>
+      </CategoryDiv>
+      <ParticipatedDiv>
+        <ParticipatedTitle>참여한 사람</ParticipatedTitle>
+        <ParticipatedNum>34,000</ParticipatedNum>
+        <ParticipatedUnit>명</ParticipatedUnit>
+      </ParticipatedDiv>
       <div ref={sliderRef} className="keen-slider">
-        <NumberSlide1 className="keen-slider__slide">1</NumberSlide1>
+        <NumberSlide1 className="keen-slider__slide">
+          10대 여성은
+          <br />
+          어떤 유형이 가장 많을까요?
+        </NumberSlide1>
         <NumberSlide2 className="keen-slider__slide number-slide2">
-          2
+          20대 여성은
+          <br />
+          어떤 유형이 가장 많을까요?
         </NumberSlide2>
         <NumberSlide3 className="keen-slider__slide number-slide3">
-          3
+          30대 여성은
+          <br />
+          어떤 유형이 가장 많을까요?
         </NumberSlide3>
         <NumberSlide4 className="keen-slider__slide number-slide4">
-          4
+          40대 여성은
+          <br />
+          어떤 유형이 가장 많을까요?
         </NumberSlide4>
         <NumberSlide5 className="keen-slider__slide number-slide5">
-          5
+          50대 여성은
+          <br />
+          어떤 유형이 가장 많을까요?
         </NumberSlide5>
         <NumberSlide6 className="keen-slider__slide number-slide6">
-          6
+          60대 여성은
+          <br />
+          어떤 유형이 가장 많을까요?
         </NumberSlide6>
       </div>
       <Footer>개인정보 처리 방침</Footer>
@@ -127,7 +280,7 @@ const NumberSlide = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 50px;
+  font-size: 20px;
   color: #fff;
   font-weight: 500;
   height: 100px;
