@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
+import { Body3 } from "../../../../styles/font";
 
 const ToastWrapper = styled.div<{ isOpen: boolean }>`
   position: absolute;
@@ -24,11 +25,6 @@ const MessageBox = styled.div`
   height: 30px;
   padding: 4px 8px;
   background-color: #000;
-
-  font-family: "Pretendard";
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 140%;
   text-align: center;
   color: #fff;
 `;
@@ -60,7 +56,9 @@ interface ToastProps {
 const Toast = ({ isOpen, message }: ToastProps) => {
   return (
     <ToastWrapper isOpen={isOpen}>
-      <MessageBox>{message}</MessageBox>
+      <MessageBox>
+        <Body3>{message}</Body3>
+      </MessageBox>
       <Icon>
         <Polygon />
       </Icon>

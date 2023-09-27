@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React, { useCallback, useEffect, useState } from "react";
+import { H6 } from "../../../../styles/font";
 
 const Wrapper = styled.div`
   width: 288px;
@@ -37,16 +38,6 @@ const Column = styled.div<{ percentage: number }>`
   transition: height 0.5s ease-in-out;
 `;
 
-const ColumnLabel = styled.p`
-  /* H6 - Neo */
-  font-family: NeoDunggeunmo Pro;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 100%; /* 18px */
-  letter-spacing: -0.18px;
-`;
-
 interface ColumnChartProps {
   data: { age: string; point: number }[];
 }
@@ -78,7 +69,7 @@ const ColumnChart = ({ data }: ColumnChartProps) => {
           <ColumnBackground>
             <Column percentage={percentageState[idx]} />
           </ColumnBackground>
-          <ColumnLabel>{age}</ColumnLabel>
+          <H6>{age}</H6>
         </ColumnBox>
       ))}
     </Wrapper>

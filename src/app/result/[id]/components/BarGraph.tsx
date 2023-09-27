@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import Label from "./Label";
+import { Element4 } from "../../../../styles/font";
 
 const Wrapper = styled.div`
   position: relative;
@@ -51,15 +52,6 @@ const Gauge = styled.div<{ percentage: number }>`
   background: #000;
 `;
 
-const Text = styled.p`
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 100%;
-  color: #000;
-`;
-
 interface BarGraphProps {
   percentage: number;
 }
@@ -77,7 +69,7 @@ const BarGraph = ({ percentage }: BarGraphProps) => {
       <Bar>
         <Gauge percentage={percentage} />
       </Bar>
-      <Text>당신은 전체 응답자 중 {percentage}%에 속해요</Text>
+      <Element4>당신은 전체 응답자 중 {percentage}%에 속해요</Element4>
     </Wrapper>
   );
 };

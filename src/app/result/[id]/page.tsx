@@ -18,6 +18,7 @@ import {
 } from "./constants/dummy";
 import ChartLegend from "./components/ChartLegend";
 import ColumnGraph from "./components/ColumnChart";
+import { Body3, H1, H3, H5 } from "../../../styles/font";
 
 const Container = styled.div`
   width: 100%;
@@ -38,31 +39,10 @@ const ContentWrapper = styled.div`
 
 const Summary = styled.div`
   width: 224px;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%;
 `;
 
-const Title = styled.h3<{ size: "sm" | "lg" }>`
-  /* H1 - Neo */
-  font-family: NeoDunggeunmo Pro;
-  font-style: normal;
-  font-weight: 400;
-  font-size: ${(props) => (props.size === "lg" ? "30px" : "18px")};
-  line-height: ${(props) => (props.size === "lg" ? "100%" : "140%")};
-  letter-spacing: ${(props) => (props.size === "lg" ? "-0.3px" : "-0.18px")};
-  margin-bottom: ${(props) => (props.size === "sm" ? "4px" : "0px")};
-`;
-
-const Subtitle = styled.h3`
-  font-family: NeoDunggeunmo Pro;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%;
-  letter-spacing: -0.18px;
+const Margin = styled.div<{ number: number }>`
+  margin-bottom: ${(props) => props.number ?? 0}px;
 `;
 
 const Emphasis = styled.span`
@@ -171,10 +151,13 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
                 marginBottom: "8px",
               }}
             />
-            <Title size="sm">{DUMMY_RESULT_DATA[DUMMY_TYPE].title}</Title>
-            <Title size="lg">{DUMMY_TYPE}</Title>
+            <H5>{DUMMY_RESULT_DATA[DUMMY_TYPE].title}</H5>
+            <Margin number={4} />
+            <H1>{DUMMY_TYPE}</H1>
             <BarGraph percentage={DUMMY_PERCENTAGE} />
-            <Summary>{DUMMY_RESULT_DATA[DUMMY_TYPE].summary}</Summary>
+            <Summary>
+              <Body3>{DUMMY_RESULT_DATA[DUMMY_TYPE].summary}</Body3>
+            </Summary>
             <ShareButton onClick={copyToClipBoard}>
               <Toast
                 isOpen={showToast}
@@ -193,15 +176,16 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
           </Content>
           {/* 2. 사용자 연령대별 유형 */}
           <Content>
-            <Subtitle>
+            <H3>
               <Emphasis>
                 {DUMMY_INFO.age} {DUMMY_INFO.gender}
               </Emphasis>
               은
-            </Subtitle>
-            <Subtitle>
+            </H3>
+            <Margin number={8} />
+            <H3>
               <Emphasis>{DUMMY_AGE_TYPE}</Emphasis> 유형이 가장 많아요
-            </Subtitle>
+            </H3>
             <DonutChart
               type={DUMMY_AGE_TYPE}
               percentage={DUMMY_PERCENTAGE}
@@ -219,10 +203,10 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
           </Content>
           {/* 3. 사용자 유형별 연령대 */}
           <Content>
-            <Subtitle>
+            <H3>
               <Emphasis>{DUMMY_TYPE} </Emphasis>
               유형이 많은 연령대는?
-            </Subtitle>
+            </H3>
             <ColumnGraph data={DUMMY_COLUMN_DATA} />
           </Content>
           <ModalButton onClick={handleModal}>전체 답변 보기</ModalButton>

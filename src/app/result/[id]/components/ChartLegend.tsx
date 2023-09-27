@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { DUMMY_DONUT_COLOR, relationshipType } from "../constants/dummy";
 import Label from "./Label";
+import { Element3, H6 } from "../../../../styles/font";
 
 const Wrapper = styled.div<{ lastIndex?: boolean }>`
   display: flex;
@@ -27,27 +28,8 @@ const Tag = styled.div<{ color: string }>`
   background-color: ${({ color }) => (color ? color : "#000")};
 `;
 
-const Text = styled.p`
+const Margin = styled.div`
   margin: 0px 4px;
-  /* H6 - Neo */
-  font-family: NeoDunggeunmo Pro;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 100%; /* 18px */
-  letter-spacing: -0.18px;
-`;
-
-const PointText = styled.p`
-  color: #000;
-  text-align: right;
-  /* Element3 - Dos */
-  font-family: DOSGothic;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 100%; /* 18px */
-  letter-spacing: 0.72px;
 `;
 
 interface ChartLegendProps {
@@ -62,10 +44,12 @@ const ChartLegend = ({ type, point, active, lastIndex }: ChartLegendProps) => {
     <Wrapper lastIndex={lastIndex}>
       <TagBox>
         <Tag color={DUMMY_DONUT_COLOR[type]} />
-        <Text>{type}</Text>
+        <Margin>
+          <H6>{type}</H6>
+        </Margin>
         {active && <Label type="string">나</Label>}
       </TagBox>
-      <PointText>{point}%</PointText>
+      <Element3>{point}%</Element3>
     </Wrapper>
   );
 };

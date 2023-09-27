@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
+import { Element2, H5 } from "../../../../styles/font";
 
 const Container = styled.div`
   width: 100%;
@@ -11,6 +12,8 @@ const QuestionBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+
   width: 100%;
   margin-bottom: 16px;
 `;
@@ -20,17 +23,6 @@ const QuestionLabel = styled.div`
   margin-bottom: 8px;
   border-radius: 100px;
   background-color: #d9d9d9;
-`;
-
-const Question = styled.h3`
-  margin: 0;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%;
-  letter-spacing: -0.18px;
-  text-align: center;
-  color: #000;
 `;
 
 const AnswerBox = styled.div`
@@ -62,8 +54,10 @@ const Answer = ({ number, question, answer, options }: AnswerProps) => {
   return (
     <Container>
       <QuestionBox>
-        <QuestionLabel>문항 {number}</QuestionLabel>
-        <Question>{question}</Question>
+        <QuestionLabel>
+          <Element2>문항 {number}</Element2>
+        </QuestionLabel>
+        <H5>{question}</H5>
       </QuestionBox>
       <AnswerBox>
         {options.map((option) => (

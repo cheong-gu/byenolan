@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Element2, Element3 } from "../../../../styles/font";
 
 const Polygon = () => (
   <svg
@@ -30,32 +31,12 @@ const LabelBox = styled.div`
   padding: 2px 6px;
   border-radius: 999px;
   background-color: #000;
+  color: #fff;
 `;
 
 const PolygonBox = styled.div`
   position: absolute;
   bottom: -10px;
-`;
-
-const Element3 = styled.p`
-  /* Element3 - Dos */
-  font-family: DOSGothic;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 100%;
-  letter-spacing: 0.72px;
-  color: #fff;
-`;
-
-const Element2 = styled.p`
-  /* Element2 - Neo */
-  font-family: NeoDunggeunmo Pro;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 100%; /* 14px */
-  color: #fff;
 `;
 
 interface LabelProps {
