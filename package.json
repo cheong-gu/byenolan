@@ -17,6 +17,7 @@
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "d3": "^7.8.5",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "keen-slider": "^6.8.6",
@@ -27,6 +28,7 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "gh-pages": "^6.0.0"
+    "gh-pages": "^6.0.0",
+    "@types/d3": "^7.4.0"
   }
 }
