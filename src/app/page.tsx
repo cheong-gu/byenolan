@@ -12,14 +12,49 @@ const Footer = styled.footer`
 `;
 
 const HomeWrap = styled.div`
-  background-color: green;
+  /* background-color: green; */
 `;
+
+const TodayNolanHeader = styled.div`
+color: white;
+background: rgb(64, 175, 255);
+  background: linear-gradient(
+    128deg,
+    rgba(64, 175, 255, 1) 0%,
+    rgba(63, 97, 255, 1) 100%
+  );
+  font-size: 20px;
+margin: 0 auto;
+margin-top: 153px;
+width: 392px;
+text-align: center;
+padding-top: 24px;
+padding-bottom: 24px;
+`;
+
+const TodayNolanBody = styled.div`
+color: white;
+background: rgb(64, 175, 255);
+  font-size: 18px;
+  background: linear-gradient(
+    128deg,
+    rgba(64, 175, 255, 0.7) 0%,
+    rgba(63, 97, 255, 0.6) 100%
+  );
+margin: 0 auto;
+width: 392px;
+padding-top: 24px;
+text-align: center;
+padding-bottom: 24px;
+  
+`;
+
 export default function Home() {
   const [sliderRef] = useKeenSlider(
     {
       mode: "free-snap",
       loop: true,
-      slides: { origin: "center", perView: 2, spacing: 15 },
+      slides: { origin: "center", perView: 1.3, spacing: 15 },
     },
 
     [
@@ -56,16 +91,11 @@ export default function Home() {
   return (
     <HomeWrap>
       <div>
-        deploy test!!!!!!!!!
-        <br />
-        <br />
-        <br />
-        <br />
-        오늘의 논란
-        <div>
+        <TodayNolanHeader>오늘의 논란</TodayNolanHeader>
+        <TodayNolanBody>
           사귄지 얼마 안된 연인이 <br />
-          형제를 보여준다고한다
-        </div>
+          형제를 보여준다고한다</TodayNolanBody>
+
       </div>
       <div>오늘의 질문 영역</div>
       <div>테스트 시작 버튼 영역</div>
@@ -103,6 +133,7 @@ const NumberSlide = styled.div`
   height: 100px;
   width: 380px;
   max-height: 100vh;
+  border-radius: 15px;
 `;
 
 const NumberSlide1 = styled(NumberSlide)`

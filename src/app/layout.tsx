@@ -3,11 +3,11 @@ import styled from "@emotion/styled";
 import { RecoilRoot } from "recoil";
 
 const Body = styled.body`
-  background-color: black;
+  background-color: #313131;
 `;
 
 const Main = styled.main`
-  background-color: white;
+  background-color: #0f0f0f;
   width: 440px;
   margin: 0 auto;
   height: 100vh;
