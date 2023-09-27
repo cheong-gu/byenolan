@@ -1,6 +1,7 @@
 "use client";
 import styled from "@emotion/styled";
 import { RecoilRoot } from "recoil";
+import "../styles/global.css";
 
 const Body = styled.body`
   background-color: black;
