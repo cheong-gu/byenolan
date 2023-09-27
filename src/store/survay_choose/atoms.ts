@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const questoinState = atom({
-  key: "questoinState",
+export const questionState = atom({
+  key: "questionState",
   default: [] as QuestionType[],
 });
