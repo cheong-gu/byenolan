@@ -8,6 +8,7 @@ export const palette = {
     violet: "#EE82EE",
     white: "#FFFFFF",
     black: "#000000",
+    beige: "#fcffdd"
   };
   
   export type PaletteKeyTypes = keyof typeof palette;

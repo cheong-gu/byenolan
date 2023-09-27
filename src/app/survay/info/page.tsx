@@ -8,11 +8,15 @@ import styled from "@emotion/styled";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 const InfoBox = styled.div`
-  margin: 40px 24px;
+  width: 100%;
+  height: 800px;
+  background-color: black;
+  padding: 40px 24px;
+  border: 0.5px solid white;
 `;
 
 const InnerContainer = styled.div`
-  position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
 `;
@@ -20,6 +24,10 @@ const InnerContainer = styled.div`
 const GenderBox = styled.div`
   .genderTitle {
     text-align: center;
+    color: beige;
+    .star {
+      color: red;
+    }
   }
 
   .genderContent {
@@ -34,6 +42,11 @@ const GenderBox = styled.div`
 const AgeBox = styled.div`
   .ageTitle {
     text-align: center;
+    color: beige;
+
+    .star {
+      color: red;
+    }
   }
   .ageContent {
     display: grid;
@@ -44,10 +57,12 @@ const AgeBox = styled.div`
 `;
 
 const StartBox = styled.div`
-  position: absolute;
-  bottom: 40px;
-
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   .startTitle {
+    color: white;
     text-align: center;
     margin-bottom: 16px;
   }
@@ -107,7 +122,9 @@ export default function InfoPage() {
     <InfoBox>
       <InnerContainer>
         <GenderBox>
-          <div className="genderTitle">성별</div>
+          <div className="genderTitle">
+            성별<span className="star">*</span>
+          </div>
           <div className="genderContent">
             <Button
               width="188px"
@@ -115,7 +132,7 @@ export default function InfoPage() {
               fontColor="black"
               fontSize="20px"
               borderRadius="0"
-              buttonColor="green"
+              buttonColor="beige"
               className="man"
               onClick={clickGender}
             >
@@ -127,7 +144,7 @@ export default function InfoPage() {
               fontColor="black"
               fontSize="20px"
               borderRadius="0"
-              buttonColor="yellow"
+              buttonColor="beige"
               className="woman"
               onClick={clickGender}
             >
@@ -136,7 +153,9 @@ export default function InfoPage() {
           </div>
         </GenderBox>
         <AgeBox>
-          <div className="ageTitle">나이*</div>
+          <div className="ageTitle">
+            나이<span className="star">*</span>
+          </div>
           <div className="ageContent">
             {ageArr.map((age, index) => (
               <Button
@@ -146,7 +165,7 @@ export default function InfoPage() {
                 fontColor="black"
                 fontSize="20px"
                 borderRadius="0"
-                buttonColor="orange"
+                buttonColor="beige"
                 className="ageBtn"
                 onClick={clickAge}
               >
@@ -155,22 +174,22 @@ export default function InfoPage() {
             ))}
           </div>
         </AgeBox>
+        <StartBox>
+          <div className="startTitle">총 12문항이며 순서는 무작위입니다</div>
+          <Button
+            width="392px"
+            height="72px"
+            fontColor="black"
+            fontSize="20px"
+            borderRadius="0"
+            buttonColor="beige"
+            className="startBtn"
+            onClick={clickStart}
+          >
+            시작
+          </Button>
+        </StartBox>
       </InnerContainer>
-      <StartBox>
-        <div className="startTitle">총 12문항이며 순서는 무작위입니다</div>
-        <Button
-          width="392px"
-          height="72px"
-          fontColor="black"
-          fontSize="20px"
-          borderRadius="0"
-          buttonColor="violet"
-          className="startBtn"
-          onClick={clickStart}
-        >
-          시작
-        </Button>
-      </StartBox>
     </InfoBox>
   );
 }
