@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import Button from "@/components/Button";
-import { infoState } from "@/store/survay_info/atoms";
+import { infoState } from "@/store/survey_info/atoms";
 import styled from "@emotion/styled";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
@@ -74,7 +74,6 @@ export default function InfoPage() {
   const router = useRouter();
   const [info, setInfo] = useRecoilState(infoState); // useState와 같지만, useRecoilState를 사용하여 다른 파일에 있는 아톰을 읽을 수 있다.
   const currentInfo = useRecoilValue(infoState);
-  const infoHandler = useSetRecoilState(infoState);
 
   console.log("1 : " + JSON.stringify(currentInfo));
 
@@ -84,7 +83,7 @@ export default function InfoPage() {
     const value: string | null = target.textContent;
 
     if (value) {
-      infoHandler((prev) => {
+      setInfo((prev) => {
         return {
           ...prev,
           gender: value,
@@ -99,7 +98,7 @@ export default function InfoPage() {
     const value: string | null = target.textContent;
 
     if (value) {
-      infoHandler((prev) => {
+      setInfo((prev) => {
         return {
           ...prev,
           age: value,
@@ -112,7 +111,7 @@ export default function InfoPage() {
     const data = currentInfo;
     if (Object.keys(data).includes("age")) {
       console.log("성공");
-      router.push("/survay/choose");
+      router.push("/survey/choose");
     } else {
       console.log("실패");
     }

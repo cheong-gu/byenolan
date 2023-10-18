@@ -5,6 +5,13 @@ import { useRouter } from "next/navigation";
 import ProgressBar from "./components/ProgressBar";
 import Question from "./components/Question";
 import Button from "@/components/Button";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  percentState,
+  selectedQuestionIndexState,
+  selectedState,
+} from "@/store/survey_choose/atoms";
+import { selectedQuestionState } from "@/store/survey_choose/selectors";
 
 const ChooseBox = styled.div`
   width: 100%;
@@ -37,7 +44,19 @@ const MidLine = styled.div`
 
 export default function ChoosePage() {
   const router = useRouter();
+  const [selected, setSelected] = useRecoilState(selectedState);
+  const [percent, setPercent] = useRecoilState(percentState);
+  const { questionValue } = useRecoilValue(selectedQuestionState);
+  const [selectedIndex, setSelectedIndex] = useRecoilState(
+    selectedQuestionIndexState
+  );
 
+  const saveButtonEvent = () => {
+    setSelectedIndex(selectedIndex + 1);
+
+    setSelected(false);
+    setPercent([]);
+  };
   return (
     <ChooseBox>
       <InnerContainer>
@@ -48,14 +67,16 @@ export default function ChoosePage() {
         <MidLine>
           <Question />
         </MidLine>
+
         <Button
           width="100%"
           height="64px"
           fontColor="white"
           fontSize="14px"
           buttonColor="black"
+          onClick={(e) => saveButtonEvent()}
         >
-          건너 뛰기
+          {selected ? "다음 문항" : "건너 뛰기"}
         </Button>
       </InnerContainer>
     </ChooseBox>

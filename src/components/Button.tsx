@@ -20,9 +20,9 @@ interface ButtonProps
     ButtonStyle {
   children: ReactNode;
   className?: string;
+  onClilck?: () => void;
 }
 
-// onClilck?: () => void;
 const StyledButton = styled.button<ButtonStyle>`
   cursor: pointer;
   justify-content: center;
