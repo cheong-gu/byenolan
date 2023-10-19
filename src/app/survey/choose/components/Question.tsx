@@ -105,7 +105,7 @@ export default function Question() {
     }
 
     fetchData();
-  }, [setQuestions]);
+  }, [setQuestions, setAnswers]);
 
   const selectButtonEvent = async (data: QuestionType, answer_no: string) => {
     setSelected(true);
@@ -137,8 +137,6 @@ export default function Question() {
           { _id: data._id, answer_no: result[0].answer_no },
         ],
       });
-
-      console.log(answers);
     } else {
       alert("이미 선택되었습니다.");
     }
@@ -146,7 +144,7 @@ export default function Question() {
 
   function isSelected(answer_no: string): boolean {
     const checkSelect = answers;
-    console.log(checkSelect);
+
     if (!checkSelect.selected) {
       return false;
     } else {
@@ -157,7 +155,6 @@ export default function Question() {
       );
     }
   }
-  console.log(answers);
   return (
     <QuestionBox>
       <QuestionTitle>

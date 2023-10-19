@@ -1,16 +1,17 @@
+import { selectedQuestionIndexState } from "@/store/survey_choose/atoms";
 import styled from "@emotion/styled";
+import { useRecoilState } from "recoil";
 
-const ProgressBox = styled.span`
-  /* background-color: #fff; */
-  /* width: 196px; */
-  /* border-radius: 99px; */
-  /* box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 2px 1px 0 rgba(0, 0, 0, 0.12); */
+interface ProgressBarProps {
+  progress: number;
+}
+
+const ProgressBarContainer = styled.div`
   height: 48px;
   display: flex;
-  /* padding: 1rem; */
 `;
 
-const BarContainer = styled.div`
+const ProgressFill = styled.div<ProgressBarProps>`
   position: relative;
   height: 100%;
   flex: 0 0 30%;
@@ -51,28 +52,41 @@ const BarContainer = styled.div`
         } */
       }
       .css-progressbar {
-        width: 10%;
+        width: ${(props) => props.progress}%;
         -moz-animation: css-progressbar 2s ease-out;
         -webkit-animation: css-progressbar 2s ease-out;
+      }
+
+      .num {
+        z-index: 1;
+        position: absolute;
+        right: 42.5%;
+        line-height: 1.5;
+        color: black;
       }
     }
   }
 `;
 
-export default function ProgressBar() {
+const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
+  const [selectedIndex, setSelectedIndex] = useRecoilState(
+    selectedQuestionIndexState
+  );
+
+  const currentPage = selectedIndex + 1;
   return (
     <>
-      {/* <progress value="1" max="12"></progress> */}
-
-      <ProgressBox>
-        <BarContainer>
+      <ProgressBarContainer>
+        <ProgressFill progress={progress}>
           <ul>
             <li>
+              <span className="num">{currentPage}/12</span>
               <span className="css-progressbar bar"></span>
             </li>
           </ul>
-        </BarContainer>
-      </ProgressBox>
+        </ProgressFill>
+      </ProgressBarContainer>
     </>
   );
-}
+};
+export default ProgressBar;

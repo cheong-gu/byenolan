@@ -50,6 +50,7 @@ export default function ChoosePage() {
   const [selectedIndex, setSelectedIndex] = useRecoilState(
     selectedQuestionIndexState
   );
+  const currentPage = ((selectedIndex + 1) / 12) * 100;
 
   const saveButtonEvent = () => {
     setSelectedIndex(selectedIndex + 1);
@@ -62,7 +63,7 @@ export default function ChoosePage() {
       <InnerContainer>
         <TopLine>
           <span onClick={() => router.back()}>back</span>
-          <ProgressBar />
+          <ProgressBar progress={currentPage} />
         </TopLine>
         <MidLine>
           <Question />
