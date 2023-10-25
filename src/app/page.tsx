@@ -3,6 +3,10 @@
 import styled from "@emotion/styled";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+import Image from "next/image";
+
+import TitleSvg from "../public/title_text_392x132.svg";
+
 const Footer = styled.footer`
   background-color: white;
   width: 440px;
@@ -194,6 +198,7 @@ export default function Home() {
     <HomeWrap>
       <TodayNolanHeader>오늘의 논란</TodayNolanHeader>
       <TodayNolanQuestionDiv>
+        <TitleSvg></TitleSvg>
         사귄지 얼마 안된 연인이 <br />
         형제를 보여준다고한다
       </TodayNolanQuestionDiv>
