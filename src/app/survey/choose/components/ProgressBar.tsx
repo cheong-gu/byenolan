@@ -1,6 +1,9 @@
-import { selectedQuestionIndexState } from "@/store/survey_choose/atoms";
+import {
+  questionsState,
+  selectedQuestionIndexState,
+} from "@/store/survey_choose/atoms";
 import styled from "@emotion/styled";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 interface ProgressBarProps {
   progress: number;
@@ -31,25 +34,9 @@ const ProgressFill = styled.div<ProgressBarProps>`
       border-radius: 10px;
       .bar {
         position: absolute;
-        /* border-top-left-radius: 10px;
-        border-top-right-radius: 0;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 0; */
         border-radius: 10px;
         background-color: red;
         height: 20px;
-        /* &:after {
-          -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-          content: "";
-          width: 27px;
-          height: 27px;
-          position: absolute;
-          top: -3px;
-          right: -5px;
-          border-radius: 50%;
-          background-color: #607d8b;
-        } */
       }
       .css-progressbar {
         width: ${(props) => props.progress}%;
@@ -69,18 +56,22 @@ const ProgressFill = styled.div<ProgressBarProps>`
 `;
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
-  const [selectedIndex, setSelectedIndex] = useRecoilState(
-    selectedQuestionIndexState
-  );
+  const selectedIndex = useRecoilValue(selectedQuestionIndexState);
+  const questions = useRecoilValue(questionsState);
+  console.log(questions);
 
   const currentPage = selectedIndex + 1;
+  const PageNum = questions.length;
+  console.log(PageNum);
   return (
     <>
       <ProgressBarContainer>
         <ProgressFill progress={progress}>
           <ul>
             <li>
-              <span className="num">{currentPage}/12</span>
+              <span className="num">
+                {currentPage}/{PageNum}
+              </span>
               <span className="css-progressbar bar"></span>
             </li>
           </ul>

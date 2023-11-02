@@ -12,11 +12,12 @@ import {
   selectedState,
 } from "@/store/survey_choose/atoms";
 import { selectedQuestionState } from "@/store/survey_choose/selectors";
+import { palette } from "@/components/Palette";
 
 const ChooseBox = styled.div`
   width: 100%;
   height: 800px;
-  background-color: black;
+  background-color: ${palette.bg};
   padding: 40px 24px;
   border: 0.5px solid white;
 `;
@@ -51,7 +52,7 @@ export default function ChoosePage() {
     selectedQuestionIndexState
   );
   const currentPage = ((selectedIndex + 1) / 12) * 100;
-
+  console.log(currentPage);
   const saveButtonEvent = () => {
     setSelectedIndex(selectedIndex + 1);
 

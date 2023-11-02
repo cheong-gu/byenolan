@@ -10,6 +10,7 @@ interface ButtonStyle {
   fontSize?: string;
   borderRadius?: string;
   hasBorder?: boolean;
+  percent?: string;
   buttonColor?: PaletteKeyTypes;
   borderColor?: PaletteKeyTypes;
   fontColor?: PaletteKeyTypes;
@@ -20,7 +21,7 @@ interface ButtonProps
     ButtonStyle {
   children: ReactNode;
   className?: string;
-  onClilck?: () => void;
+  // onClick?: () => void;
 }
 
 const StyledButton = styled.button<ButtonStyle>`
@@ -34,13 +35,15 @@ const StyledButton = styled.button<ButtonStyle>`
     hasBorder = false,
     borderColor = "white",
     borderRadius = "4px",
-    fontColor = "black",
+    fontColor = "green",
     fontSize = "14px",
   }) => css`
     width: ${width};
     height: ${height};
+    hasborder: ${hasBorder};
     background-color: ${palette[buttonColor]};
-    border: ${hasBorder ? `1px solid ${palette[borderColor]}` : "none"};
+    border: ${hasBorder ? `2px solid ${palette[borderColor]}` : "none"};
+    bordercolor: ${borderColor};
     border-radius: ${borderRadius};
     color: ${palette[fontColor]};
     font-size: ${fontSize};

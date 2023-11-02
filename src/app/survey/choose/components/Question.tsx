@@ -11,6 +11,7 @@ import {
 import { ReactNode, useEffect, useState } from "react";
 import { selectedQuestionState } from "@/store/survey_choose/selectors";
 import { infoState } from "@/store/survey_info/atoms";
+import Answer from "@/components/Answer";
 
 const QuestionBox = styled.div`
   width: 100%;
@@ -19,8 +20,9 @@ const QuestionBox = styled.div`
 const QuestionTitle = styled.div`
   margin: 0 auto;
   max-width: 206px;
+  text-align: center;
   font-size: 18px;
-  color: white;
+  color: black;
 `;
 
 const SelectBox = styled.div`
@@ -29,7 +31,7 @@ const SelectBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  div {
+  .versus {
     text-align: center;
     color: white;
   }
@@ -54,11 +56,14 @@ const MyButton = ({
     <Button
       width="100%"
       height="64px"
+      hasBorder={selected && showDetail ? true : false}
       fontColor="black"
       fontSize="14px"
       borderRadius="0"
-      buttonColor="beige"
+      borderColor="black"
+      buttonColor="white"
       className="first"
+      percent={percent}
       onClick={onClick}
     >
       {selected && showDetail ? "V" : ""}
@@ -67,9 +72,44 @@ const MyButton = ({
   );
 };
 
+const MyAnswer = ({
+  onClick,
+  selected,
+  percent,
+  showDetail,
+  children,
+}: myType) => {
+  // console.log(percent);
+  const num = Number(percent?.slice(0, 2));
+  console.log(num);
+  return (
+    <Answer
+      width="100%"
+      height="64px"
+      hasBorder={selected && showDetail ? true : false}
+      borderColor="black"
+      className="first"
+      percent={percent}
+      onClick={onClick}
+      selected={selected && showDetail ? true : false}
+      progress={showDetail ? true : false}
+      progressNo={showDetail ? num : 0}
+    >
+      <div className="text">
+        <div className="head">
+          <span className="marking">{selected && showDetail ? "V " : ""}</span>
+          <span className="title">{children}</span>
+        </div>
+        <span className="foot">{showDetail ? percent : ""}</span>
+      </div>
+    </Answer>
+  );
+};
+
 export default function Question() {
   const [percent, setPercent] = useRecoilState(percentState);
   const [currentVal, setCurrentVal] = useState<any>([]);
+  const [progress, setProgress] = useState<boolean>(false);
   const [selected, setSelected] = useRecoilState(selectedState);
   const [answers, setAnswers] = useRecoilState(answersState);
   const [questions, setQuestions] = useRecoilState(questionsState);
@@ -93,7 +133,7 @@ export default function Question() {
 
   useEffect(() => {
     async function fetchData() {
-      const ranNums = getRandomNumber(3, 3).join();
+      const ranNums = getRandomNumber(42, 12).join();
 
       await fetch(`https://byenolan.shop/survey/total/${ranNums}`)
         .then((res) => res.json())
@@ -105,11 +145,11 @@ export default function Question() {
     }
 
     fetchData();
-  }, [setQuestions, setAnswers]);
+  }, [setQuestions]);
 
   const selectButtonEvent = async (data: QuestionType, answer_no: string) => {
     setSelected(true);
-
+    setProgress(true);
     const result = data.survey.filter((el: AnswerInfoType) => {
       return el.answer_no === answer_no;
     });
@@ -155,12 +195,35 @@ export default function Question() {
       );
     }
   }
+
   return (
     <QuestionBox>
       <QuestionTitle>
         {questionValue && questionValue.survey[0].question}
       </QuestionTitle>
       <SelectBox>
+        <MyAnswer
+          showDetail={selected}
+          percent={percent && percent[0]}
+          onClick={(e) =>
+            selectButtonEvent(questionValue && questionValue, "A")
+          }
+          selected={isSelected("A")}
+        >
+          {questionValue && questionValue.survey[0].answer}
+        </MyAnswer>
+        <div className="versus">vs</div>
+        <MyAnswer
+          showDetail={selected}
+          percent={percent && percent[1]}
+          onClick={(e) =>
+            selectButtonEvent(questionValue && questionValue, "B")
+          }
+          selected={isSelected("B")}
+        >
+          {questionValue && questionValue.survey[1].answer}
+        </MyAnswer>
+        {/* <br></br>
         <MyButton
           showDetail={selected}
           percent={percent && percent[0]}
@@ -171,8 +234,7 @@ export default function Question() {
         >
           {questionValue && questionValue.survey[0].answer}
         </MyButton>
-        <div>vs</div>
-
+        <div className="versus">vs</div>
         <MyButton
           showDetail={selected}
           percent={percent && percent[1]}
@@ -182,7 +244,7 @@ export default function Question() {
           selected={isSelected("B")}
         >
           {questionValue && questionValue.survey[1].answer}
-        </MyButton>
+        </MyButton> */}
       </SelectBox>
     </QuestionBox>
   );

@@ -6,11 +6,12 @@ import Button from "@/components/Button";
 import { infoState } from "@/store/survey_info/atoms";
 import styled from "@emotion/styled";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { palette } from "@/components/Palette";
 
 const InfoBox = styled.div`
   width: 100%;
   height: 800px;
-  background-color: black;
+  background-color: ${palette.bg};
   padding: 40px 24px;
   border: 0.5px solid white;
 `;
@@ -24,7 +25,7 @@ const InnerContainer = styled.div`
 const GenderBox = styled.div`
   .genderTitle {
     text-align: center;
-    color: beige;
+    color: black;
     .star {
       color: red;
     }
@@ -42,13 +43,15 @@ const GenderBox = styled.div`
 const AgeBox = styled.div`
   .ageTitle {
     text-align: center;
-    color: beige;
+    color: black;
 
     .star {
       color: red;
     }
   }
   .ageContent {
+    margin-top: 16px;
+
     display: grid;
     grid-gap: 16px;
     grid-template-columns: repeat(2, 188px);
@@ -62,7 +65,7 @@ const StartBox = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   .startTitle {
-    color: white;
+    color: ${palette.text3};
     text-align: center;
     margin-bottom: 16px;
   }
@@ -131,7 +134,7 @@ export default function InfoPage() {
               fontColor="black"
               fontSize="20px"
               borderRadius="0"
-              buttonColor="beige"
+              buttonColor="white"
               className="man"
               onClick={clickGender}
             >
@@ -143,7 +146,7 @@ export default function InfoPage() {
               fontColor="black"
               fontSize="20px"
               borderRadius="0"
-              buttonColor="beige"
+              buttonColor="white"
               className="woman"
               onClick={clickGender}
             >
@@ -164,7 +167,7 @@ export default function InfoPage() {
                 fontColor="black"
                 fontSize="20px"
                 borderRadius="0"
-                buttonColor="beige"
+                buttonColor="white"
                 className="ageBtn"
                 onClick={clickAge}
               >
@@ -178,10 +181,10 @@ export default function InfoPage() {
           <Button
             width="392px"
             height="72px"
-            fontColor="black"
+            fontColor="text3"
             fontSize="20px"
             borderRadius="0"
-            buttonColor="beige"
+            buttonColor="start_btn"
             className="startBtn"
             onClick={clickStart}
           >
