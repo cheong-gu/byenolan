@@ -58,11 +58,10 @@ const ProgressFill = styled.div<ProgressBarProps>`
 const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
   const selectedIndex = useRecoilValue(selectedQuestionIndexState);
   const questions = useRecoilValue(questionsState);
-  console.log(questions);
 
   const currentPage = selectedIndex + 1;
   const PageNum = questions.length;
-  console.log(PageNum);
+
   return (
     <>
       <ProgressBarContainer>

@@ -79,9 +79,8 @@ const MyAnswer = ({
   showDetail,
   children,
 }: myType) => {
-  // console.log(percent);
   const num = Number(percent?.slice(0, 2));
-  console.log(num);
+
   return (
     <Answer
       width="100%"
@@ -164,8 +163,8 @@ export default function Question() {
         (questionValue.survey[1].count / questionValue.totalcount) * 100
       ) + "%";
 
-    if (percent.length == 0) {
-      setPercent([first, second]);
+    if (percent.length === selectedIndex) {
+      setPercent([...percent, { first, second }]);
       setCurrentVal([
         ...currentVal,
         { _id: data._id, answer_no: result[0].answer_no },
@@ -195,7 +194,7 @@ export default function Question() {
       );
     }
   }
-
+  console.log(answers);
   return (
     <QuestionBox>
       <QuestionTitle>
@@ -204,7 +203,7 @@ export default function Question() {
       <SelectBox>
         <MyAnswer
           showDetail={selected}
-          percent={percent && percent[0]}
+          percent={percent[selectedIndex] && percent[selectedIndex].first}
           onClick={(e) =>
             selectButtonEvent(questionValue && questionValue, "A")
           }
@@ -215,7 +214,7 @@ export default function Question() {
         <div className="versus">vs</div>
         <MyAnswer
           showDetail={selected}
-          percent={percent && percent[1]}
+          percent={percent[selectedIndex] && percent[selectedIndex].second}
           onClick={(e) =>
             selectButtonEvent(questionValue && questionValue, "B")
           }
@@ -223,28 +222,6 @@ export default function Question() {
         >
           {questionValue && questionValue.survey[1].answer}
         </MyAnswer>
-        {/* <br></br>
-        <MyButton
-          showDetail={selected}
-          percent={percent && percent[0]}
-          onClick={(e) =>
-            selectButtonEvent(questionValue && questionValue, "A")
-          }
-          selected={isSelected("A")}
-        >
-          {questionValue && questionValue.survey[0].answer}
-        </MyButton>
-        <div className="versus">vs</div>
-        <MyButton
-          showDetail={selected}
-          percent={percent && percent[1]}
-          onClick={(e) =>
-            selectButtonEvent(questionValue && questionValue, "B")
-          }
-          selected={isSelected("B")}
-        >
-          {questionValue && questionValue.survey[1].answer}
-        </MyButton> */}
       </SelectBox>
     </QuestionBox>
   );

@@ -48,6 +48,10 @@ const StyledButton = styled.button<ButtonStyle>`
     color: ${palette[fontColor]};
     font-size: ${fontSize};
   `}
+
+  :hover {
+    background-color: lightgray;
+  }
 `;
 
 const Button = ({ className, children, ...rest }: ButtonProps) => {

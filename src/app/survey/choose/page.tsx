@@ -52,18 +52,38 @@ export default function ChoosePage() {
     selectedQuestionIndexState
   );
   const currentPage = ((selectedIndex + 1) / 12) * 100;
-  console.log(currentPage);
-  const saveButtonEvent = () => {
-    setSelectedIndex(selectedIndex + 1);
 
-    setSelected(false);
-    setPercent([]);
+  if (selectedIndex === 12) {
+    return alert("완료");
+  }
+
+  const saveButtonEvent = () => {
+    if (selectedIndex !== percent.length) {
+      setSelectedIndex(selectedIndex + 1);
+    } else if (selectedIndex === percent.length) {
+      alert("선택해주세요!");
+    } else if (selected) {
+      setSelectedIndex(selectedIndex + 1);
+      setSelected(false);
+    } else {
+      alert("오류!!!");
+    }
   };
+
+  const backButtonEvent = () => {
+    if (selectedIndex === 0) {
+      router.back();
+    } else {
+      setSelectedIndex(selectedIndex - 1);
+      setSelected(true);
+    }
+  };
+  console.log(percent);
   return (
     <ChooseBox>
       <InnerContainer>
         <TopLine>
-          <span onClick={() => router.back()}>back</span>
+          <span onClick={() => backButtonEvent()}>back</span>
           <ProgressBar progress={currentPage} />
         </TopLine>
         <MidLine>
@@ -78,7 +98,7 @@ export default function ChoosePage() {
           buttonColor="black"
           onClick={(e) => saveButtonEvent()}
         >
-          {selected ? "다음 문항" : "건너 뛰기"}
+          다음 문항
         </Button>
       </InnerContainer>
     </ChooseBox>
