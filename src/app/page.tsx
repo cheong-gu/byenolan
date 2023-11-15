@@ -212,19 +212,21 @@ export default function Home() {
     },
     [sliderFunction]
   );
+
+  console.log(IconBoltImg);
   return (
     <HomeWrap>
       <Image src={LogoImg.src} alt="logo" width={440} height={160}></Image>
       <TitleText>
-        <TitleTextImg></TitleTextImg>
+        <Image src={TitleTextImg} alt="logo" width={392} height={132}></Image>
         <span
           style={{
             position: "absolute",
-            top: "17px",
-            color: "white",
+            top: "15px",
             width: "392px",
             display: "flex",
             justifyContent: "center",
+            alignItems: 'center',
           }}
         >
           <Image
@@ -256,9 +258,42 @@ export default function Home() {
         </span>
       </TitleText>
       <Select>
-        <SelectImg></SelectImg>
-        <SelectAIconImg></SelectAIconImg>
-        <SelectBIconImg></SelectBIconImg>
+        <Image src={SelectImg} alt="logo" width={392} height={308}></Image>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: ' 10fr 84px 1fr 84px 10fr',
+          position: 'absolute',
+          alignItems: 'center',
+          top: '63px',
+          width: '392px',
+          justifyItems: 'center',
+        }}>
+          <div></div>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center'
+          }}>
+            <Image src={SelectAIconImg} alt="logo" width={84} height={84}></Image>
+            부담없이<br></br>만난다
+          </div>
+          <div style={{
+            height: '120px',
+            width: '1px',
+            backgroundColor: '#E0DDDC'
+          }}></div>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center'
+          }}>
+            <Image src={SelectBIconImg} alt="logo" width={84} height={84}></Image>
+            부담없이<br></br>만난다
+          </div>
+          <div></div>
+        </div>
 
       </Select>
       <TodayNolanHeader>오늘의 논란</TodayNolanHeader>
