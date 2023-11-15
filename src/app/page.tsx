@@ -3,9 +3,14 @@
 import styled from "@emotion/styled";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import Image from "next/image";
 
-import TitleSvg from "../public/title_text_392x132.svg";
+import LogoImg from "../public/1_title_img_440x160.png";
+import TitleTextImg from "../public/1_title_text_392x132.svg";
+import SelectImg from "../public/1_select_392x308.svg";
+import IconBoltImg from "../public/1_icon_bolt_16x16.png";
+import SelectAIconImg from "../public/1_select_icon_A_84x84.svg";
+import SelectBIconImg from "../public/1_select_icon_B_84x84.svg";
+import Image from "next/image";
 
 const Footer = styled.footer`
   background-color: white;
@@ -155,6 +160,49 @@ const ParticipatedUnit = styled.div`
   
 `;
 
+function sliderFunction(slider: any) {
+  let timeout: NodeJS.Timeout;
+  let mouseOver = false;
+  function clearNextTimeout() {
+    clearTimeout(timeout);
+  }
+  function nextTimeout() {
+    clearTimeout(timeout);
+    if (mouseOver) return;
+    timeout = setTimeout(() => {
+      slider.next();
+    }, 1000);
+  }
+  slider.on("created", () => {
+    slider.container.addEventListener("mouseover", () => {
+      mouseOver = true;
+      clearNextTimeout();
+    });
+    slider.container.addEventListener("mouseout", () => {
+      mouseOver = false;
+      nextTimeout();
+    });
+    nextTimeout();
+  });
+  slider.on("dragStarted", clearNextTimeout);
+  slider.on("animationEnded", nextTimeout);
+  slider.on("updated", nextTimeout);
+}
+
+const TitleText = styled.div`
+  width: 392px;
+  height: 132px;
+  margin: 0 auto;
+  position: relative;
+`;
+const Select = styled.div`
+width: 392px;
+height: 308px;
+margin: 0 auto;
+margin-top: 1rem;
+position: relative;
+`;
+
 export default function Home() {
   const [sliderRef] = useKeenSlider(
     {
@@ -162,43 +210,59 @@ export default function Home() {
       loop: true,
       slides: { origin: "center", perView: 1.1, spacing: 8 },
     },
-
-    [
-      (slider) => {
-        let timeout: NodeJS.Timeout;
-        let mouseOver = false;
-        function clearNextTimeout() {
-          clearTimeout(timeout);
-        }
-        function nextTimeout() {
-          clearTimeout(timeout);
-          if (mouseOver) return;
-          timeout = setTimeout(() => {
-            slider.next();
-          }, 1000);
-        }
-        slider.on("created", () => {
-          slider.container.addEventListener("mouseover", () => {
-            mouseOver = true;
-            clearNextTimeout();
-          });
-          slider.container.addEventListener("mouseout", () => {
-            mouseOver = false;
-            nextTimeout();
-          });
-          nextTimeout();
-        });
-        slider.on("dragStarted", clearNextTimeout);
-        slider.on("animationEnded", nextTimeout);
-        slider.on("updated", nextTimeout);
-      },
-    ]
+    [sliderFunction]
   );
   return (
     <HomeWrap>
+      <Image src={LogoImg.src} alt="logo" width={440} height={160}></Image>
+      <TitleText>
+        <TitleTextImg></TitleTextImg>
+        <span
+          style={{
+            position: "absolute",
+            top: "17px",
+            color: "white",
+            width: "392px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Image
+            src={IconBoltImg.src}
+            alt="logo"
+            width={16}
+            height={16}
+          ></Image>
+          오늘의 논란
+          <Image
+            src={IconBoltImg.src}
+            alt="logo"
+            width={16}
+            height={16}
+          ></Image>
+        </span>
+        <span
+          style={{
+            position: "absolute",
+            width: "392px",
+            top: "69px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          사귄지 얼마 안된 연인이
+          <br />
+          형제를 보여준다고 한다
+        </span>
+      </TitleText>
+      <Select>
+        <SelectImg></SelectImg>
+        <SelectAIconImg></SelectAIconImg>
+        <SelectBIconImg></SelectBIconImg>
+
+      </Select>
       <TodayNolanHeader>오늘의 논란</TodayNolanHeader>
       <TodayNolanQuestionDiv>
-        <TitleSvg></TitleSvg>
         사귄지 얼마 안된 연인이 <br />
         형제를 보여준다고한다
       </TodayNolanQuestionDiv>
