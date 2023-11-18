@@ -27,10 +27,13 @@ import { ReactElement, ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 
 const Footer = styled.footer`
-  margin-top: 221px;
+  margin-top: 277px;
+  margin-bottom: 24px;
   width: 440px;
   height: 10vh;
   overflow-y: auto;
+  color: #68ACC1;
+  font-family: pretendard;
 `;
 
 const CategoryDiv = styled.div`
@@ -353,8 +356,9 @@ export default function Home() {
                 width: 124,
                 cursor: "pointer",
               }}
-              onClick={() => {setShowModal(true)
-              setSelectedAnswer('A')
+              onClick={() => {
+                setShowModal(true)
+                setSelectedAnswer('A')
               }}
             >
               <Image
@@ -391,9 +395,11 @@ export default function Home() {
                 textAlign: "center",
                 cursor: "pointer",
               }}
-              onClick={() => {setShowModal(true)
+              onClick={() => {
+                setShowModal(true)
 
-                setSelectedAnswer('B')}}
+                setSelectedAnswer('B')
+              }}
             >
               <Image
                 src={SelectBIconImg}
@@ -513,7 +519,36 @@ export default function Home() {
           어떤 유형이 가장 많을까요?
         </SliderCard>
       </div>
-      <Footer>개인정보 처리 방침</Footer>
+      <Footer><div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}>
+        <div style={{ fontSize: 14, fontWeight: '600', marginBottom: 6 }}>논란종결</div>
+        <div style={{
+          display: 'flex',
+          marginBottom: 8
+        }}>
+          <div style={{
+            marginRight: 4,
+            paddingRight: 4,
+            borderRight: '1px solid #68ACC1'
+          }}>개인정보 처리방침</div>
+          <div style={{
+            marginRight: 4,
+            paddingRight: 4,
+            borderRight: '1px solid #68ACC1'
+          }}> 이용약관</div>
+          <div>출처</div>
+        </div>
+        <div>
+          <span style={{
+            textDecorationLine: 'underline',
+
+          }}>©Mitralmb Team.</span>
+          <span>All Right Reserved.</span>
+        </div>
+      </div></Footer >
       <Modal isOpen={showModal}>
         <div
           style={{
@@ -703,3 +738,15 @@ const ProgressBar = ({ percent, discription, selected }: ProgressProps) => (
     </div>
   </div>
 );
+
+type backgroundDivProps = {
+  img: string,
+  width: number,
+  height: number,
+  children: ReactNode
+}
+
+const BackgroundDiv = ({ img, width, height, children }: backgroundDivProps) => <div style={{ position: 'relative' }}>
+  <Image src={img} alt="" width={width} height={height}></Image>
+  <div style={{ position: 'absolute', width: width, height: height }}>{children}</div>
+</div>
