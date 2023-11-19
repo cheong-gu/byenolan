@@ -331,7 +331,7 @@ export default function Home() {
               selected={selectedAnswer == "B"}
               discription="부담스러워 거절한다"
             ></ProgressBar>
-            <Link href={"survay/info"}>
+            <Link href={"survey/info"}>
               <KeepButton>{"계속 참여하기 •'-'•)و✧"}</KeepButton>
             </Link>
           </div>
@@ -456,7 +456,7 @@ export default function Home() {
         )}
       </Select>
       <CategoryDiv>
-        <Link href={"survay/info"}>
+        <Link href={"survey/info"}>
           <CategoryItem>
             <Image
               src={CategoryIconHotImg}
@@ -467,7 +467,7 @@ export default function Home() {
             <CategoryLabel>HOT</CategoryLabel>
           </CategoryItem>
         </Link>
-        <Link href={"survay/info"}>
+        <Link href={"survey/info"}>
           <CategoryItem>
             <Image
               src={CategoryIconLoveImg}
