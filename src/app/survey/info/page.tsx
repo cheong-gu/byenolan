@@ -14,8 +14,8 @@ import ButtonNonCheck from "@/public/survey/buttonNonCheck.svg";
 import ButtonActivate from "@/public/survey/buttonActivate.svg";
 import ButtonDisabled from "@/public/survey/buttonDisabled.svg";
 import Image from "next/image";
-import ButtonGender from "@/public/survey/ButtonGender.svg";
-import ButtonAge from "@/public/survey/ButtonAge.svg";
+import ButtonGender from "@/public/survey/buttonGender.svg";
+import ButtonAge from "@/public/survey/buttonAge.svg";
 import { useEffect } from "react";
 
 const InfoBox = styled.div`
