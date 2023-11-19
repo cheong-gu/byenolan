@@ -3,14 +3,24 @@
 import { useRouter } from "next/navigation";
 
 import Button from "@/components/Button";
-import { infoState } from "@/store/survay_info/atoms";
+import { infoState } from "@/store/survey_info/atoms";
 import styled from "@emotion/styled";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { palette } from "@/components/Palette";
+import female from "@/public/survey/female.svg";
+import male from "@/public/survey/male.svg";
+import ButtonCheck from "@/public/survey/buttonCheck.svg";
+import ButtonNonCheck from "@/public/survey/buttonNonCheck.svg";
+import ButtonActivate from "@/public/survey/buttonActivate.svg";
+import ButtonDisabled from "@/public/survey/buttonDisabled.svg";
+import Image from "next/image";
+import ButtonGender from "@/public/survey/ButtonGender.svg";
+import ButtonAge from "@/public/survey/ButtonAge.svg";
 
 const InfoBox = styled.div`
   width: 100%;
   height: 800px;
-  background-color: black;
+  background-color: ${palette.bg};
   padding: 40px 24px;
   border: 0.5px solid white;
 `;
@@ -24,7 +34,7 @@ const InnerContainer = styled.div`
 const GenderBox = styled.div`
   .genderTitle {
     text-align: center;
-    color: beige;
+    color: black;
     .star {
       color: red;
     }
@@ -42,13 +52,15 @@ const GenderBox = styled.div`
 const AgeBox = styled.div`
   .ageTitle {
     text-align: center;
-    color: beige;
+    color: black;
 
     .star {
       color: red;
     }
   }
   .ageContent {
+    margin-top: 16px;
+
     display: grid;
     grid-gap: 16px;
     grid-template-columns: repeat(2, 188px);
@@ -62,7 +74,7 @@ const StartBox = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   .startTitle {
-    color: white;
+    color: ${palette.text3};
     text-align: center;
     margin-bottom: 16px;
   }
@@ -74,9 +86,11 @@ export default function InfoPage() {
   const router = useRouter();
   const [info, setInfo] = useRecoilState(infoState); // useState와 같지만, useRecoilState를 사용하여 다른 파일에 있는 아톰을 읽을 수 있다.
   const currentInfo = useRecoilValue(infoState);
-  const infoHandler = useSetRecoilState(infoState);
 
-  console.log("1 : " + JSON.stringify(currentInfo));
+  const infoCheck = () => {
+    if ("gender" in info && "age" in info) return true;
+    else return false;
+  };
 
   const clickGender = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -84,7 +98,7 @@ export default function InfoPage() {
     const value: string | null = target.textContent;
 
     if (value) {
-      infoHandler((prev) => {
+      setInfo((prev) => {
         return {
           ...prev,
           gender: value,
@@ -99,7 +113,7 @@ export default function InfoPage() {
     const value: string | null = target.textContent;
 
     if (value) {
-      infoHandler((prev) => {
+      setInfo((prev) => {
         return {
           ...prev,
           age: value,
@@ -111,10 +125,8 @@ export default function InfoPage() {
   const clickStart = () => {
     const data = currentInfo;
     if (Object.keys(data).includes("age")) {
-      console.log("성공");
-      router.push("/survay/choose");
+      router.push("/survey/choose");
     } else {
-      console.log("실패");
     }
   };
 
@@ -130,24 +142,44 @@ export default function InfoPage() {
               width="188px"
               height="110px"
               fontColor="black"
-              fontSize="20px"
+              fontSize="16px"
               borderRadius="0"
-              buttonColor="beige"
+              buttonColor="white"
               className="man"
               onClick={clickGender}
+              backgroundImage={info?.gender == "남자" ? ButtonGender : ""}
             >
+              <div className="image">
+                <Image
+                  className="person"
+                  src={male}
+                  alt="error"
+                  width={50}
+                  height={50}
+                />
+              </div>
               남자
             </Button>
             <Button
               width="188px"
               height="110px"
               fontColor="black"
-              fontSize="20px"
+              fontSize="16px"
               borderRadius="0"
-              buttonColor="beige"
+              buttonColor="white"
               className="woman"
               onClick={clickGender}
+              backgroundImage={info?.gender == "여자" ? ButtonGender : ""}
             >
+              <div className="image">
+                <Image
+                  className="person"
+                  src={female}
+                  alt="error"
+                  width={50}
+                  height={50}
+                />
+              </div>
               여자
             </Button>
           </div>
@@ -157,21 +189,26 @@ export default function InfoPage() {
             나이<span className="star">*</span>
           </div>
           <div className="ageContent">
-            {ageArr.map((age, index) => (
-              <Button
-                key={index}
-                width="188px"
-                height="64px"
-                fontColor="black"
-                fontSize="20px"
-                borderRadius="0"
-                buttonColor="beige"
-                className="ageBtn"
-                onClick={clickAge}
-              >
-                {age}
-              </Button>
-            ))}
+            {ageArr.map((age, index) => {
+              console.log(info);
+              console.log(age);
+              return (
+                <Button
+                  key={index}
+                  width="188px"
+                  height="64px"
+                  fontColor="black"
+                  fontSize="16px"
+                  borderRadius="0"
+                  buttonColor="white"
+                  className="ageBtn"
+                  backgroundImage={info?.age == age ? ButtonAge : ""}
+                  onClick={clickAge}
+                >
+                  {age}
+                </Button>
+              );
+            })}
           </div>
         </AgeBox>
         <StartBox>
@@ -179,14 +216,25 @@ export default function InfoPage() {
           <Button
             width="392px"
             height="72px"
-            fontColor="black"
-            fontSize="20px"
+            fontColor="text3"
+            fontSize="18px"
             borderRadius="0"
-            buttonColor="beige"
+            backgroundImage={infoCheck() ? ButtonActivate : ButtonDisabled}
+            buttonColor="transparent"
             className="startBtn"
             onClick={clickStart}
           >
-            시작
+            <div className="startButton">
+              <span className="check">
+                <Image
+                  src={infoCheck() ? ButtonCheck : ButtonNonCheck}
+                  alt="error"
+                  width={20}
+                  height={20}
+                ></Image>
+              </span>
+              <span className="content">시작</span>
+            </div>
           </Button>
         </StartBox>
       </InnerContainer>

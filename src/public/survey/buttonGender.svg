@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 188 110">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #ffe696;
+      }
+
+      .cls-3 {
+        fill: #ffc100;
+      }
+
+      .cls-4 {
+        fill: #1b2237;
+      }
+
+      .cls-5 {
+        fill: none;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 1.6px;
+      }
+    </style>
+  </defs>
+  <g>
+    <rect class="cls-2" x="0" y="4" width="187" height="102"/>
+    <rect class="cls-3" x="2" y="102" width="184" height="6"/>
+    <rect class="cls-3" x="182" y="4" width="6" height="102"/>
+    <rect class="cls-1" x="0" y="4" width="6" height="102"/>
+    <rect class="cls-1" x=".5" y="4" width="187" height="4"/>
+    <rect class="cls-4" x="2" y="2" width="184" height="2" transform="translate(188 6) rotate(180)"/>
+    <rect class="cls-4" x="2" y="106" width="184" height="2" transform="translate(188 214) rotate(-180)"/>
+    <rect class="cls-4" x="0" y="4" width="2" height="102" transform="translate(2 110) rotate(-180)"/>
+    <rect class="cls-4" x="186" y="4" width="2" height="102" transform="translate(374 110) rotate(-180)"/>
+  </g>
+  <g>
+    <circle class="cls-4" cx="24" cy="26" r="10"/>
+    <polyline class="cls-5" points="18.5 25.5 22.5 29.5 29.5 22.5"/>
+  </g>
+</svg>

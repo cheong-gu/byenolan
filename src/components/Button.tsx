@@ -10,6 +10,8 @@ interface ButtonStyle {
   fontSize?: string;
   borderRadius?: string;
   hasBorder?: boolean;
+  percent?: string;
+  backgroundImage?: any;
   buttonColor?: PaletteKeyTypes;
   borderColor?: PaletteKeyTypes;
   fontColor?: PaletteKeyTypes;
@@ -22,7 +24,6 @@ interface ButtonProps
   className?: string;
 }
 
-// onClilck?: () => void;
 const StyledButton = styled.button<ButtonStyle>`
   cursor: pointer;
   justify-content: center;
@@ -34,22 +35,51 @@ const StyledButton = styled.button<ButtonStyle>`
     hasBorder = false,
     borderColor = "white",
     borderRadius = "4px",
-    fontColor = "black",
+    fontColor = "green",
     fontSize = "14px",
+    backgroundImage = "",
   }) => css`
     width: ${width};
     height: ${height};
+    hasborder: ${hasBorder};
+    background-image: url(${backgroundImage.src});
     background-color: ${palette[buttonColor]};
     border: ${hasBorder ? `1px solid ${palette[borderColor]}` : "none"};
+    bordercolor: ${palette[borderColor]};
     border-radius: ${borderRadius};
     color: ${palette[fontColor]};
     font-size: ${fontSize};
   `}
+
+  .image {
+    height: 50px;
+  }
+
+  .startButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .check {
+      height: 20px;
+    }
+    .content {
+      margin-left: 4px;
+    }
+  }
 `;
 
-const Button = ({ className, children, ...rest }: ButtonProps) => {
+const Button = ({
+  className,
+  children,
+  backgroundImage,
+  ...rest
+}: ButtonProps) => {
   return (
-    <StyledButton className={className} {...rest}>
+    <StyledButton
+      backgroundImage={backgroundImage}
+      className={className}
+      {...rest}
+    >
       {children}
     </StyledButton>
   );
