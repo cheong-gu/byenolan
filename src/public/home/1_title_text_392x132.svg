@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392 132">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #ffe180;
+      }
+
+      .cls-3 {
+        fill: #ffa90b;
+      }
+
+      .cls-4 {
+        fill: #ffcf00;
+      }
+
+      .cls-5 {
+        fill: #fbf4df;
+      }
+
+      .cls-6 {
+        fill: #5b3a09;
+      }
+    </style>
+  </defs>
+  <g>
+    <rect class="cls-2" x="2" y="36" width="388" height="94"/>
+    <rect class="cls-1" x="9" y="41" width="374" height="82"/>
+    <rect class="cls-4" x="8" y="40" width="376" height="2"/>
+    <rect class="cls-5" x="4" y="34" width="384" height="2"/>
+    <rect class="cls-4" x="8" y="122" width="376" height="2"/>
+    <rect class="cls-4" x="-33" y="81" width="84" height="2" transform="translate(-73 91) rotate(-90)"/>
+    <rect class="cls-5" x="-43" y="81" width="92" height="2" transform="translate(-79 85) rotate(-90)"/>
+    <rect class="cls-4" x="341" y="81" width="84" height="2" transform="translate(301 465) rotate(-90)"/>
+    <rect class="cls-6" x="4" y="32" width="384" height="2"/>
+    <g>
+      <rect class="cls-6" x="2" y="34" width="2" height="2"/>
+      <rect class="cls-6" x="4" y="130" width="384" height="2"/>
+      <rect class="cls-6" x="2" y="128" width="2" height="2"/>
+      <rect class="cls-6" x="-45" y="81" width="92" height="2" transform="translate(83 81) rotate(90)"/>
+    </g>
+    <g>
+      <rect class="cls-6" x="388" y="34" width="2" height="2" transform="translate(778 70) rotate(-180)"/>
+      <rect class="cls-6" x="388" y="128" width="2" height="2" transform="translate(778 258) rotate(-180)"/>
+      <rect class="cls-6" x="345" y="81" width="92" height="2" transform="translate(473 -309) rotate(90)"/>
+    </g>
+  </g>
+  <g>
+    <rect class="cls-2" x="79" y="2" width="234" height="50"/>
+    <rect class="cls-3" x="79" y="50" width="234" height="2"/>
+    <g>
+      <rect class="cls-6" x="79" width="234" height="2"/>
+      <rect class="cls-6" x="79" y="52" width="234" height="2"/>
+      <rect class="cls-6" x="77" y="2" width="2" height="50"/>
+    </g>
+    <rect class="cls-5" x="79" y="2" width="234" height="2"/>
+    <rect class="cls-5" x="79" y="2" width="2" height="50"/>
+    <rect class="cls-6" x="313" y="2" width="2" height="50"/>
+    <rect class="cls-3" x="311" y="2" width="2" height="50"/>
+  </g>
+</svg>

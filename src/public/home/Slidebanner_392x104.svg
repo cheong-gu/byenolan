@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392 104">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ffe180;
+      }
+
+      .cls-2 {
+        fill: #ffcf00;
+      }
+
+      .cls-3 {
+        fill: #fbf4df;
+      }
+
+      .cls-4 {
+        fill: #5b3a09;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" x="2" y="4" width="388" height="98"/>
+  <rect class="cls-1" x="9" y="9" width="374" height="86"/>
+  <rect class="cls-2" x="4" y="98" width="384" height="4"/>
+  <rect class="cls-3" x="-44" y="50" width="96" height="4" transform="translate(-48 56) rotate(-90)"/>
+  <rect class="cls-2" x="340" y="50" width="96" height="4" transform="translate(336 440) rotate(-90)"/>
+  <rect class="cls-4" x="4" y="0" width="384" height="2"/>
+  <g>
+    <rect class="cls-4" x="2" y="2" width="2" height="2"/>
+    <rect class="cls-4" x="4" y="102" width="384" height="2"/>
+    <rect class="cls-4" x="2" y="100" width="2" height="2"/>
+    <rect class="cls-3" x="4" y="100" width="2" height="2"/>
+    <rect class="cls-4" x="-47" y="51" width="96" height="2" transform="translate(53 51) rotate(90)"/>
+  </g>
+  <g>
+    <rect class="cls-4" x="388" y="2" width="2" height="2" transform="translate(778 6) rotate(-180)"/>
+    <rect class="cls-3" x="388" y="4" width="2" height="2" transform="translate(778 10) rotate(-180)"/>
+    <rect class="cls-4" x="388" y="100" width="2" height="2" transform="translate(778 202) rotate(-180)"/>
+    <rect class="cls-4" x="343" y="51" width="96" height="2" transform="translate(443 -339) rotate(90)"/>
+  </g>
+  <rect class="cls-3" x="4" y="2" width="384" height="4"/>
+</svg>
