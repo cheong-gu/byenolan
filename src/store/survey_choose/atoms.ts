@@ -15,6 +15,11 @@ export const percentState = atom({
   default: [] as any,
 });
 
+export const everageState = atom({
+  key: "everageState",
+  default: [] as any,
+});
+
 export const questionsState = atom<QuestionType[]>({
   key: "questionsState",
   default: [],

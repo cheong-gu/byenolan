@@ -73,13 +73,24 @@ const StyledAnswer = styled.div<AnswerStyle>`
     width: 100%;
     padding: 0 20px;
     position: absolute;
+
     z-index: 1;
     display: flex;
+    align-items: center;
 
     ${({ progress = false }) =>
       css`
         justify-content: ${progress ? "space-between" : "center"};
       `}
+
+    .head {
+      display: flex;
+      align-items: center;
+      .marking {
+        text-align: center;
+        margin-right: 4px;
+      }
+    }
   }
 `;
 

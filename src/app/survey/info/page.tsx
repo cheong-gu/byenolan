@@ -7,6 +7,15 @@ import { infoState } from "@/store/survey_info/atoms";
 import styled from "@emotion/styled";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { palette } from "@/components/Palette";
+import female from "@/public/survey/female.svg";
+import male from "@/public/survey/male.svg";
+import ButtonCheck from "@/public/survey/buttonCheck.svg";
+import ButtonNonCheck from "@/public/survey/buttonNonCheck.svg";
+import ButtonActivate from "@/public/survey/buttonActivate.svg";
+import ButtonDisabled from "@/public/survey/buttonDisabled.svg";
+import Image from "next/image";
+import ButtonGender from "@/public/survey/ButtonGender.svg";
+import ButtonAge from "@/public/survey/ButtonAge.svg";
 
 const InfoBox = styled.div`
   width: 100%;
@@ -78,7 +87,10 @@ export default function InfoPage() {
   const [info, setInfo] = useRecoilState(infoState); // useState와 같지만, useRecoilState를 사용하여 다른 파일에 있는 아톰을 읽을 수 있다.
   const currentInfo = useRecoilValue(infoState);
 
-  console.log("1 : " + JSON.stringify(currentInfo));
+  const infoCheck = () => {
+    if ("gender" in info && "age" in info) return true;
+    else return false;
+  };
 
   const clickGender = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -113,10 +125,8 @@ export default function InfoPage() {
   const clickStart = () => {
     const data = currentInfo;
     if (Object.keys(data).includes("age")) {
-      console.log("성공");
       router.push("/survey/choose");
     } else {
-      console.log("실패");
     }
   };
 
@@ -132,24 +142,44 @@ export default function InfoPage() {
               width="188px"
               height="110px"
               fontColor="black"
-              fontSize="20px"
+              fontSize="16px"
               borderRadius="0"
               buttonColor="white"
               className="man"
               onClick={clickGender}
+              backgroundImage={info?.gender == "남자" ? ButtonGender : ""}
             >
+              <div className="image">
+                <Image
+                  className="person"
+                  src={male}
+                  alt="error"
+                  width={50}
+                  height={50}
+                />
+              </div>
               남자
             </Button>
             <Button
               width="188px"
               height="110px"
               fontColor="black"
-              fontSize="20px"
+              fontSize="16px"
               borderRadius="0"
               buttonColor="white"
               className="woman"
               onClick={clickGender}
+              backgroundImage={info?.gender == "여자" ? ButtonGender : ""}
             >
+              <div className="image">
+                <Image
+                  className="person"
+                  src={female}
+                  alt="error"
+                  width={50}
+                  height={50}
+                />
+              </div>
               여자
             </Button>
           </div>
@@ -159,21 +189,26 @@ export default function InfoPage() {
             나이<span className="star">*</span>
           </div>
           <div className="ageContent">
-            {ageArr.map((age, index) => (
-              <Button
-                key={index}
-                width="188px"
-                height="64px"
-                fontColor="black"
-                fontSize="20px"
-                borderRadius="0"
-                buttonColor="white"
-                className="ageBtn"
-                onClick={clickAge}
-              >
-                {age}
-              </Button>
-            ))}
+            {ageArr.map((age, index) => {
+              console.log(info);
+              console.log(age);
+              return (
+                <Button
+                  key={index}
+                  width="188px"
+                  height="64px"
+                  fontColor="black"
+                  fontSize="16px"
+                  borderRadius="0"
+                  buttonColor="white"
+                  className="ageBtn"
+                  backgroundImage={info?.age == age ? ButtonAge : ""}
+                  onClick={clickAge}
+                >
+                  {age}
+                </Button>
+              );
+            })}
           </div>
         </AgeBox>
         <StartBox>
@@ -182,13 +217,24 @@ export default function InfoPage() {
             width="392px"
             height="72px"
             fontColor="text3"
-            fontSize="20px"
+            fontSize="18px"
             borderRadius="0"
-            buttonColor="start_btn"
+            backgroundImage={infoCheck() ? ButtonActivate : ButtonDisabled}
+            buttonColor="transparent"
             className="startBtn"
             onClick={clickStart}
           >
-            시작
+            <div className="startButton">
+              <span className="check">
+                <Image
+                  src={infoCheck() ? ButtonCheck : ButtonNonCheck}
+                  alt="error"
+                  width={20}
+                  height={20}
+                ></Image>
+              </span>
+              <span className="content">시작</span>
+            </div>
           </Button>
         </StartBox>
       </InnerContainer>

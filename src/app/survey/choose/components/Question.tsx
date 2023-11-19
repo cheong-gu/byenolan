@@ -7,14 +7,19 @@ import {
   questionsState,
   selectedQuestionIndexState,
   selectedState,
+  everageState,
 } from "@/store/survey_choose/atoms";
 import { ReactNode, useEffect, useState } from "react";
 import { selectedQuestionState } from "@/store/survey_choose/selectors";
 import { infoState } from "@/store/survey_info/atoms";
 import Answer from "@/components/Answer";
+import Image from "next/image";
+import ButtonCheck from "@/public/survey/buttonCheck.svg";
+import { IndexedAccessType } from "typescript";
 
 const QuestionBox = styled.div`
   width: 100%;
+  height: 100%;
 `;
 
 const QuestionTitle = styled.div`
@@ -96,7 +101,18 @@ const MyAnswer = ({
     >
       <div className="text">
         <div className="head">
-          <span className="marking">{selected && showDetail ? "V " : ""}</span>
+          <span className="marking">
+            {selected && showDetail ? (
+              <Image
+                src={ButtonCheck}
+                alt="error"
+                width={20}
+                height={20}
+              ></Image>
+            ) : (
+              ""
+            )}
+          </span>
           <span className="title">{children}</span>
         </div>
         <span className="foot">{showDetail ? percent : ""}</span>
@@ -107,6 +123,7 @@ const MyAnswer = ({
 
 export default function Question() {
   const [percent, setPercent] = useRecoilState(percentState);
+  const [everageArr, setEverageArr] = useRecoilState(everageState);
   const [currentVal, setCurrentVal] = useState<any>([]);
   const [progress, setProgress] = useState<boolean>(false);
   const [selected, setSelected] = useRecoilState(selectedState);
@@ -165,6 +182,11 @@ export default function Question() {
 
     if (percent.length === selectedIndex) {
       setPercent([...percent, { first, second }]);
+      setEverageArr([
+        ...everageArr,
+        result[0].answer_no === "A" ? first : second,
+      ]);
+
       setCurrentVal([
         ...currentVal,
         { _id: data._id, answer_no: result[0].answer_no },
@@ -174,6 +196,10 @@ export default function Question() {
         selected: [
           ...currentVal,
           { _id: data._id, answer_no: result[0].answer_no },
+        ],
+        everageArr: [
+          ...everageArr,
+          result[0].answer_no === "A" ? first : second,
         ],
       });
     } else {
@@ -194,7 +220,6 @@ export default function Question() {
       );
     }
   }
-  console.log(answers);
   return (
     <QuestionBox>
       <QuestionTitle>

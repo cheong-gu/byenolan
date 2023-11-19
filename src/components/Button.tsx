@@ -11,6 +11,7 @@ interface ButtonStyle {
   borderRadius?: string;
   hasBorder?: boolean;
   percent?: string;
+  backgroundImage?: any;
   buttonColor?: PaletteKeyTypes;
   borderColor?: PaletteKeyTypes;
   fontColor?: PaletteKeyTypes;
@@ -21,7 +22,6 @@ interface ButtonProps
     ButtonStyle {
   children: ReactNode;
   className?: string;
-  // onClick?: () => void;
 }
 
 const StyledButton = styled.button<ButtonStyle>`
@@ -37,26 +37,49 @@ const StyledButton = styled.button<ButtonStyle>`
     borderRadius = "4px",
     fontColor = "green",
     fontSize = "14px",
+    backgroundImage = "",
   }) => css`
     width: ${width};
     height: ${height};
     hasborder: ${hasBorder};
+    background-image: url(${backgroundImage.src});
     background-color: ${palette[buttonColor]};
-    border: ${hasBorder ? `2px solid ${palette[borderColor]}` : "none"};
-    bordercolor: ${borderColor};
+    border: ${hasBorder ? `1px solid ${palette[borderColor]}` : "none"};
+    bordercolor: ${palette[borderColor]};
     border-radius: ${borderRadius};
     color: ${palette[fontColor]};
     font-size: ${fontSize};
   `}
 
-  :hover {
-    background-color: lightgray;
+  .image {
+    height: 50px;
+  }
+
+  .startButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .check {
+      height: 20px;
+    }
+    .content {
+      margin-left: 4px;
+    }
   }
 `;
 
-const Button = ({ className, children, ...rest }: ButtonProps) => {
+const Button = ({
+  className,
+  children,
+  backgroundImage,
+  ...rest
+}: ButtonProps) => {
   return (
-    <StyledButton className={className} {...rest}>
+    <StyledButton
+      backgroundImage={backgroundImage}
+      className={className}
+      {...rest}
+    >
       {children}
     </StyledButton>
   );

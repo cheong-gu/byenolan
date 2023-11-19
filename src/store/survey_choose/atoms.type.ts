@@ -14,4 +14,6 @@ interface AnswerInfoType {
 interface AnswerType {
   info: InfoType;
   seleted: [{ _id: number; answer_no: string }];
+  everage: number;
+  everageArr: [];
 }

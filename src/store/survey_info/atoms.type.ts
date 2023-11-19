@@ -1,3 +1,4 @@
 interface InfoType {
-  info: { gender?: string; age: string };
+  gender: string;
+  age: string;
 }
