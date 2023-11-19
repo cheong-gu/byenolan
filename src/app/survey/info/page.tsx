@@ -16,6 +16,7 @@ import ButtonDisabled from "@/public/survey/buttonDisabled.svg";
 import Image from "next/image";
 import ButtonGender from "@/public/survey/ButtonGender.svg";
 import ButtonAge from "@/public/survey/ButtonAge.svg";
+import { useEffect } from "react";
 
 const InfoBox = styled.div`
   width: 100%;
@@ -81,6 +82,10 @@ const StartBox = styled.div`
 `;
 
 export default function InfoPage() {
+  useEffect(()=>{
+    setInfo({} as InfoType)
+  },[])
+
   const ageArr: string[] = ["10대", "20대", "30대", "40대", "50대", "60대이상"];
 
   const router = useRouter();
