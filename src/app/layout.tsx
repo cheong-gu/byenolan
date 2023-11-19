@@ -2,7 +2,7 @@
 import styled from "@emotion/styled";
 import { RecoilRoot } from "recoil";
 import "../styles/global.css";
-import Background from '../public/img/1_bg_img_440x1620.png';
+import Background from '../public/home/1_bg_img_440x1620.png';
 
 const Body = styled.body`
   background-color: #313131;

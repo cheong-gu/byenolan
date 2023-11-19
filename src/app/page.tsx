@@ -4,23 +4,23 @@ import styled from "@emotion/styled";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
-import LogoImg from "../public/img/1_title_img_440x160.png";
-import TitleTextImg from "../public/img/1_title_text_392x132.svg";
-import SelectImg from "../public/img/1_select_392x308.svg";
-import IconBoltImg from "../public/img/1_icon_bolt_16x16.png";
-import SelectAIconImg from "../public/img/1_select_icon_A_84x84.svg";
-import SelectBIconImg from "../public/img/1_select_icon_B_84x84.svg";
+import LogoImg from "../public/home/1_title_img_440x160.png";
+import TitleTextImg from "../public/home/1_title_text_392x132.svg";
+import SelectImg from "../public/home/1_select_392x308.svg";
+import IconBoltImg from "../public/home/1_icon_bolt_16x16.png";
+import SelectAIconImg from "../public/home/1_select_icon_A_84x84.svg";
+import SelectBIconImg from "../public/home/1_select_icon_B_84x84.svg";
 
-import CategoryIconHotImg from "../public/img/1_category_icon_Hot_80x80.svg";
-import CategoryIconLoveImg from "../public/img/1_category_icon_love_80x80.svg";
-import CategoryIconLockImg from "../public/img/1_category_icon_Lock_80x80.svg";
+import CategoryIconHotImg from "../public/home/1_category_icon_Hot_80x80.svg";
+import CategoryIconLoveImg from "../public/home/1_category_icon_love_80x80.svg";
+import CategoryIconLockImg from "../public/home/1_category_icon_Lock_80x80.svg";
 
-import SlidBannerLeftnImg from "../public/img/chevron-left.svg";
-import SlidBannerRightImg from "../public/img/chevron-right.svg";
-import SlidBannerIconImg from "../public/img/1_slide_banner_icon_54x54.svg";
-import SlidBannerImg from "../public/img/Slidebanner_392x104.svg";
-import modalImg from "../public/img/1_modal_img_248x148.svg";
-import CheckImg from "../public/img/FiCheck.svg";
+import SlidBannerLeftnImg from "../public/home/chevron-left.svg";
+import SlidBannerRightImg from "../public/home/chevron-right.svg";
+import SlidBannerIconImg from "../public/home/1_slide_banner_icon_54x54.svg";
+import SlidBannerImg from "../public/home/Slidebanner_392x104.svg";
+import modalImg from "../public/home/1_modal_img_248x148.svg";
+import CheckImg from "../public/home/FiCheck.svg";
 
 import Image from "next/image";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
