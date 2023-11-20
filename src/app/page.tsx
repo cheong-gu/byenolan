@@ -1,7 +1,6 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
 import LogoImg from "../public/home/1_title_img_440x160.png";
@@ -15,16 +14,15 @@ import CategoryIconHotImg from "../public/home/1_category_icon_Hot_80x80.svg";
 import CategoryIconLoveImg from "../public/home/1_category_icon_love_80x80.svg";
 import CategoryIconLockImg from "../public/home/1_category_icon_Lock_80x80.svg";
 
-import SlidBannerLeftnImg from "../public/home/chevron-left.svg";
-import SlidBannerRightImg from "../public/home/chevron-right.svg";
-import SlidBannerIconImg from "../public/home/1_slide_banner_icon_54x54.svg";
-import SlidBannerImg from "../public/home/Slidebanner_392x104.svg";
 import modalImg from "../public/home/1_modal_img_248x148.svg";
-import CheckImg from "../public/home/FiCheck.svg";
 
 import Image from "next/image";
-import { ReactElement, ReactNode, useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import { HomeModal } from "./components/HomeModal.server";
+import { HomeProgressBar } from "./components/HomeProgressBar.server";
+import { useTimer } from "@/hooks/homeTimer.hook";
+import HomeSLider from "./components/slider/HomeSlider.client";
 
 const Footer = styled.footer`
   margin-top: 277px;
@@ -108,35 +106,6 @@ const ParticipatedUnit = styled.div`
   letter-spacing: -0.16px;
 `;
 
-function sliderFunction(slider: any) {
-  let timeout: NodeJS.Timeout;
-  let mouseOver = false;
-  function clearNextTimeout() {
-    clearTimeout(timeout);
-  }
-  function nextTimeout() {
-    clearTimeout(timeout);
-    if (mouseOver) return;
-    timeout = setTimeout(() => {
-      slider.next();
-    }, 1000);
-  }
-  slider.on("created", () => {
-    slider.container.addEventListener("mouseover", () => {
-      mouseOver = true;
-      clearNextTimeout();
-    });
-    slider.container.addEventListener("mouseout", () => {
-      mouseOver = false;
-      nextTimeout();
-    });
-    nextTimeout();
-  });
-  slider.on("dragStarted", clearNextTimeout);
-  slider.on("animationEnded", nextTimeout);
-  slider.on("updated", nextTimeout);
-}
-
 const TitleText = styled.div`
   width: 392px;
   height: 132px;
@@ -150,12 +119,6 @@ const Select = styled.div`
   margin-top: 1rem;
   position: relative;
 `;
-
-type TimeLeft = {
-  hours: number;
-  minutes: number;
-  seconds: number;
-};
 
 const ModalConfirm = styled.button`
   display: flex;
@@ -197,14 +160,7 @@ const ModalDenay = styled.button`
 const KeepButton = styled.button``;
 
 export default function Home() {
-  const [sliderRef] = useKeenSlider(
-    {
-      mode: "free-snap",
-      loop: true,
-      slides: { origin: "center", perView: 1.1, spacing: 8 },
-    },
-    [sliderFunction]
-  );
+  const timer = useTimer();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -212,38 +168,12 @@ export default function Home() {
 
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-  const calculateTimeLeft = (): TimeLeft => {
-    const now = new Date();
-    const endOfDay = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      23,
-      59,
-      59,
-      999
+  async function test() {
+    const a = await fetch("https://byenolan.shop/nolan/todayNolan").then(
+      (res) => res.json()
     );
-    const difference = endOfDay.getTime() - now.getTime();
-
-    return {
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60),
-    };
-  };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+    console.log(a);
+  }
 
   const formatTime = (time: number): string => {
     return time < 10 ? `0${time}` : time.toString();
@@ -321,16 +251,16 @@ export default function Home() {
               flexDirection: "column",
             }}
           >
-            <ProgressBar
+            <HomeProgressBar
               percent={51}
               selected={selectedAnswer == "A"}
               discription="부담없이 만난다"
-            ></ProgressBar>
-            <ProgressBar
+            ></HomeProgressBar>
+            <HomeProgressBar
               percent={49}
               selected={selectedAnswer == "B"}
               discription="부담스러워 거절한다"
-            ></ProgressBar>
+            ></HomeProgressBar>
             <Link href={"survey/info"}>
               <KeepButton>{"계속 참여하기 •'-'•)و✧"}</KeepButton>
             </Link>
@@ -357,8 +287,8 @@ export default function Home() {
                 cursor: "pointer",
               }}
               onClick={() => {
-                setShowModal(true)
-                setSelectedAnswer('A')
+                setShowModal(true);
+                setSelectedAnswer("A");
               }}
             >
               <Image
@@ -396,9 +326,9 @@ export default function Home() {
                 cursor: "pointer",
               }}
               onClick={() => {
-                setShowModal(true)
+                setShowModal(true);
 
-                setSelectedAnswer('B')
+                setSelectedAnswer("B");
               }}
             >
               <Image
@@ -449,9 +379,9 @@ export default function Home() {
                 color: "#5B3A09",
                 letterSpacing: "0.64px",
               }}
-            >{` ${formatTime(timeLeft.hours)}:${formatTime(
-              timeLeft.minutes
-            )}:${formatTime(timeLeft.seconds)}`}</span>
+            >{` ${formatTime(timer.hours)}:${formatTime(
+              timer.minutes
+            )}:${formatTime(timer.seconds)}`}</span>
           </span>
         )}
       </Select>
@@ -502,54 +432,58 @@ export default function Home() {
         <ParticipatedNum>34,000</ParticipatedNum>
         <ParticipatedUnit>명</ParticipatedUnit>
       </ParticipatedDiv>
-      <div ref={sliderRef} className="keen-slider">
-        <SliderCard>
-          10대 여성은
-          <br />
-          어떤 유형이 가장 많을까요?
-        </SliderCard>
-        <SliderCard>
-          10대 여성은
-          <br />
-          어떤 유형이 가장 많을까요?
-        </SliderCard>
-        <SliderCard>
-          10대 여성은
-          <br />
-          어떤 유형이 가장 많을까요?
-        </SliderCard>
-      </div>
-      <Footer><div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}>
-        <div style={{ fontSize: 14, fontWeight: '600', marginBottom: 6 }}>논란종결</div>
-        <div style={{
-          display: 'flex',
-          marginBottom: 8
-        }}>
-          <div style={{
-            marginRight: 4,
-            paddingRight: 4,
-            borderRight: '1px solid #68ACC1'
-          }}>개인정보 처리방침</div>
-          <div style={{
-            marginRight: 4,
-            paddingRight: 4,
-            borderRight: '1px solid #68ACC1'
-          }}> 이용약관</div>
-          <div>출처</div>
+      <HomeSLider />
+      <Footer>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ fontSize: 14, fontWeight: "600", marginBottom: 6 }}>
+            논란종결
+          </div>
+          <div
+            style={{
+              display: "flex",
+              marginBottom: 8,
+            }}
+          >
+            <div
+              style={{
+                marginRight: 4,
+                paddingRight: 4,
+                borderRight: "1px solid #68ACC1",
+              }}
+            >
+              개인정보 처리방침
+            </div>
+            <div
+              style={{
+                marginRight: 4,
+                paddingRight: 4,
+                borderRight: "1px solid #68ACC1",
+              }}
+            >
+              {" "}
+              이용약관
+            </div>
+            <div>출처</div>
+          </div>
+          <div>
+            <span
+              style={{
+                textDecorationLine: "underline",
+              }}
+            >
+              ©Mitralmb Team.
+            </span>
+            <span>All Right Reserved.</span>
+          </div>
         </div>
-        <div>
-          <span style={{
-            textDecorationLine: 'underline',
-
-          }}>©Mitralmb Team.</span>
-          <span>All Right Reserved.</span>
-        </div>
-      </div></Footer >
-      <Modal isOpen={showModal}>
+      </Footer>
+      <HomeModal isOpen={showModal}>
         <div
           style={{
             display: "flex",
@@ -583,170 +517,7 @@ export default function Home() {
             아직이요
           </ModalDenay>
         </div>
-      </Modal>
+      </HomeModal>
     </>
   );
 }
-
-const SliderCard = ({ children }: any) => (
-  <div
-    className="keen-slider__slide"
-    style={{
-      position: "relative",
-    }}
-  >
-    <Image src={SlidBannerImg} alt="logo" width={392} height={104}></Image>
-    <div
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        display: "flex",
-        width: "392px",
-        height: "104px",
-        alignItems: "center",
-      }}
-    >
-      <Image
-        src={SlidBannerLeftnImg}
-        alt="logo"
-        width={40}
-        height={40}
-        style={{ marginRight: 4 }}
-      ></Image>
-      <Image
-        src={SlidBannerIconImg}
-        alt="logo"
-        width={54}
-        height={54}
-        style={{ marginRight: 8 }}
-      ></Image>
-      <div
-        style={{
-          marginRight: 68,
-          color: "#5B3A09",
-          fontFamily: "Pretendard",
-          fontSize: "16px",
-          fontWeight: 500,
-          lineHeight: "140% ",
-          letterSpacing: "-0.16px",
-        }}
-      >
-        {children}
-      </div>
-      <Image src={SlidBannerRightImg} alt="logo" width={40} height={40}></Image>
-    </div>
-  </div>
-);
-
-type ModalProps = { isOpen: boolean; children: ReactNode };
-
-const Modal = ({ isOpen, children }: ModalProps) => {
-  if (!isOpen) return null;
-
-  return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: "20px",
-          borderRadius: "16px",
-          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
-        }}
-      >
-        {children}
-      </div>
-    </div>
-  );
-};
-type ProgressProps = {
-  percent: number;
-  discription: string;
-  selected: boolean;
-};
-
-const ProgressBar = ({ percent, discription, selected }: ProgressProps) => (
-  <div
-    style={{
-      position: "relative",
-      width: 312,
-      height: 64,
-
-      marginBottom: 16,
-    }}
-  >
-    <div
-      style={{
-        display: "flex",
-        width: (312 * percent) / 100,
-        background: selected ? "#FFD8F2" : "#EBECF0",
-        justifyContent: "space-between",
-        height: 64,
-        padding: "0 20px",
-        alignItems: "center",
-        border: "1px solid #5B3A09",
-        position: "absolute",
-      }}
-    ></div>
-    <div
-      style={{
-        top: 0,
-        display: "flex",
-        width: 312,
-        justifyContent: "space-between",
-        height: 64,
-        padding: "0 20px",
-        alignItems: "center",
-        border: "1px solid #5B3A09",
-        position: "absolute",
-      }}
-    >
-      <div
-        style={{
-          color: "#5B3A09",
-          fontFamily: "Pretendard",
-        }}
-      >
-        {selected ? (
-          <Image src={CheckImg} width={18} height={18} alt="check" />
-        ) : (
-          <></>
-        )}
-
-        {discription}
-      </div>
-      <div
-        style={{
-          fontFamily: "DOSGothic",
-          color: "#5B3A09",
-        }}
-      >
-        {percent}%
-      </div>
-    </div>
-  </div>
-);
-
-type backgroundDivProps = {
-  img: string,
-  width: number,
-  height: number,
-  children: ReactNode
-}
-
-const BackgroundDiv = ({ img, width, height, children }: backgroundDivProps) => <div style={{ position: 'relative' }}>
-  <Image src={img} alt="" width={width} height={height}></Image>
-  <div style={{ position: 'absolute', width: width, height: height }}>{children}</div>
-</div>
