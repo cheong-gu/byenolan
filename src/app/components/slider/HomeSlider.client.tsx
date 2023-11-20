@@ -2,6 +2,7 @@
 
 import { useKeenSlider } from "keen-slider/react";
 import { SliderCard } from "./HomeSliderCard.server";
+import "keen-slider/keen-slider.min.css";
 
 export default function HomeSLider() {
   const [sliderRef] = useKeenSlider(
@@ -50,12 +51,12 @@ export default function HomeSLider() {
         어떤 유형이 가장 많을까요?
       </SliderCard>
       <SliderCard>
-        10대 여성은
+        20대 여성은
         <br />
         어떤 유형이 가장 많을까요?
       </SliderCard>
       <SliderCard>
-        10대 여성은
+        30대 여성은
         <br />
         어떤 유형이 가장 많을까요?
       </SliderCard>

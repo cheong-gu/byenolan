@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
-type HomeModalProps = { isOpen: boolean; children: ReactNode };
+type HomeModalFrameProps = { isOpen: boolean; children: ReactNode };
 
-export const HomeModal = ({ isOpen, children }: HomeModalProps) => {
+export const HomeModalFrame = ({ isOpen, children }: HomeModalFrameProps) => {
   if (!isOpen) return null;
 
   return (

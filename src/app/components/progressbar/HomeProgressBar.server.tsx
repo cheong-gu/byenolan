@@ -1,5 +1,5 @@
 import Image from "next/image";
-import CheckImg from "../../public/home/FiCheck.svg";
+import CheckImg from "../../../public/home/FiCheck.svg";
 type HomeProgressProps = {
   percent: number;
   discription: string;
