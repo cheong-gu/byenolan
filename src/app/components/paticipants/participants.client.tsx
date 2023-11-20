@@ -1,6 +1,7 @@
-'use client'
+"use client";
 
 import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
 
 const ParticipatedDiv = styled.div`
   display: grid;
@@ -51,10 +52,24 @@ const ParticipatedUnit = styled.div`
 `;
 
 export default function Participants() {
+  const [participants, setParticipants] = useState(0);
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  async function init() {
+    const res = await fetch("https://byenolan.shop/nolan/todayNolan").then(
+      (res) => res.json()
+    );
+
+    setParticipants(res[0].totalcount);
+  }
+
   return (
     <ParticipatedDiv>
       <ParticipatedTitle>참여한 사람</ParticipatedTitle>
-      <ParticipatedNum>34,000</ParticipatedNum>
+      <ParticipatedNum>{participants}</ParticipatedNum>
       <ParticipatedUnit>명</ParticipatedUnit>
     </ParticipatedDiv>
   );
