@@ -1,10 +1,13 @@
 "use client";
 
 import { useKeenSlider } from "keen-slider/react";
-import { SliderCard } from "./HomeSliderCard.server";
 import "keen-slider/keen-slider.min.css";
 
-export default function HomeSLider() {
+export default function HomeSLiderClient({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [sliderRef] = useKeenSlider(
     {
       mode: "free-snap",
@@ -25,7 +28,7 @@ export default function HomeSLider() {
       if (mouseOver) return;
       timeout = setTimeout(() => {
         slider.next();
-      }, 1000);
+      }, 4000);
     }
     slider.on("created", () => {
       slider.container.addEventListener("mouseover", () => {
@@ -45,21 +48,7 @@ export default function HomeSLider() {
 
   return (
     <div ref={sliderRef} className="keen-slider">
-      <SliderCard>
-        10대 여성은
-        <br />
-        어떤 유형이 가장 많을까요?
-      </SliderCard>
-      <SliderCard>
-        20대 여성은
-        <br />
-        어떤 유형이 가장 많을까요?
-      </SliderCard>
-      <SliderCard>
-        30대 여성은
-        <br />
-        어떤 유형이 가장 많을까요?
-      </SliderCard>
+      {children}
     </div>
   );
 }
