@@ -6,13 +6,13 @@ import { HomeModal } from "./components/modal/HomeModal.client";
 import { TodayNolan } from "./components/todayNolan/todayNolan.server";
 import Categorys from "./components/category/category.client";
 import Policies from "./components/policies/policies.client";
-import Participants from "./components/paticipants/participants.client";
+import Participants from "./components/paticipants/participants.server";
 
 export default function Home() {
   return (
     <>
       <Image src={LogoImg.src} alt="logo" width={440} height={160}></Image>
-      <TodayNolan></TodayNolan>
+      <TodayNolan />
       <Categorys />
       <Participants />
       <HomeSLider />

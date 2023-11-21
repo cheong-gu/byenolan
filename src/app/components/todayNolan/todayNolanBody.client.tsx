@@ -9,7 +9,6 @@ import { homeNolanState } from "@/store/home/atoms";
 import { HomeProgressBar } from "../progressbar/HomeProgressBar.server";
 import Link from "next/link";
 import TodayNolanAswers from "./todayNolanAnswer.client";
-import TodayNolanAswersServer from "./todayNolanAnswer.server";
 
 const TodayNolanBodyWrapper = styled.div`
   width: 392px;

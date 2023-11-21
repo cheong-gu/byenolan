@@ -1,0 +1,33 @@
+.wrapS {
+  width: 392px;
+  height: 132px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.titleS {
+  position: absolute;
+  top: 15px;
+  width: 392px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: NeoDunggeunmo Pro;
+  font-size: 20px;
+}
+
+.questionS {
+  position: absolute;
+  width: 392px;
+  display: flex;
+  color: #5b3a09;
+  top: 53px;
+  height: 69px;
+  justify-content: center;
+  align-items: center;
+  font-family: NeoDunggeunmo Pro;
+  font-size: 18;
+  font-style: normal;
+  line-height: 140%;
+  letter-spacing: -0.18px;
+}

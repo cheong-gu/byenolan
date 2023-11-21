@@ -30,7 +30,20 @@ export function HomeModal() {
           마음을 정하셨나요?
         </span>
         <ModalConfirm
-          onClick={() => {
+          onClick={async () => {
+            const aa = await fetch("https://byenolan.shop/survey", {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              method:'POST',
+              body: JSON.stringify({
+                age: "10대",
+                gender: "M",
+                question_id: "27",
+                answer_no: "A",
+              }),
+            });
+            console.log(aa);
             setShowModal(false);
             setNolan({ ...nolan, isSelected: true });
           }}
