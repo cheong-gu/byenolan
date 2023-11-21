@@ -45,13 +45,15 @@ export default function TodayNolanTitleClient({
         style={{
           position: "absolute",
           width: "392px",
-          top: "69px",
           display: "flex",
           justifyContent: "center",
           fontFamily: "NeoDunggeunmo Pro",
           color: "#5B3A09",
           letterSpacing: "-0.18px",
           lineHeight: "140%",
+          top: "53px",
+          height: "69px",
+          alignItems: "center",
         }}
       >
         {children}
