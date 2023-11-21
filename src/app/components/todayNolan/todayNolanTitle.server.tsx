@@ -3,7 +3,7 @@ import TitleTextImg from "../../../public/home/1_title_text_392x132.svg";
 import IconBoltImg from "../../../public/home/1_icon_bolt_16x16.png";
 import styles from "./styles/todayNolanTitle.module.css";
 
-export default async function TodayNolanTitleClient() {
+export default async function TodayNolanTitle() {
   const res = await fetch("https://byenolan.shop/nolan/todayNolan").then(
     (res) => res.json()
   );

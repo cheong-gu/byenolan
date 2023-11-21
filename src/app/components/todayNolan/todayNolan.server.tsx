@@ -1,15 +1,11 @@
-import TodayNolanAswersServer from "./todayNolanAnswer.server";
-import TodayNolanBody from "./todayNolanBody.client";
-import TodayNolanTitleClient from "./todayNolanTitle.server";
-import TodayNolanTitleServer from "./todayNolanTitle.server";
+import TodayNolanBody from "./todayNolanBody.server";
+import TodayNolanTitle from "./todayNolanTitle.server";
 
 export function TodayNolan() {
   return (
     <>
-      <TodayNolanTitleServer />
-      <TodayNolanBody>
-        <TodayNolanAswersServer />
-      </TodayNolanBody>
+      <TodayNolanTitle />
+      <TodayNolanBody />
     </>
   );
 }

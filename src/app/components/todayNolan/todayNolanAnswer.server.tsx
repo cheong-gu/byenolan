@@ -3,10 +3,10 @@ export default async function TodayNolanAswersServer() {
     (res) => res.json()
   );
 
-  const answer = res[0].survey;
+  const answers = res[0].survey;
 
-  const answerA = answer[0].answer;
-  const answerB = answer[1].answer;
+  const answerA = answers.find((answer: any) => answer.answer_no == "A").answer;
+  const answerB = answers.find((answer: any) => answer.answer_no == "B").answer;
 
   return (
     <div

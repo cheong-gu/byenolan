@@ -1,0 +1,9 @@
+.wrap {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  top: 63px;
+  width: 392px;
+  justify-items: center;
+  flex-direction: column;
+}

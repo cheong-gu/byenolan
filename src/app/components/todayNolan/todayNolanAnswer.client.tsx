@@ -18,7 +18,7 @@ export default function TodayNolanAswers({
   const [_, setShowModal] = useRecoilState(homeShowModalState);
   const [nolan, setNolan] = useRecoilState(homeNolanState);
   return (
-    <div>
+    <div className={nolan.isSelected ? "hide" : "show"}>
       {children}
       <div
         style={{
