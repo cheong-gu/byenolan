@@ -35,7 +35,7 @@ export function HomeModal() {
               headers: {
                 "Content-Type": "application/json",
               },
-              method:'POST',
+              method: "POST",
               body: JSON.stringify({
                 age: "10대",
                 gender: "M",
