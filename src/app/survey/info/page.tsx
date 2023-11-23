@@ -138,9 +138,13 @@ export default function InfoPage() {
 
   const clickStart = () => {
     const data = currentInfo;
-    if (Object.keys(data).includes("age")) {
+    if (
+      Object.keys(data).includes("gender") &&
+      Object.keys(data).includes("age")
+    ) {
       router.push("/survey/choose");
     } else {
+      alert("성별과 나이를 선택해주세요!");
     }
   };
 
