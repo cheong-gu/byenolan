@@ -11,9 +11,14 @@ interface AnswerInfoType {
   count: number;
 }
 
+interface selectedType {
+  question_id: number;
+  answer_no: string;
+}
+
 interface AnswerType {
   info: InfoType;
-  seleted: [{ _id: number; answer_no: string }];
+  selected: [selectedType];
   everage: number;
   everageArr: [];
 }

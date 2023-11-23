@@ -13,9 +13,13 @@ import {
   selectedQuestionIndexState,
   selectedState,
 } from "@/store/survey_choose/atoms";
-import { selectedQuestionState } from "@/store/survey_choose/selectors";
 import { palette } from "@/components/Palette";
 import { infoState } from "@/store/survey_info/atoms";
+import NextArrow from "@/public/survey/nextArrow.svg";
+import BackButton from "@/public/survey/backButton.svg";
+import ButtonNext from "@/public/survey/buttonNext.svg";
+import Image from "next/image";
+import { useState } from "react";
 
 const ChooseBox = styled.div`
   width: 100%;
@@ -56,6 +60,13 @@ const BotLine = styled.div`
     position: absolute;
     bottom: 0px;
     right: 0px;
+
+    .nextBox {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 `;
 
@@ -70,9 +81,34 @@ export default function ChoosePage() {
   const [answers, setAnswers] = useRecoilState(answersState);
   const [info, setInfo] = useRecoilState(infoState);
   const currentPage = ((selectedIndex + 1) / 12) * 100;
-
   if (selectedIndex === 12) {
-    return alert("완료");
+    const newData = {
+      age: info.age.slice(0, 2),
+      gender: info.gender === "남자" ? "M" : "W",
+      selected: answers.selected,
+    };
+
+    const newArray = Object.values(newData.selected).map((el: any) => {
+      return {
+        age: newData.age,
+        gender: newData.gender,
+        question_id: el.question_id,
+        answer_no: el.answer_no,
+      };
+    });
+
+    for (let i = 0; i < newArray.length; i++) {
+      fetch(`https://byenolan.shop/survey`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(newArray[i]),
+      })
+        .then((res) => res.json())
+        .then((res) => console.log(res))
+        .catch(() => alert("데이터를 불러오지 못했습니다."));
+    }
   }
 
   const everageNumArr: [] = everageArr.map((el: string[]) => {
@@ -84,7 +120,7 @@ export default function ChoosePage() {
     0
   );
 
-  const everage = everageRed / (selectedIndex + 1);
+  const everage = Math.round(everageRed / (selectedIndex + 1));
 
   const saveButtonEvent = () => {
     if (selectedIndex !== percent.length) {
@@ -118,7 +154,9 @@ export default function ChoosePage() {
     <ChooseBox>
       <InnerContainer>
         <TopLine>
-          <span onClick={() => backButtonEvent()}>back</span>
+          <span onClick={() => backButtonEvent()}>
+            <Image src={BackButton} alt="error" />
+          </span>
           <ProgressBar progress={currentPage} />
         </TopLine>
         <MidLine>
@@ -126,16 +164,24 @@ export default function ChoosePage() {
         </MidLine>
         <BotLine>
           <div>
-            <Button
-              width="100%"
-              height="64px"
-              fontColor="white"
-              fontSize="14px"
-              buttonColor="black"
-              onClick={(e) => saveButtonEvent()}
-            >
-              다음 문항
-            </Button>
+            {selectedIndex !== percent.length ? (
+              <Button
+                width="100%"
+                height="72px"
+                fontColor="white"
+                fontSize="14px"
+                buttonColor="transparent"
+                backgroundImage={ButtonNext}
+                onClick={(e) => saveButtonEvent()}
+              >
+                <div className="nextBox">
+                  <span className="next">다음 문항 </span>
+                  <Image src={NextArrow} alt="error" />
+                </div>
+              </Button>
+            ) : (
+              ""
+            )}
           </div>
         </BotLine>
       </InnerContainer>

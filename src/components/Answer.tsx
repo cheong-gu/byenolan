@@ -29,7 +29,6 @@ const StyledAnswer = styled.div<AnswerStyle>`
   cursor: pointer;
   text-align: center;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   background-color: white;
   position: relative;
@@ -73,7 +72,7 @@ const StyledAnswer = styled.div<AnswerStyle>`
     width: 100%;
     padding: 0 20px;
     position: absolute;
-
+    justify-content: center;
     z-index: 1;
     display: flex;
     align-items: center;

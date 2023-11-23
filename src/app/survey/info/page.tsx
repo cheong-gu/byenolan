@@ -16,6 +16,9 @@ import ButtonDisabled from "@/public/survey/buttonDisabled.svg";
 import Image from "next/image";
 import ButtonGender from "@/public/survey/buttonGender.svg";
 import ButtonAge from "@/public/survey/buttonAge.svg";
+import AgeDefault from "@/public/survey/ageDefault.svg";
+import GenderDefault from "@/public/survey/genderDefault.svg";
+import BackButton from "@/public/survey/backButton.svg";
 import { useEffect } from "react";
 
 const InfoBox = styled.div`
@@ -30,6 +33,12 @@ const InnerContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  div {
+    span {
+      cursor: pointer;
+    }
+  }
 `;
 
 const GenderBox = styled.div`
@@ -82,9 +91,9 @@ const StartBox = styled.div`
 `;
 
 export default function InfoPage() {
-  useEffect(()=>{
-    setInfo({} as InfoType)
-  },[])
+  useEffect(() => {
+    setInfo({} as InfoType);
+  }, []);
 
   const ageArr: string[] = ["10대", "20대", "30대", "40대", "50대", "60대이상"];
 
@@ -135,9 +144,18 @@ export default function InfoPage() {
     }
   };
 
+  const backButtonEvent = () => {
+    router.push("/");
+  };
+
   return (
     <InfoBox>
       <InnerContainer>
+        <div>
+          <span onClick={backButtonEvent}>
+            <Image src={BackButton} alt="error" />
+          </span>
+        </div>
         <GenderBox>
           <div className="genderTitle">
             성별<span className="star">*</span>
@@ -149,10 +167,12 @@ export default function InfoPage() {
               fontColor="black"
               fontSize="16px"
               borderRadius="0"
-              buttonColor="white"
+              buttonColor="transparent"
               className="man"
               onClick={clickGender}
-              backgroundImage={info?.gender == "남자" ? ButtonGender : ""}
+              backgroundImage={
+                info?.gender == "남자" ? ButtonGender : GenderDefault
+              }
             >
               <div className="image">
                 <Image
@@ -171,10 +191,12 @@ export default function InfoPage() {
               fontColor="black"
               fontSize="16px"
               borderRadius="0"
-              buttonColor="white"
+              buttonColor="transparent"
               className="woman"
               onClick={clickGender}
-              backgroundImage={info?.gender == "여자" ? ButtonGender : ""}
+              backgroundImage={
+                info?.gender == "여자" ? ButtonGender : GenderDefault
+              }
             >
               <div className="image">
                 <Image
@@ -205,9 +227,9 @@ export default function InfoPage() {
                   fontColor="black"
                   fontSize="16px"
                   borderRadius="0"
-                  buttonColor="white"
+                  buttonColor="transparent"
                   className="ageBtn"
-                  backgroundImage={info?.age == age ? ButtonAge : ""}
+                  backgroundImage={info?.age == age ? ButtonAge : AgeDefault}
                   onClick={clickAge}
                 >
                   {age}
@@ -219,7 +241,7 @@ export default function InfoPage() {
         <StartBox>
           <div className="startTitle">총 12문항이며 순서는 무작위입니다</div>
           <Button
-            width="392px"
+            width="100%"
             height="72px"
             fontColor="text3"
             fontSize="18px"
