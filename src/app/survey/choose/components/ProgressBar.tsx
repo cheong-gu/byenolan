@@ -3,6 +3,8 @@ import {
   selectedQuestionIndexState,
 } from "@/store/survey_choose/atoms";
 import styled from "@emotion/styled";
+import Image from "next/image";
+import HeartIcon from "@/public/survey/heartIcon.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 interface ProgressBarProps {
@@ -12,6 +14,12 @@ interface ProgressBarProps {
 const ProgressBarContainer = styled.div`
   height: 48px;
   display: flex;
+  position: relative;
+  .heart {
+    z-index: 1;
+    position: absolute;
+    right: -10%;
+  }
 `;
 
 const ProgressFill = styled.div<ProgressBarProps>`
@@ -30,13 +38,13 @@ const ProgressFill = styled.div<ProgressBarProps>`
     width: 196px;
     li {
       background-color: #fff;
-      height: 20px;
+      height: 16px;
       border-radius: 10px;
       .bar {
         position: absolute;
         border-radius: 10px;
-        background-color: red;
-        height: 20px;
+        background-color: #ffd8f2;
+        height: 16px;
       }
       .css-progressbar {
         width: ${(props) => props.progress}%;
@@ -48,7 +56,7 @@ const ProgressFill = styled.div<ProgressBarProps>`
         z-index: 1;
         position: absolute;
         right: 42.5%;
-        line-height: 1.5;
+        line-height: 1.25;
         color: black;
       }
     }
@@ -65,6 +73,9 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
   return (
     <>
       <ProgressBarContainer>
+        <div className="heart">
+          <Image src={HeartIcon} alt="error" />
+        </div>
         <ProgressFill progress={progress}>
           <ul>
             <li>

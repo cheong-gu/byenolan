@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 188 110">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #1b2237;
+      }
+    </style>
+  </defs>
+  <rect class="cls-2" x="0" y="4" width="187" height="102"/>
+  <polyline class="cls-1" points="2 4 187 4 187 106 2 106"/>
+  <rect class="cls-1" x="2" y="2" width="184" height="2" transform="translate(188 6) rotate(180)"/>
+  <rect class="cls-1" x="2" y="106" width="184" height="2" transform="translate(188 214) rotate(-180)"/>
+  <rect class="cls-1" x="0" y="4" width="2" height="102" transform="translate(2 110) rotate(-180)"/>
+  <rect class="cls-1" x="186" y="4" width="2" height="102" transform="translate(374 110) rotate(-180)"/>
+</svg>

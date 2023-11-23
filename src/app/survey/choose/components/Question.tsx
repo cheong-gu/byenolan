@@ -24,7 +24,7 @@ const QuestionBox = styled.div`
 
 const QuestionTitle = styled.div`
   margin: 0 auto;
-  max-width: 206px;
+  min-width: 206px;
   text-align: center;
   font-size: 18px;
   color: black;
@@ -38,7 +38,7 @@ const SelectBox = styled.div`
   justify-content: space-evenly;
   .versus {
     text-align: center;
-    color: white;
+    color: #54a2ba;
   }
 `;
 
@@ -48,33 +48,6 @@ type myType = {
   showDetail: boolean;
   percent?: string;
   children: ReactNode;
-};
-
-const MyButton = ({
-  onClick,
-  selected,
-  percent,
-  showDetail,
-  children,
-}: myType) => {
-  return (
-    <Button
-      width="100%"
-      height="64px"
-      hasBorder={selected && showDetail ? true : false}
-      fontColor="black"
-      fontSize="14px"
-      borderRadius="0"
-      borderColor="black"
-      buttonColor="white"
-      className="first"
-      percent={percent}
-      onClick={onClick}
-    >
-      {selected && showDetail ? "V" : ""}
-      {children} {showDetail ? percent : ""}
-    </Button>
-  );
 };
 
 const MyAnswer = ({
@@ -125,7 +98,7 @@ export default function Question() {
   const [percent, setPercent] = useRecoilState(percentState);
   const [everageArr, setEverageArr] = useRecoilState(everageState);
   const [currentVal, setCurrentVal] = useState<any>([]);
-  const [progress, setProgress] = useState<boolean>(false);
+
   const [selected, setSelected] = useRecoilState(selectedState);
   const [answers, setAnswers] = useRecoilState(answersState);
   const [questions, setQuestions] = useRecoilState(questionsState);
@@ -165,7 +138,7 @@ export default function Question() {
 
   const selectButtonEvent = async (data: QuestionType, answer_no: string) => {
     setSelected(true);
-    setProgress(true);
+    // setProgress(true);
     const result = data.survey.filter((el: AnswerInfoType) => {
       return el.answer_no === answer_no;
     });
@@ -189,13 +162,13 @@ export default function Question() {
 
       setCurrentVal([
         ...currentVal,
-        { _id: data._id, answer_no: result[0].answer_no },
+        { question_id: data._id, answer_no: result[0].answer_no },
       ]);
       setAnswers({
         ...answers,
         selected: [
           ...currentVal,
-          { _id: data._id, answer_no: result[0].answer_no },
+          { question_id: data._id, answer_no: result[0].answer_no },
         ],
         everageArr: [
           ...everageArr,

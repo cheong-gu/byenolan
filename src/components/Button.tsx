@@ -22,6 +22,7 @@ interface ButtonProps
     ButtonStyle {
   children: ReactNode;
   className?: string;
+  // onClick?: () => void;
 }
 
 const StyledButton = styled.button<ButtonStyle>`
@@ -53,6 +54,7 @@ const StyledButton = styled.button<ButtonStyle>`
 
   .image {
     height: 50px;
+    pointer-events: none;
   }
 
   .startButton {
