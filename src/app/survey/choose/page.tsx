@@ -88,7 +88,7 @@ export default function ChoosePage() {
       selected: answers.selected,
     };
 
-    const newArray = Object.values(newData.selected).map((el: any) => {
+    const dataArray = Object.values(newData.selected).map((el: any) => {
       return {
         age: newData.age,
         gender: newData.gender,
@@ -97,18 +97,56 @@ export default function ChoosePage() {
       };
     });
 
-    for (let i = 0; i < newArray.length; i++) {
+    const resultFunc = (result: number) => {
+      if (0 <= result && result <= 10) {
+        return "핵불닭볶음면";
+      } else if (11 <= result && result <= 30) {
+        return "불닭볶음면";
+      } else if (31 <= result && result <= 50) {
+        return "신라면";
+      } else if (51 <= result && result <= 70) {
+        return "진라면";
+      } else if (71 <= result && result <= 90) {
+        return "참깨라면";
+      } else if (91 <= result && result <= 100) {
+        return "사리곰탕";
+      } else return "error";
+    };
+
+    const resultArray = {
+      age: newData.age,
+      gender: newData.gender,
+      percent: answers.everage,
+      title: resultFunc(answers && answers.everage),
+    };
+
+    for (let i = 0; i < dataArray.length; i++) {
       fetch(`https://byenolan.shop/survey`, {
         headers: {
           "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify(newArray[i]),
+        body: JSON.stringify(dataArray[i]),
       })
         .then((res) => res.json())
         .then((res) => console.log(res))
-        .catch(() => alert("데이터를 불러오지 못했습니다."));
+        .catch(() => alert("데이터저장 오류!"));
+
+      router.push(`/result/${answers.everage}`);
     }
+
+    resultArray
+      ? fetch(`https://byenolan.shop/surveyResult`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify(resultArray),
+        })
+          .then((res) => res.json())
+          .then((res) => console.log(res))
+          .catch(() => alert("결과오류!"))
+      : "";
   }
 
   const everageNumArr: [] = everageArr.map((el: string[]) => {
@@ -149,7 +187,6 @@ export default function ChoosePage() {
     }
   };
 
-  console.log(answers);
   return (
     <ChooseBox>
       <InnerContainer>
