@@ -31,21 +31,29 @@ export function HomeModal() {
         </span>
         <ModalConfirm
           onClick={async () => {
-            const aa = await fetch("https://byenolan.shop/survey", {
+            await fetch("https://byenolan.shop/survey", {
               headers: {
                 "Content-Type": "application/json",
               },
               method: "POST",
               body: JSON.stringify({
-                age: "10대",
-                gender: "M",
-                question_id: "27",
-                answer_no: "A",
+                question_id: nolan.questionId,
+                answer_no: nolan.selectedAnswer,
               }),
             });
-            console.log(aa);
+
+            const res = await fetch(
+              "https://byenolan.shop/nolan/todayNolan"
+            ).then((res) => res.json());
+
+            const participants = res[0].totalcount;
+
             setShowModal(false);
-            setNolan({ ...nolan, isSelected: true });
+            setNolan({
+              ...nolan,
+              isSelected: true,
+              participants,
+            });
           }}
         >
           네!

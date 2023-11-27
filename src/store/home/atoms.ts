@@ -5,9 +5,11 @@ export const homeShowModalState = atom({
   default: false,
 });
 
-type NolanState = {
+export type NolanState = {
   isSelected: boolean;
   selectedAnswer: string;
+  questionId: string;
+  participants: string;
 };
 
 export const homeNolanState = atom<NolanState>({
