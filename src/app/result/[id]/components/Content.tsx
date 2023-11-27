@@ -14,6 +14,7 @@ const Header = styled.div`
 `;
 
 const Result = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +23,7 @@ const Result = styled.div`
 
   width: 100%;
   padding: 32px 24px;
-  background-color: #fcffdd;
+  background-color: #fff;
 `;
 
 interface ContentProps {

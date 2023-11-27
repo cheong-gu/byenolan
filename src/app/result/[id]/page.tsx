@@ -14,17 +14,63 @@ import ColumnGraph from "./components/ColumnChart";
 import { Body3, H1, H3, H5 } from "../../../styles/font";
 import { useRecoilState } from "recoil";
 import { resultState } from "../../../store/survey_result/atoms";
+import SariGomtang from "../../../public/result/sarigomtang.svg";
+import SinRamen from "../../../public/result/sinramen.svg";
+import SesameRamen from "../../../public/result/sesameramen.svg";
+import JinRamen from "../../../public/result/jinramen.svg";
+import BuldakRamen from "../../../public/result/buldakramen.svg";
+import HaekBuldakRamen from "../../../public/result/haekbuldakramen.svg";
+import { RelationshipType } from "../../../store/survey_result/atoms.type";
+import Image from "next/image";
+import Stroke from "./components/Stroke";
 
-const Container = styled.div`
+const INITIAL_TYPE_DESIGN = {
+  color: "#edeef5",
+  stroke: "#edeef5",
+  image: SariGomtang,
+};
+const getTypeDesign = (title: RelationshipType) => {
+  switch (title) {
+    case "핵불닭볶음면":
+      return { color: "#191f28", stroke: "#eff1f9", image: HaekBuldakRamen };
+    case "불닭볶음면":
+      return { color: "#1c47b5", stroke: "#eff1f9", image: BuldakRamen };
+    case "신라면":
+      return { color: "#ec4747", stroke: "#ffeeea", image: SinRamen };
+    case "진라면":
+      return { color: "#ff881b", stroke: "#ffeddc", image: JinRamen };
+    case "참깨라면":
+      return { color: "#ffe072", stroke: "#fff8b6", image: SesameRamen };
+    case "사리곰탕":
+      return { color: "#edeef5", stroke: "#edeef5", image: SariGomtang };
+    default:
+      return INITIAL_TYPE_DESIGN;
+  }
+};
+
+const Container = styled.div<{ typeColor: string }>`
   width: 100%;
-  background-color: #aaa;
+  background-color: ${(props) => props.typeColor};
   padding-bottom: 64px;
+  color: #2a3351;
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ResultHeader = styled.div`
   width: 100%;
   height: 40px;
-  background-color: #fcffdd;
+`;
+
+const ResultImage = styled.div`
+  width: 216px;
+  height: 172px;
+  margin-bottom: 8px;
 `;
 
 const ContentWrapper = styled.div`
@@ -33,7 +79,7 @@ const ContentWrapper = styled.div`
 `;
 
 const Summary = styled.div`
-  width: 224px;
+  width: 312px;
 `;
 
 const Margin = styled.div<{ number: number }>`
@@ -91,14 +137,13 @@ interface ResultPageProps {
 }
 
 export default function ResultPage({ params, searchParams }: ResultPageProps) {
-  console.log(searchParams);
   const { id } = params;
   const { type, age, gender } = searchParams;
-
   const [result, setResult] = useRecoilState(resultState);
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showToast, setShowToast] = useState<boolean>(false);
+  const [resultUI, setResultUI] = useState(INITIAL_TYPE_DESIGN);
 
   const getResultType = useCallback(async () => {
     await fetch(`https://byenolan.shop/surveyResult/result/${id}`)
@@ -132,6 +177,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
 
   useEffect(() => {
     if (id && searchParams) {
+      setResultUI(getTypeDesign(searchParams.type as RelationshipType));
       void getResultType();
       void getDonutChartData();
       void getBarGraphData();
@@ -169,24 +215,26 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
           ))} */}
         </Modal>
       )}
-      <Container>
-        {/* Header -> 이미지 대체 */}
-        <ResultHeader />
+      <Container typeColor={resultUI.color}>
+        <ResultHeader>{/* Header -> 이미지 대체 */}</ResultHeader>
         <ContentWrapper>
           {/* 1. 결과요약 */}
           <Content>
-            <div
-              style={{
-                width: "216px",
-                height: "172px",
-                border: "1px solid",
-                marginBottom: "8px",
-              }}
-            />
+            <ResultImage>
+              <Image src={resultUI.image} alt="type_image" />
+            </ResultImage>
             <H5>{result.subTitle}</H5>
             <Margin number={4} />
-            <H1>{result.title}</H1>
-            <BarGraph percentage={result.percentResult} />
+            <Stroke
+              title={result.title}
+              typeColor={resultUI.stroke}
+              stroke={5}
+              size="lg"
+            />
+            <BarGraph
+              percentage={result.percentResult}
+              color={resultUI.color}
+            />
             <Summary>
               <Body3>{result.content}</Body3>
             </Summary>
@@ -208,16 +256,27 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
           </Content>
           {/* 2. 사용자 연령대별 유형 */}
           <Content>
-            <H3>
-              <Emphasis>
-                {age}대 {gender === "W" ? "여성" : "남성"}
-              </Emphasis>
-              은
-            </H3>
+            <Row>
+              <Stroke
+                title={`${age}대 ${gender === "W" ? "여성" : "남성"}`}
+                typeColor={resultUI.stroke}
+                stroke={2}
+                size="md"
+              />
+              <H3>은</H3>
+            </Row>
             <Margin number={8} />
-            <H3>
-              <Emphasis></Emphasis> 유형이 가장 많아요
-            </H3>
+            <Row>
+              {/* FIXME: API 타입으로 바꾸기 */}
+              <Stroke
+                title={type}
+                typeColor={resultUI.stroke}
+                stroke={2}
+                size="md"
+              />
+              <H3>&nbsp;유형이 가장 많아요</H3>
+            </Row>
+
             {/* <DonutChart
           type={}
           percentage={}
@@ -235,10 +294,16 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
           </Content>
           {/* 3. 사용자 유형별 연령대 */}
           <Content>
-            <H3>
-              <Emphasis>{result.title} </Emphasis>
-              유형이 많은 연령대는?
-            </H3>
+            <Row>
+              {/* FIXME: API 타입으로 바꾸기 */}
+              <Stroke
+                title={type}
+                typeColor={resultUI.stroke}
+                stroke={2}
+                size="md"
+              />
+              <H3>&nbsp;유형이 많은 연령대는?</H3>
+            </Row>
             {/* <ColumnGraph data={DUMMY_COLUMN_DATA} /> */}
           </Content>
           <ModalButton onClick={handleModal}>전체 답변 보기</ModalButton>

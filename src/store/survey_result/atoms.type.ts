@@ -1,4 +1,4 @@
-type relationshipType =
+export type RelationshipType =
   | "핵불닭볶음면"
   | "불닭볶음면"
   | "신라면"
@@ -10,7 +10,7 @@ export interface ResultType {
   content: string;
   percentResult: number;
   subTitle: string;
-  title: relationshipType;
+  title: RelationshipType;
   type: string;
 }
 
@@ -18,5 +18,5 @@ export interface InfoResultType {
   count: number;
   age: string;
   gender: "M" | "W";
-  title: relationshipType;
+  title: RelationshipType;
 }

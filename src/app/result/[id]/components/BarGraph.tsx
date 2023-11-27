@@ -45,18 +45,19 @@ const Bar = styled.div`
   overflow: hidden;
 `;
 
-const Gauge = styled.div<{ percentage: number }>`
+const Gauge = styled.div<{ percentage: number; chartColor: string }>`
   width: ${(props) => props.percentage}%;
   height: 12px;
   border-radius: 10px;
-  background: #000;
+  background: ${(props) => props.chartColor};
 `;
 
 interface BarGraphProps {
   percentage: number;
+  color: string;
 }
 
-const BarGraph = ({ percentage }: BarGraphProps) => {
+const BarGraph = ({ percentage, color }: BarGraphProps) => {
   return (
     <Wrapper>
       <LabelWrapper>
@@ -67,7 +68,7 @@ const BarGraph = ({ percentage }: BarGraphProps) => {
         </LabelBox>
       </LabelWrapper>
       <Bar>
-        <Gauge percentage={percentage} />
+        <Gauge percentage={percentage} chartColor={color} />
       </Bar>
       <Element4>당신은 전체 응답자 중 {percentage}%에 속해요</Element4>
     </Wrapper>
