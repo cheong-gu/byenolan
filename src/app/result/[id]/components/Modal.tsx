@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import React, { useRef } from "react";
+import HeaderImg from "../../../../public/result/modal_header.png";
+import Image from "next/image";
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -10,26 +12,31 @@ const ModalContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(225, 225, 225, 0);
   z-index: 99999;
 `;
 
 const ModalWrapper = styled.div`
   max-width: 440px;
+  width: 100%;
   height: 100%;
-  overflow-y: scroll;
-  background-color: #aaa;
+  background-color: #edeef5;
+  color: #191f28;
 `;
 
 const ModalHeader = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: end;
   width: 100%;
   height: 40px;
-  padding: 4px 12px;
-  background-color: #fcffdd;
+`;
+
+const Button = styled.button`
+  position: absolute;
+  width: 60px;
+  height: 40px;
 `;
 
 const ModalContent = styled.div`
@@ -77,7 +84,8 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     <ModalContainer>
       <ModalWrapper ref={modalRef}>
         <ModalHeader>
-          <button onClick={onClose}>닫기</button>
+          <Image src={HeaderImg} alt="modal_header" />
+          <Button onClick={onClose} />
         </ModalHeader>
         <ModalContent>
           {children}

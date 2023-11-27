@@ -20,6 +20,7 @@ import SesameRamen from "../../../public/result/sesameramen.svg";
 import JinRamen from "../../../public/result/jinramen.svg";
 import BuldakRamen from "../../../public/result/buldakramen.svg";
 import HaekBuldakRamen from "../../../public/result/haekbuldakramen.svg";
+import HeaderImage from "../../../public/result/header.png";
 import { RelationshipType } from "../../../store/survey_result/atoms.type";
 import Image from "next/image";
 import Stroke from "./components/Stroke";
@@ -216,10 +217,12 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
         </Modal>
       )}
       <Container typeColor={resultUI.color}>
-        <ResultHeader>{/* Header -> 이미지 대체 */}</ResultHeader>
+        <ResultHeader>
+          <Image src={HeaderImage} alt="result_header" />
+        </ResultHeader>
         <ContentWrapper>
           {/* 1. 결과요약 */}
-          <Content>
+          <Content index={1}>
             <ResultImage>
               <Image src={resultUI.image} alt="type_image" />
             </ResultImage>
@@ -255,7 +258,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
             </ButtonWrapper>
           </Content>
           {/* 2. 사용자 연령대별 유형 */}
-          <Content>
+          <Content index={2}>
             <Row>
               <Stroke
                 title={`${age}대 ${gender === "W" ? "여성" : "남성"}`}
@@ -293,7 +296,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
         ))} */}
           </Content>
           {/* 3. 사용자 유형별 연령대 */}
-          <Content>
+          <Content index={3}>
             <Row>
               {/* FIXME: API 타입으로 바꾸기 */}
               <Stroke
