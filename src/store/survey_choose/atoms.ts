@@ -25,7 +25,7 @@ export const questionsState = atom<QuestionType[]>({
   default: [],
 });
 
-export const answersState = atom({
+export const answersState = atom<AnswerType>({
   key: "answersState",
   default: {} as any,
 });
