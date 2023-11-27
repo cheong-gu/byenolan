@@ -12,12 +12,7 @@ import DonutChart from "./components/DonutChart";
 import ChartLegend from "./components/ChartLegend";
 import ColumnGraph from "./components/ColumnChart";
 import { Body3, H1, H3, H5 } from "../../../styles/font";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { infoState } from "../../../store/survey_info/atoms";
-import {
-  answersState,
-  questionsState,
-} from "../../../store/survey_choose/atoms";
+import { useRecoilState } from "recoil";
 import { resultState } from "../../../store/survey_result/atoms";
 
 const Container = styled.div`
@@ -92,13 +87,13 @@ const ModalButton = styled.button`
 
 interface ResultPageProps {
   params: { id: string };
+  searchParams: { type: string; age: string; gender: "W" | "M" };
 }
 
-export default function ResultPage({ params }: ResultPageProps) {
+export default function ResultPage({ params, searchParams }: ResultPageProps) {
+  console.log(searchParams);
   const { id } = params;
-  const info = useRecoilValue(infoState);
-  const question = useRecoilValue(questionsState);
-  const answer = useRecoilValue(answersState);
+  const { type, age, gender } = searchParams;
 
   const [result, setResult] = useRecoilState(resultState);
 
@@ -106,44 +101,42 @@ export default function ResultPage({ params }: ResultPageProps) {
   const [showToast, setShowToast] = useState<boolean>(false);
 
   const getResultType = useCallback(async () => {
-    await fetch(`https://byenolan.shop/surveyResult/result/${answer.everage}`)
+    await fetch(`https://byenolan.shop/surveyResult/result/${id}`)
       .then((response) => response.json())
       .then((response) => {
         setResult(response[0]);
         console.log("[Result]", response[0]);
       });
-  }, [answer.everage, setResult]);
+  }, [id, setResult]);
 
   const getDonutChartData = useCallback(async () => {
     await fetch(
-      `https://byenolan.shop/surveyResult?age=${info.age.slice(0, 2)}&gender=${
-        info.gender === "여자" ? "W" : "M"
-      }`
+      `https://byenolan.shop/surveyResult?age=${age}&gender=${gender}`
     )
       .then((response) => response.json())
       .then((response) => {
         console.log("[DonutChart]", { response });
       });
-  }, [info.age, info.gender]);
+  }, [age, gender]);
 
   const getBarGraphData = useCallback(async () => {
     await fetch(
-      `https://byenolan.shop/surveyResult?title=${result.title}
+      `https://byenolan.shop/surveyResult?title=${type}
       }`
     )
       .then((response) => response.json())
       .then((response) => {
         console.log("[BarGraph]", { response });
       });
-  }, [result.title]);
+  }, [type]);
 
   useEffect(() => {
-    if (id) {
+    if (id && searchParams) {
       void getResultType();
       void getDonutChartData();
       void getBarGraphData();
     }
-  }, [getResultType, getDonutChartData, getBarGraphData, id]);
+  }, [getResultType, getDonutChartData, getBarGraphData, id, searchParams]);
 
   const handleModal = () => {
     setShowModal(!showModal);
@@ -217,7 +210,7 @@ export default function ResultPage({ params }: ResultPageProps) {
           <Content>
             <H3>
               <Emphasis>
-                {info.age} {info.gender === "여자" ? "여성" : "남성"}
+                {age}대 {gender === "W" ? "여성" : "남성"}
               </Emphasis>
               은
             </H3>

@@ -132,7 +132,16 @@ export default function ChoosePage() {
         .then((res) => console.log(res))
         .catch(() => alert("데이터저장 오류!"));
 
-      router.push(`/result/${answers.everage}`);
+      const questionId = answers.selected.map((value) => value.question_id);
+      const answerNo = answers.selected.map((value) => value.answer_no);
+
+      router.push(
+        `/result/${resultArray.percent}?type=${resultArray.title}&age=${
+          resultArray.age
+        }&gender=${resultArray.gender}&question=${JSON.stringify(
+          questionId
+        )}&answer=${JSON.stringify(answerNo)}`
+      );
     }
 
     resultArray
