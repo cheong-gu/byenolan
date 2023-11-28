@@ -11,7 +11,7 @@ import BarGraph from "./components/BarGraph";
 import DonutChart from "./components/DonutChart";
 import ChartLegend from "./components/ChartLegend";
 import ColumnChart from "./components/ColumnChart";
-import { Body3, H1, H3, H5, H6 } from "../../../styles/font";
+import { Body3, H3, H5, H6 } from "../../../styles/font";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import {
   ColumnChartState,
@@ -40,6 +40,15 @@ import {
 } from "../../../store/survey_result/atoms.type";
 import Image from "next/image";
 import Stroke from "./components/Stroke";
+import {
+  answersState,
+  everageState,
+  percentState,
+  questionsState,
+  selectedQuestionIndexState,
+  selectedState,
+} from "../../../store/survey_choose/atoms";
+import { infoState } from "../../../store/survey_info/atoms";
 
 const INITIAL_TYPE_DESIGN = {
   color: "#edeef5",
@@ -179,6 +188,13 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
   const resetModalQuestion = useResetRecoilState(modalQuestionState);
   const resetDonutChart = useResetRecoilState(donutChartState);
   const resetColumnChart = useResetRecoilState(ColumnChartState);
+  const resetSelectedQuestion = useResetRecoilState(selectedQuestionIndexState);
+  const resetSelectedState = useResetRecoilState(selectedState);
+  const resetPercentState = useResetRecoilState(percentState);
+  const resetAverageState = useResetRecoilState(everageState);
+  const resetQuestionState = useResetRecoilState(questionsState);
+  const resetAnswerState = useResetRecoilState(answersState);
+  const resetInfoState = useResetRecoilState(infoState);
 
   const resetData = () => {
     resetResult();
@@ -186,6 +202,13 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
     resetModalQuestion();
     resetDonutChart();
     resetColumnChart();
+    resetSelectedQuestion();
+    resetSelectedState();
+    resetPercentState();
+    resetAverageState();
+    resetQuestionState();
+    resetAnswerState();
+    resetInfoState();
   };
 
   const getResultType = useCallback(async () => {
