@@ -18,7 +18,7 @@ interface selectedType {
 
 interface AnswerType {
   info: InfoType;
-  selected: [selectedType];
+  selected: selectedType[];
   everage: number;
-  everageArr: [];
+  everageArr: string[];
 }

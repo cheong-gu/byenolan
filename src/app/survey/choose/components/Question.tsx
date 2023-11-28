@@ -97,7 +97,7 @@ const MyAnswer = ({
 export default function Question() {
   const [percent, setPercent] = useRecoilState(percentState);
   const [everageArr, setEverageArr] = useRecoilState(everageState);
-  const [currentVal, setCurrentVal] = useState<any>([]);
+  const [currentVal, setCurrentVal] = useState<selectedType[]>([]);
 
   const [selected, setSelected] = useRecoilState(selectedState);
   const [answers, setAnswers] = useRecoilState(answersState);
@@ -128,7 +128,7 @@ export default function Question() {
         .then((res) => res.json())
         .then((res) => {
           setQuestions(res);
-          setAnswers({ info });
+          setAnswers({ info } as AnswerType);
         })
         .catch(() => alert("데이터를 불러오지 못했습니다."));
     }
@@ -168,7 +168,10 @@ export default function Question() {
         ...answers,
         selected: [
           ...currentVal,
-          { question_id: data._id, answer_no: result[0].answer_no },
+          {
+            question_id: data._id,
+            answer_no: result[0].answer_no,
+          } as selectedType,
         ],
         everageArr: [
           ...everageArr,
@@ -193,6 +196,7 @@ export default function Question() {
       );
     }
   }
+  console.log(answers);
   return (
     <QuestionBox>
       <QuestionTitle>
