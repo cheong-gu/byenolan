@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import styled from "@emotion/styled";
-import { DonutChartDataType } from "../../../../store/survey_result/atoms.type";
+import {
+  DonutChartDataType,
+  RelationshipType,
+} from "../../../../store/survey_result/atoms.type";
 
 const DonutLabel = `
   <svg
@@ -43,10 +46,11 @@ const Wrapper = styled.div`
 `;
 
 interface DonutChartProps {
+  type: RelationshipType;
   chartData: DonutChartDataType;
 }
 
-const DonutChart = ({ chartData }: DonutChartProps) => {
+const DonutChart = ({ type, chartData }: DonutChartProps) => {
   const { data, donutData, myPercent } = chartData;
   const svgRef = useRef<SVGSVGElement | null>(null);
 
@@ -95,7 +99,9 @@ const DonutChart = ({ chartData }: DonutChartProps) => {
 
     arcs
       .append("path")
-      .attr("fill", (_, i) => DONUT_CHART_COLOR[data[i].title])
+      .attr("fill", (_, i) => {
+        return DONUT_CHART_COLOR[data[i].title];
+      })
       .each(function (this: any, d: any) {
         this._current = d;
       })
@@ -114,7 +120,11 @@ const DonutChart = ({ chartData }: DonutChartProps) => {
             .data(pie(donutData))
             .enter()
             .append("g")
-            .filter((value) => value.data === myPercent);
+            .filter((value) => {
+              return (
+                value.data === myPercent && data[value.index].title === type
+              );
+            });
 
           labelsGroup
             .append("use")

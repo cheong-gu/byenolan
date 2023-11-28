@@ -138,9 +138,9 @@ export default function ChoosePage() {
       router.push(
         `/result/${resultArray.percent}?type=${resultArray.title}&age=${
           resultArray.age
-        }&gender=${resultArray.gender}&question=${JSON.stringify(
-          questionId
-        )}&answer=${JSON.stringify(answerNo)}`
+        }&gender=${resultArray.gender}&question=${encodeURIComponent(
+          JSON.stringify(questionId)
+        )}&answer=${encodeURIComponent(JSON.stringify(answerNo))}`
       );
     }
 

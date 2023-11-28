@@ -12,7 +12,7 @@ import DonutChart from "./components/DonutChart";
 import ChartLegend from "./components/ChartLegend";
 import ColumnChart from "./components/ColumnChart";
 import { Body3, H1, H3, H5, H6 } from "../../../styles/font";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import {
   ColumnChartState,
   donutChartState,
@@ -152,7 +152,7 @@ const ModalButton = styled.button`
 interface ResultPageProps {
   params: { id: string };
   searchParams: {
-    type: string;
+    type: RelationshipType;
     age: string;
     gender: "W" | "M";
     question: string;
@@ -173,6 +173,20 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showToast, setShowToast] = useState<boolean>(false);
   const [resultUI, setResultUI] = useState(INITIAL_TYPE_DESIGN);
+
+  const resetResult = useResetRecoilState(resultState);
+  const resetModalResult = useResetRecoilState(modalResultState);
+  const resetModalQuestion = useResetRecoilState(modalQuestionState);
+  const resetDonutChart = useResetRecoilState(donutChartState);
+  const resetColumnChart = useResetRecoilState(ColumnChartState);
+
+  const resetData = () => {
+    resetResult();
+    resetModalResult();
+    resetModalQuestion();
+    resetDonutChart();
+    resetColumnChart();
+  };
 
   const getResultType = useCallback(async () => {
     try {
@@ -250,8 +264,8 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
 
   useEffect(() => {
     if (id && searchParams) {
-      const question = JSON.parse(searchParams.question);
-      const answer = JSON.parse(searchParams.answer);
+      const question = JSON.parse(decodeURIComponent(searchParams.question));
+      const answer = JSON.parse(decodeURIComponent(searchParams.answer));
       setResultUI(getTypeDesign(searchParams.type as RelationshipType));
       setModalResult({ question, answer });
       void getResultType();
@@ -333,11 +347,15 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
               />
             </ShareButton>
             <ButtonWrapper>
-              <LinkButton href={"/survey/info"} about="repeat">
+              <LinkButton
+                href={"/survey/info"}
+                onClick={resetData}
+                about="repeat"
+              >
                 <Image src={RepeatIcon} alt="repeat" />
                 <H6>다시하기</H6>
               </LinkButton>
-              <LinkButton href={"/"} about="to home">
+              <LinkButton href={"/"} onClick={resetData} about="to home">
                 <Image src={HomeIcon} alt="home" />
                 <H6>홈 화면</H6>
               </LinkButton>
@@ -366,7 +384,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
             </Row>
             {donutChartData.data?.length > 0 && (
               <>
-                <DonutChart chartData={donutChartData} />
+                <DonutChart type={type} chartData={donutChartData} />
                 {donutChartData.data.map(({ title, percent }, idx) => (
                   <ChartLegend
                     key={`${title}_${idx}`}
@@ -391,10 +409,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
               />
               <H3>&nbsp;유형이 많은 연령대는?</H3>
             </Row>
-            <ColumnChart
-              type={type as RelationshipType}
-              data={columnChartData}
-            />
+            <ColumnChart type={type} data={columnChartData} />
           </Content>
           <ModalButton onClick={handleModal}>
             <Image src={AnswerIcon} alt="answers" />
