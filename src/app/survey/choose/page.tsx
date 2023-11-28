@@ -81,84 +81,8 @@ export default function ChoosePage() {
   const [answers, setAnswers] = useRecoilState(answersState);
   const [info, setInfo] = useRecoilState(infoState);
   const currentPage = ((selectedIndex + 1) / 12) * 100;
-  if (selectedIndex === 12) {
-    const newData = {
-      age: info.age.slice(0, 2),
-      gender: info.gender === "남자" ? "M" : "W",
-      selected: answers.selected,
-    };
 
-    const dataArray = Object.values(newData.selected).map((el: any) => {
-      return {
-        age: newData.age,
-        gender: newData.gender,
-        question_id: el.question_id,
-        answer_no: el.answer_no,
-      };
-    });
-
-    const resultFunc = (result: number) => {
-      if (0 <= result && result <= 10) {
-        return "핵불닭볶음면";
-      } else if (11 <= result && result <= 30) {
-        return "불닭볶음면";
-      } else if (31 <= result && result <= 50) {
-        return "신라면";
-      } else if (51 <= result && result <= 70) {
-        return "진라면";
-      } else if (71 <= result && result <= 90) {
-        return "참깨라면";
-      } else if (91 <= result && result <= 100) {
-        return "사리곰탕";
-      } else return "error";
-    };
-
-    const resultArray = {
-      age: newData.age,
-      gender: newData.gender,
-      percent: answers.everage,
-      title: resultFunc(answers && answers.everage),
-    };
-
-    for (let i = 0; i < dataArray.length; i++) {
-      fetch(`https://byenolan.shop/survey`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(dataArray[i]),
-      })
-        .then((res) => res.json())
-        .then((res) => console.log(res))
-        .catch(() => alert("데이터저장 오류!"));
-
-      const questionId = answers.selected.map((value) => value.question_id);
-      const answerNo = answers.selected.map((value) => value.answer_no);
-
-      router.push(
-        `/result/${resultArray.percent}?type=${resultArray.title}&age=${
-          resultArray.age
-        }&gender=${resultArray.gender}&question=${encodeURIComponent(
-          JSON.stringify(questionId)
-        )}&answer=${encodeURIComponent(JSON.stringify(answerNo))}`
-      );
-    }
-
-    resultArray
-      ? fetch(`https://byenolan.shop/surveyResult`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "POST",
-          body: JSON.stringify(resultArray),
-        })
-          .then((res) => res.json())
-          .then((res) => console.log(res))
-          .catch(() => alert("결과오류!"))
-      : "";
-  }
-
-  const everageNumArr: [] = everageArr.map((el: string[]) => {
+  const everageNumArr: number[] = everageArr.map((el: string) => {
     return Number(el.slice(0, -1));
   });
 
@@ -171,6 +95,85 @@ export default function ChoosePage() {
 
   const saveButtonEvent = () => {
     if (selectedIndex !== percent.length) {
+      if (selectedIndex === 11) {
+        setAnswers({ ...answers, everage });
+        const newData = {
+          age: info.age.slice(0, 2),
+          gender: info.gender === "남자" ? "M" : "W",
+          selected: answers.selected,
+        };
+
+        const dataArray = Object.values(newData.selected).map((el: any) => {
+          return {
+            age: newData.age,
+            gender: newData.gender,
+            question_id: el.question_id,
+            answer_no: el.answer_no,
+          };
+        });
+
+        const resultFunc = (result: number) => {
+          if (0 <= result && result <= 10) {
+            return "핵불닭볶음면";
+          } else if (11 <= result && result <= 30) {
+            return "불닭볶음면";
+          } else if (31 <= result && result <= 50) {
+            return "신라면";
+          } else if (51 <= result && result <= 70) {
+            return "진라면";
+          } else if (71 <= result && result <= 90) {
+            return "참깨라면";
+          } else if (91 <= result && result <= 100) {
+            return "사리곰탕";
+          } else return "error";
+        };
+
+        const resultArray = {
+          age: newData.age,
+          gender: newData.gender,
+          percent: answers.everage,
+          title: resultFunc(answers && answers.everage),
+        };
+
+        for (let i = 0; i < dataArray.length; i++) {
+          fetch(`https://byenolan.shop/survey`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(dataArray[i]),
+          })
+            .then((res) => res.json())
+            .then((res) => console.log(res))
+            .catch(() => alert("데이터저장 오류!"));
+
+          const questionId = answers.selected.map((value) => value.question_id);
+          const answerNo = answers.selected.map((value) => value.answer_no);
+
+          router.push(
+            `/result/${resultArray.percent}?type=${resultArray.title}&age=${
+              resultArray.age
+            }&gender=${resultArray.gender}&question=${encodeURIComponent(
+              JSON.stringify(questionId)
+            )}&answer=${encodeURIComponent(JSON.stringify(answerNo))}`
+          );
+        }
+
+        resultArray
+          ? fetch(`https://byenolan.shop/surveyResult`, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              method: "POST",
+              body: JSON.stringify(resultArray),
+            })
+              .then((res) => res.json())
+              .then((res) => console.log(res))
+              .catch(() => alert("결과오류!"))
+          : "";
+
+        return;
+      }
       setSelectedIndex(selectedIndex + 1);
       setAnswers({ ...answers, everage });
     } else if (selectedIndex === percent.length) {
@@ -182,13 +185,14 @@ export default function ChoosePage() {
       alert("오류!!!");
     }
   };
+  console.log(selectedIndex);
 
   const backButtonEvent = () => {
     if (selectedIndex === 0) {
       router.back();
       setInfo(info);
       setSelected(false);
-      setAnswers([]);
+      setAnswers([] as any);
       setPercent([]);
     } else {
       setSelectedIndex(selectedIndex - 1);
