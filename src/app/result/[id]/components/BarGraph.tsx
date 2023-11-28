@@ -22,7 +22,7 @@ const LabelWrapper = styled.div`
   height: 30px;
 `;
 
-const LabelBox = styled.div<{ width: number; percentage: number }>`
+const LabelBox = styled.div<{ boxWidth: number; percentage: number }>`
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -30,7 +30,7 @@ const LabelBox = styled.div<{ width: number; percentage: number }>`
   justify-content: flex-end;
   left: ${(props) =>
     `${
-      props.width -
+      props.boxWidth -
       (props.percentage < 10 ? 20 : props.percentage === 100 ? 32 : 26)
     }px`};
 `;
@@ -46,7 +46,7 @@ const Bar = styled.div`
 `;
 
 const Gauge = styled.div<{ percentage: number; chartColor: string }>`
-  width: ${(props) => props.percentage}%;
+  width: ${(props) => (props.percentage ? props.percentage : 0)}%;
   height: 12px;
   border-radius: 10px;
   background: ${(props) => props.chartColor};
@@ -61,7 +61,7 @@ const BarGraph = ({ percentage, color }: BarGraphProps) => {
   return (
     <Wrapper>
       <LabelWrapper>
-        <LabelBox width={192 * (percentage / 100)} percentage={percentage}>
+        <LabelBox boxWidth={192 * (percentage / 100)} percentage={percentage}>
           <Label type="number" polygon>
             {percentage}%
           </Label>

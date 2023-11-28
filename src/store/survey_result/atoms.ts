@@ -3,6 +3,7 @@ import {
   InfoResultType,
   ModalResultType,
   ModalQuestionType,
+  DonutChartDataType,
 } from "./atoms.type";
 import { atom } from "recoil";
 
@@ -21,7 +22,7 @@ export const modalQuestionState = atom({
   default: {} as ModalQuestionType[],
 });
 
-export const ageRangeState = atom({
-  key: "ageRangeState",
-  default: {} as InfoResultType[],
+export const donutChartState = atom({
+  key: "donutChartState",
+  default: {} as DonutChartDataType,
 });

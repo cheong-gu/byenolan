@@ -14,6 +14,7 @@ import ColumnGraph from "./components/ColumnChart";
 import { Body3, H1, H3, H5, H6 } from "../../../styles/font";
 import { useRecoilState } from "recoil";
 import {
+  donutChartState,
   modalQuestionState,
   modalResultState,
   resultState,
@@ -32,7 +33,10 @@ import RepeatIcon from "../../../public/result/repeat.svg";
 import YellowButton from "../../../public/result/yellow_button.svg";
 import GreyButton from "../../../public/result/grey_button.svg";
 import BlueButton from "../../../public/result/blue_button.svg";
-import { RelationshipType } from "../../../store/survey_result/atoms.type";
+import {
+  InfoResultType,
+  RelationshipType,
+} from "../../../store/survey_result/atoms.type";
 import Image from "next/image";
 import Stroke from "./components/Stroke";
 
@@ -161,6 +165,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
   const [result, setResult] = useRecoilState(resultState);
   const [modalResult, setModalResult] = useRecoilState(modalResultState);
   const [modalQuestion, setModalQuestion] = useRecoilState(modalQuestionState);
+  const [donutChartData, setDonutChartData] = useRecoilState(donutChartState);
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showToast, setShowToast] = useState<boolean>(false);
@@ -186,22 +191,35 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
       )
         .then((response) => response.json())
         .then((response) => {
-          console.log("[DonutChart]", { response });
+          const result = (response as InfoResultType[]).sort(
+            (a, b) => b.count - a.count
+          );
+          const mostType = result[0].title;
+          const myType = result.filter((value) => value.title === type)[0];
+          const chartData = result.map((data) =>
+            parseInt(data.percent.substring(0, data.percent.length - 1))
+          );
+          console.log("[DonutChart]", result, mostType, myType, chartData);
+          setDonutChartData({
+            data: result,
+            donutData: chartData,
+            mostType: mostType,
+            myPercent: parseInt(
+              myType.percent.substring(0, myType.percent.length - 1)
+            ),
+          });
         });
     } catch (e) {
       console.error(e);
     }
-  }, [age, gender]);
+  }, [age, gender, setDonutChartData, type]);
 
   const getBarGraphData = useCallback(async () => {
     try {
-      await fetch(
-        `https://byenolan.shop/surveyResult?title=${type}
-        }`
-      )
+      await fetch(`https://byenolan.shop/surveyResult?title=${type}`)
         .then((response) => response.json())
         .then((response) => {
-          console.log("[BarGraph]", { response });
+          console.log("[BarGraph]", response);
         });
     } catch (e) {
       console.error(e);
@@ -259,6 +277,29 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
       setShowToast(false);
     }, 2000);
   };
+
+  const renderDonutChart = useCallback(() => {
+    return (
+      donutChartData.data?.length > 0 && (
+        <>
+          <DonutChart
+            type={type as RelationshipType}
+            chartData={donutChartData}
+          />
+          {donutChartData.data.map(({ title, percent }, idx) => (
+            <ChartLegend
+              key={`${title}_${idx}`}
+              type={title}
+              percent={percent}
+              color={resultUI.color}
+              active={type === title}
+              lastIndex={idx === donutChartData.data.length}
+            />
+          ))}
+        </>
+      )
+    );
+  }, [donutChartData, resultUI.color, type]);
 
   return (
     <>
@@ -331,30 +372,15 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
             </Row>
             <Margin number={8} />
             <Row>
-              {/* FIXME: API 타입으로 바꾸기 */}
               <Stroke
-                title={type}
+                title={donutChartData.mostType}
                 typeColor={resultUI.stroke}
                 stroke={2}
                 size="md"
               />
               <H3>&nbsp;유형이 가장 많아요</H3>
             </Row>
-
-            {/* <DonutChart
-          type={}
-          percentage={}
-          data={DUMMY_CHART_DATA}
-        />
-        {DUMMY_CHART_DATA.map(({ type, point }, idx) => (
-          <ChartLegend
-            key={`${type}_${idx}`}
-            type={type}
-            point={point}
-            active={type === result.title}
-            lastIndex={idx === 5}
-          />
-        ))} */}
+            {renderDonutChart()}
           </Content>
           {/* 3. 사용자 유형별 연령대 */}
           <Content index={3}>

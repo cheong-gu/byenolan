@@ -34,22 +34,29 @@ const Margin = styled.div`
 
 interface ChartLegendProps {
   type: relationshipType;
-  point: number;
+  percent: string;
+  color: string;
   active?: boolean;
   lastIndex?: boolean;
 }
 
-const ChartLegend = ({ type, point, active, lastIndex }: ChartLegendProps) => {
+const ChartLegend = ({
+  type,
+  percent,
+  color,
+  active,
+  lastIndex,
+}: ChartLegendProps) => {
   return (
     <Wrapper lastIndex={lastIndex}>
       <TagBox>
-        <Tag color={DUMMY_DONUT_COLOR[type]} />
+        <Tag color={color} />
         <Margin>
           <H6>{type}</H6>
         </Margin>
         {active && <Label type="string">나</Label>}
       </TagBox>
-      <Element3>{point}%</Element3>
+      <Element3>{percent}</Element3>
     </Wrapper>
   );
 };

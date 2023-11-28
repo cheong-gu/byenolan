@@ -1,7 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import * as d3 from "d3";
 import styled from "@emotion/styled";
-import { DUMMY_DONUT_COLOR, relationshipType } from "../constants/dummy";
+import {
+  DonutChartDataType,
+  InfoResultType,
+  RelationshipType,
+} from "../../../../store/survey_result/atoms.type";
 
 const DonutLabel = `
   <svg
@@ -23,6 +27,15 @@ const DonutLabel = `
   </svg>
 `;
 
+const DONUT_CHART_COLOR = {
+  핵불닭볶음면: "#191f28",
+  불닭볶음면: "#1c47b5",
+  신라면: "#ec4747",
+  진라면: "#ff881b",
+  참깨라면: "#ffe072",
+  사리곰탕: "#edeef5",
+};
+
 const CHART_WIDTH = 208;
 const CHART_HEIGHT = CHART_WIDTH;
 const CHART_RADIUS = 80;
@@ -34,16 +47,12 @@ const Wrapper = styled.div`
 `;
 
 interface DonutChartProps {
-  type: relationshipType;
-  percentage: number;
-  data: {
-    type: relationshipType;
-    point: number;
-  }[];
+  type: RelationshipType;
+  chartData: DonutChartDataType;
 }
 
-const DonutChart = ({ type, percentage, data }: DonutChartProps) => {
-  const DUMMY_POINT = data.map((d) => d.point);
+const DonutChart = ({ type, chartData }: DonutChartProps) => {
+  const { data, donutData, myPercent } = chartData;
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -52,6 +61,7 @@ const DonutChart = ({ type, percentage, data }: DonutChartProps) => {
       drawDonutChart();
     }, 10000);
     return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const drawDonutChart = () => {
@@ -76,7 +86,7 @@ const DonutChart = ({ type, percentage, data }: DonutChartProps) => {
     // 부채꼴 그리기 (도넛 섹션)
     const arcs = g
       .selectAll(".arc")
-      .data(pie(DUMMY_POINT))
+      .data(pie(donutData))
       .enter()
       .append("g")
       .attr("class", "arc");
@@ -90,7 +100,7 @@ const DonutChart = ({ type, percentage, data }: DonutChartProps) => {
 
     arcs
       .append("path")
-      .attr("fill", (_, i) => DUMMY_DONUT_COLOR[data[i].type])
+      .attr("fill", (_, i) => DONUT_CHART_COLOR[data[i].title])
       .each(function (this: any, d: any) {
         this._current = d;
       })
@@ -103,13 +113,13 @@ const DonutChart = ({ type, percentage, data }: DonutChartProps) => {
         };
       })
       .on("end", function (_, i) {
-        if (i === DUMMY_POINT.length - 1) {
+        if (i === data.length - 1) {
           let labelsGroup = g
             .selectAll(".label-group")
-            .data(pie(DUMMY_POINT))
+            .data(pie(donutData))
             .enter()
             .append("g")
-            .filter((value) => value.data === percentage);
+            .filter((value) => value.data === myPercent);
 
           labelsGroup
             .append("use")

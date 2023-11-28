@@ -24,6 +24,14 @@ export interface InfoResultType {
   age: string;
   gender: "M" | "W";
   title: RelationshipType;
+  percent: string;
+}
+
+export interface DonutChartDataType {
+  myPercent: number;
+  mostType: RelationshipType;
+  data: InfoResultType[];
+  donutData: number[];
 }
 
 export interface ModalQuestionType {
