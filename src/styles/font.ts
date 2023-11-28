@@ -42,10 +42,10 @@ export const H5 = styled.h5`
 
 export const H6 = styled.h6`
   font-family: "NeoDunggeunmo Pro";
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 100%;
-  letter-spacing: -0.18px;
+  letter-spacing: -0.16px;
 `;
 
 export const Body1 = styled.p`

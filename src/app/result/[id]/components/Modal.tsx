@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import React, { useRef } from "react";
 import HeaderImg from "../../../../public/result/modal_header.png";
+import ArrowUp from "../../../../public/result/arrow_up.svg";
 import Image from "next/image";
+import { H6 } from "../../../../styles/font";
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -21,6 +23,7 @@ const ModalWrapper = styled.div`
   height: 100%;
   background-color: #edeef5;
   color: #191f28;
+  overflow-y: scroll;
 `;
 
 const ModalHeader = styled.div`
@@ -51,7 +54,7 @@ const ModalContent = styled.div`
 
 const ScrollButton = styled.button`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 
@@ -59,7 +62,9 @@ const ScrollButton = styled.button`
   height: 56px;
   margin: 0px 40px;
   border-radius: 100px;
-  background-color: #fcffdd;
+  background-color: #2a3351;
+  color: #fff;
+  gap: 4px;
 `;
 
 interface ModalProps {
@@ -89,7 +94,10 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
         </ModalHeader>
         <ModalContent>
           {children}
-          <ScrollButton onClick={scrollToTop}>맨 위로 가기</ScrollButton>
+          <ScrollButton onClick={scrollToTop}>
+            <Image src={ArrowUp} alt="arrow_up" />
+            <H6>맨 위로 가기</H6>
+          </ScrollButton>
         </ModalContent>
       </ModalWrapper>
     </ModalContainer>

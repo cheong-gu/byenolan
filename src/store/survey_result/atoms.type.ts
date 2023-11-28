@@ -14,9 +14,28 @@ export interface ResultType {
   type: string;
 }
 
+export interface ModalResultType {
+  question: string[];
+  answer: string[];
+}
+
 export interface InfoResultType {
   count: number;
   age: string;
   gender: "M" | "W";
   title: RelationshipType;
+}
+
+export interface ModalQuestionType {
+  _id: number;
+  survey: ModalAnswerType[];
+  totalcount: number;
+}
+
+export interface ModalAnswerType {
+  answer: string;
+  answer_no: string;
+  count: number;
+  formattedPercentage: string;
+  question: string;
 }

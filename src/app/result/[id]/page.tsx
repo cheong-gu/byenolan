@@ -13,7 +13,11 @@ import ChartLegend from "./components/ChartLegend";
 import ColumnGraph from "./components/ColumnChart";
 import { Body3, H1, H3, H5 } from "../../../styles/font";
 import { useRecoilState } from "recoil";
-import { resultState } from "../../../store/survey_result/atoms";
+import {
+  modalQuestionState,
+  modalResultState,
+  resultState,
+} from "../../../store/survey_result/atoms";
 import SariGomtang from "../../../public/result/sarigomtang.svg";
 import SinRamen from "../../../public/result/sinramen.svg";
 import SesameRamen from "../../../public/result/sesameramen.svg";
@@ -134,56 +138,103 @@ const ModalButton = styled.button`
 
 interface ResultPageProps {
   params: { id: string };
-  searchParams: { type: string; age: string; gender: "W" | "M" };
+  searchParams: {
+    type: string;
+    age: string;
+    gender: "W" | "M";
+    question: string;
+    answer: string;
+  };
 }
 
 export default function ResultPage({ params, searchParams }: ResultPageProps) {
   const { id } = params;
   const { type, age, gender } = searchParams;
   const [result, setResult] = useRecoilState(resultState);
+  const [modalResult, setModalResult] = useRecoilState(modalResultState);
+  const [modalQuestion, setModalQuestion] = useRecoilState(modalQuestionState);
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showToast, setShowToast] = useState<boolean>(false);
   const [resultUI, setResultUI] = useState(INITIAL_TYPE_DESIGN);
 
   const getResultType = useCallback(async () => {
-    await fetch(`https://byenolan.shop/surveyResult/result/${id}`)
-      .then((response) => response.json())
-      .then((response) => {
-        setResult(response[0]);
-        console.log("[Result]", response[0]);
-      });
+    try {
+      await fetch(`https://byenolan.shop/surveyResult/result/${id}`)
+        .then((response) => response.json())
+        .then((response) => {
+          setResult(response[0]);
+          console.log("[Result]", response[0]);
+        });
+    } catch (e) {
+      console.error(e);
+    }
   }, [id, setResult]);
 
   const getDonutChartData = useCallback(async () => {
-    await fetch(
-      `https://byenolan.shop/surveyResult?age=${age}&gender=${gender}`
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("[DonutChart]", { response });
-      });
+    try {
+      await fetch(
+        `https://byenolan.shop/surveyResult?age=${age}&gender=${gender}`
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          console.log("[DonutChart]", { response });
+        });
+    } catch (e) {
+      console.error(e);
+    }
   }, [age, gender]);
 
   const getBarGraphData = useCallback(async () => {
-    await fetch(
-      `https://byenolan.shop/surveyResult?title=${type}
-      }`
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("[BarGraph]", { response });
-      });
+    try {
+      await fetch(
+        `https://byenolan.shop/surveyResult?title=${type}
+        }`
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          console.log("[BarGraph]", { response });
+        });
+    } catch (e) {
+      console.error(e);
+    }
   }, [type]);
+
+  const getModalResult = useCallback(
+    async (result: string[]) => {
+      try {
+        await fetch(`https://byenolan.shop/survey/total/${result}`)
+          .then((response) => response.json())
+          .then((response) => {
+            setModalQuestion(response);
+          });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [setModalQuestion]
+  );
 
   useEffect(() => {
     if (id && searchParams) {
+      const question = JSON.parse(searchParams.question);
+      const answer = JSON.parse(searchParams.answer);
       setResultUI(getTypeDesign(searchParams.type as RelationshipType));
+      setModalResult({ question, answer });
       void getResultType();
       void getDonutChartData();
       void getBarGraphData();
+      void getModalResult(question);
     }
-  }, [getResultType, getDonutChartData, getBarGraphData, id, searchParams]);
+  }, [
+    getResultType,
+    getDonutChartData,
+    getBarGraphData,
+    id,
+    searchParams,
+    getModalResult,
+    setModalResult,
+  ]);
 
   const handleModal = () => {
     setShowModal(!showModal);
@@ -205,15 +256,14 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
     <>
       {showModal && (
         <Modal isOpen={showModal} onClose={handleModal}>
-          {/* {DUMMY_MODAL_DATA.map(({ answer, options, question }, index) => (
+          {modalQuestion.map(({ survey, _id }, index) => (
             <Answer
-              key={`${index}_${question}`}
-              number={index + 1}
-              question={question}
-              answer={answer}
-              options={options}
+              key={_id}
+              index={index + 1}
+              survey={survey}
+              answerList={modalResult.answer}
             />
-          ))} */}
+          ))}
         </Modal>
       )}
       <Container typeColor={resultUI.color}>
