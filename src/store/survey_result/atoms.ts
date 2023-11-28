@@ -26,3 +26,8 @@ export const donutChartState = atom({
   key: "donutChartState",
   default: {} as DonutChartDataType,
 });
+
+export const ColumnChartState = atom({
+  key: "ColumnChartState",
+  default: {} as InfoResultType[],
+});

@@ -10,10 +10,11 @@ import Answer from "./components/Answer";
 import BarGraph from "./components/BarGraph";
 import DonutChart from "./components/DonutChart";
 import ChartLegend from "./components/ChartLegend";
-import ColumnGraph from "./components/ColumnChart";
+import ColumnChart from "./components/ColumnChart";
 import { Body3, H1, H3, H5, H6 } from "../../../styles/font";
 import { useRecoilState } from "recoil";
 import {
+  ColumnChartState,
   donutChartState,
   modalQuestionState,
   modalResultState,
@@ -166,6 +167,8 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
   const [modalResult, setModalResult] = useRecoilState(modalResultState);
   const [modalQuestion, setModalQuestion] = useRecoilState(modalQuestionState);
   const [donutChartData, setDonutChartData] = useRecoilState(donutChartState);
+  const [columnChartData, setColumnChartData] =
+    useRecoilState(ColumnChartState);
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showToast, setShowToast] = useState<boolean>(false);
@@ -214,17 +217,21 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
     }
   }, [age, gender, setDonutChartData, type]);
 
-  const getBarGraphData = useCallback(async () => {
+  const getColumnChartData = useCallback(async () => {
     try {
       await fetch(`https://byenolan.shop/surveyResult?title=${type}`)
         .then((response) => response.json())
         .then((response) => {
-          console.log("[BarGraph]", response);
+          const data = (response as InfoResultType[]).sort(
+            (a, b) => b.count - a.count
+          );
+          console.log("[ColumnChart]", data.slice(0, 3));
+          setColumnChartData(data.slice(0, 3));
         });
     } catch (e) {
       console.error(e);
     }
-  }, [type]);
+  }, [setColumnChartData, type]);
 
   const getModalResult = useCallback(
     async (result: string[]) => {
@@ -249,13 +256,13 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
       setModalResult({ question, answer });
       void getResultType();
       void getDonutChartData();
-      void getBarGraphData();
+      void getColumnChartData();
       void getModalResult(question);
     }
   }, [
     getResultType,
     getDonutChartData,
-    getBarGraphData,
+    getColumnChartData,
     id,
     searchParams,
     getModalResult,
@@ -277,29 +284,6 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
       setShowToast(false);
     }, 2000);
   };
-
-  const renderDonutChart = useCallback(() => {
-    return (
-      donutChartData.data?.length > 0 && (
-        <>
-          <DonutChart
-            type={type as RelationshipType}
-            chartData={donutChartData}
-          />
-          {donutChartData.data.map(({ title, percent }, idx) => (
-            <ChartLegend
-              key={`${title}_${idx}`}
-              type={title}
-              percent={percent}
-              color={resultUI.color}
-              active={type === title}
-              lastIndex={idx === donutChartData.data.length}
-            />
-          ))}
-        </>
-      )
-    );
-  }, [donutChartData, resultUI.color, type]);
 
   return (
     <>
@@ -349,12 +333,12 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
               />
             </ShareButton>
             <ButtonWrapper>
-              <LinkButton href={"/"} about="to home">
-                <Image src={RepeatIcon} alt="share" />
+              <LinkButton href={"/survey/info"} about="repeat">
+                <Image src={RepeatIcon} alt="repeat" />
                 <H6>다시하기</H6>
               </LinkButton>
               <LinkButton href={"/"} about="to home">
-                <Image src={HomeIcon} alt="share" />
+                <Image src={HomeIcon} alt="home" />
                 <H6>홈 화면</H6>
               </LinkButton>
             </ButtonWrapper>
@@ -380,12 +364,25 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
               />
               <H3>&nbsp;유형이 가장 많아요</H3>
             </Row>
-            {renderDonutChart()}
+            {donutChartData.data?.length > 0 && (
+              <>
+                <DonutChart chartData={donutChartData} />
+                {donutChartData.data.map(({ title, percent }, idx) => (
+                  <ChartLegend
+                    key={`${title}_${idx}`}
+                    type={title}
+                    percent={percent}
+                    color={getTypeDesign(title).color}
+                    active={type === title}
+                    lastIndex={idx === donutChartData.data.length}
+                  />
+                ))}
+              </>
+            )}
           </Content>
           {/* 3. 사용자 유형별 연령대 */}
           <Content index={3}>
             <Row>
-              {/* FIXME: API 타입으로 바꾸기 */}
               <Stroke
                 title={type}
                 typeColor={resultUI.stroke}
@@ -394,7 +391,10 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
               />
               <H3>&nbsp;유형이 많은 연령대는?</H3>
             </Row>
-            {/* <ColumnGraph data={DUMMY_COLUMN_DATA} /> */}
+            <ColumnChart
+              type={type as RelationshipType}
+              data={columnChartData}
+            />
           </Content>
           <ModalButton onClick={handleModal}>
             <Image src={AnswerIcon} alt="answers" />

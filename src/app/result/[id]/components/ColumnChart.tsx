@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 import React, { useCallback, useEffect, useState } from "react";
 import { H6 } from "../../../../styles/font";
+import {
+  InfoResultType,
+  RelationshipType,
+} from "../../../../store/survey_result/atoms.type";
 
 const Wrapper = styled.div`
   width: 288px;
@@ -30,28 +34,41 @@ const ColumnBackground = styled.div`
   margin-bottom: 8px;
 `;
 
-const Column = styled.div<{ percentage: number }>`
+const Column = styled.div<{ idx: number; columnColor: string }>`
   width: 100%;
-  height: ${(props) => Math.max(props.percentage, 28.57)}%;
+  height: ${(props) =>
+    props.idx === 1 ? "112px" : props.idx === 2 ? "67px" : "32px"};
   border-radius: 6px 6px 0px 0px;
-  background-color: #1c2237;
+  background-color: ${(props) => props.columnColor};
   transition: height 0.5s ease-in-out;
 `;
 
-interface ColumnChartProps {
-  data: { age: string; point: number }[];
-}
+const COLUMN_CHART_COLOR = {
+  핵불닭볶음면: "#191f28",
+  불닭볶음면: "#1c47b5",
+  신라면: "#ec4747",
+  진라면: "#ff881b",
+  참깨라면: "#ffe072",
+  사리곰탕: "#dadde6",
+};
 
 const RESET_CHART = new Array(3).fill(0);
 
-const ColumnChart = ({ data }: ColumnChartProps) => {
+interface ColumnChartProps {
+  type: RelationshipType;
+  data: InfoResultType[];
+}
+
+const ColumnChart = ({ type, data }: ColumnChartProps) => {
   const [percentageState, setPercentageState] = useState<number[]>(RESET_CHART);
 
   const drawColumnChart = useCallback(() => {
-    setPercentageState(RESET_CHART);
-    setTimeout(() => {
-      setPercentageState(data.map((item) => item.point));
-    }, 500);
+    if (data.length > 0) {
+      setPercentageState(RESET_CHART);
+      setTimeout(() => {
+        setPercentageState([1, 2, 3]);
+      }, 500);
+    }
   }, [data]);
 
   useEffect(() => {
@@ -64,14 +81,20 @@ const ColumnChart = ({ data }: ColumnChartProps) => {
 
   return (
     <Wrapper>
-      {data.map(({ point, age }, idx) => (
-        <ColumnBox key={`${age}_${idx}`} lastIndex={idx === 2}>
-          <ColumnBackground>
-            <Column percentage={percentageState[idx]} />
-          </ColumnBackground>
-          <H6>{age}</H6>
-        </ColumnBox>
-      ))}
+      {data.length > 0 &&
+        data?.map(({ age, gender }, idx) => (
+          <ColumnBox key={`${age}_${idx}`} lastIndex={idx === 2}>
+            <ColumnBackground>
+              <Column
+                idx={percentageState[idx]}
+                columnColor={COLUMN_CHART_COLOR[type]}
+              />
+            </ColumnBackground>
+            <H6>
+              {age}대 {gender === "M" ? "남성" : "여성"}
+            </H6>
+          </ColumnBox>
+        ))}
     </Wrapper>
   );
 };

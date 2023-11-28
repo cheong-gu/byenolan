@@ -1,11 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import styled from "@emotion/styled";
-import {
-  DonutChartDataType,
-  InfoResultType,
-  RelationshipType,
-} from "../../../../store/survey_result/atoms.type";
+import { DonutChartDataType } from "../../../../store/survey_result/atoms.type";
 
 const DonutLabel = `
   <svg
@@ -47,11 +43,10 @@ const Wrapper = styled.div`
 `;
 
 interface DonutChartProps {
-  type: RelationshipType;
   chartData: DonutChartDataType;
 }
 
-const DonutChart = ({ type, chartData }: DonutChartProps) => {
+const DonutChart = ({ chartData }: DonutChartProps) => {
   const { data, donutData, myPercent } = chartData;
   const svgRef = useRef<SVGSVGElement | null>(null);
 

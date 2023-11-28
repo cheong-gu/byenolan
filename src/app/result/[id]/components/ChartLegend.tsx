@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { DUMMY_DONUT_COLOR, relationshipType } from "../constants/dummy";
 import Label from "./Label";
 import { Element3, H6 } from "../../../../styles/font";
+import { RelationshipType } from "../../../../store/survey_result/atoms.type";
 
 const Wrapper = styled.div<{ lastIndex?: boolean }>`
   display: flex;
@@ -33,7 +33,7 @@ const Margin = styled.div`
 `;
 
 interface ChartLegendProps {
-  type: relationshipType;
+  type: RelationshipType;
   percent: string;
   color: string;
   active?: boolean;
