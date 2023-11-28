@@ -11,7 +11,7 @@ import BarGraph from "./components/BarGraph";
 import DonutChart from "./components/DonutChart";
 import ChartLegend from "./components/ChartLegend";
 import ColumnGraph from "./components/ColumnChart";
-import { Body3, H1, H3, H5 } from "../../../styles/font";
+import { Body3, H1, H3, H5, H6 } from "../../../styles/font";
 import { useRecoilState } from "recoil";
 import {
   modalQuestionState,
@@ -25,6 +25,13 @@ import JinRamen from "../../../public/result/jinramen.svg";
 import BuldakRamen from "../../../public/result/buldakramen.svg";
 import HaekBuldakRamen from "../../../public/result/haekbuldakramen.svg";
 import HeaderImage from "../../../public/result/header.png";
+import ShareIcon from "../../../public/result/share.svg";
+import AnswerIcon from "../../../public/result/answers.svg";
+import HomeIcon from "../../../public/result/home.svg";
+import RepeatIcon from "../../../public/result/repeat.svg";
+import YellowButton from "../../../public/result/yellow_button.svg";
+import GreyButton from "../../../public/result/grey_button.svg";
+import BlueButton from "../../../public/result/blue_button.svg";
 import { RelationshipType } from "../../../store/survey_result/atoms.type";
 import Image from "next/image";
 import Stroke from "./components/Stroke";
@@ -91,10 +98,6 @@ const Margin = styled.div<{ number: number }>`
   margin-bottom: ${(props) => props.number ?? 0}px;
 `;
 
-const Emphasis = styled.span`
-  color: #ff2020;
-`;
-
 const ShareButton = styled.div`
   position: relative;
   display: flex;
@@ -103,8 +106,9 @@ const ShareButton = styled.div`
   width: 100%;
   height: 64px;
   margin-top: 24px;
-  border: 2px solid;
+  gap: 5px;
   cursor: pointer;
+  background-image: url(${YellowButton.src});
 `;
 
 const LinkButton = styled(Link)`
@@ -113,7 +117,8 @@ const LinkButton = styled(Link)`
   justify-content: center;
   width: 100%;
   height: 64px;
-  border: 2px solid;
+  background-image: url(${GreyButton.src});
+  gap: 5px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -129,11 +134,14 @@ const ButtonWrapper = styled.div`
 
 const ModalButton = styled.button`
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 72px;
-  background-color: #fcffdd;
+  background-image: url(${BlueButton.src});
+  color: #fff;
+  gap: 4px;
 `;
 
 interface ResultPageProps {
@@ -292,18 +300,21 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
               <Body3>{result.content}</Body3>
             </Summary>
             <ShareButton onClick={copyToClipBoard}>
+              <Image src={ShareIcon} alt="share" />
+              <H6>결과 공유</H6>
               <Toast
                 isOpen={showToast}
                 message="복사 완료! 친구에게 공유해 보세요!"
               />
-              결과 공유
             </ShareButton>
             <ButtonWrapper>
               <LinkButton href={"/"} about="to home">
-                다시하기
+                <Image src={RepeatIcon} alt="share" />
+                <H6>다시하기</H6>
               </LinkButton>
               <LinkButton href={"/"} about="to home">
-                홈 화면
+                <Image src={HomeIcon} alt="share" />
+                <H6>홈 화면</H6>
               </LinkButton>
             </ButtonWrapper>
           </Content>
@@ -359,7 +370,10 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
             </Row>
             {/* <ColumnGraph data={DUMMY_COLUMN_DATA} /> */}
           </Content>
-          <ModalButton onClick={handleModal}>전체 답변 보기</ModalButton>
+          <ModalButton onClick={handleModal}>
+            <Image src={AnswerIcon} alt="answers" />
+            <H6>전체 답변 보기</H6>
+          </ModalButton>
         </ContentWrapper>
       </Container>
     </>

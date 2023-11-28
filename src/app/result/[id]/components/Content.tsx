@@ -24,7 +24,7 @@ const Result = styled.div`
   text-align: center;
 
   width: 100%;
-  padding: 32px 24px;
+  padding: 32px 22px;
   background-color: #fff;
   border: 2px solid;
   border-top: 0;
