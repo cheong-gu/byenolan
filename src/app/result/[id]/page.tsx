@@ -161,7 +161,6 @@ const ModalButton = styled.button`
 interface ResultPageProps {
   params: { id: string };
   searchParams: {
-    type: RelationshipType;
     age: string;
     gender: "W" | "M";
     question: string;
@@ -171,7 +170,7 @@ interface ResultPageProps {
 
 export default function ResultPage({ params, searchParams }: ResultPageProps) {
   const { id } = params;
-  const { type, age, gender } = searchParams;
+  const { age, gender } = searchParams;
   const [result, setResult] = useRecoilState(resultState);
   const [modalResult, setModalResult] = useRecoilState(modalResultState);
   const [modalQuestion, setModalQuestion] = useRecoilState(modalQuestionState);
@@ -217,7 +216,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
         .then((response) => response.json())
         .then((response) => {
           setResult(response[0]);
-          console.log("[Result]", response[0]);
+          setResultUI(getTypeDesign(response[0].title));
         });
     } catch (e) {
       console.error(e);
@@ -231,17 +230,18 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
       )
         .then((response) => response.json())
         .then((response) => {
-          const result = (response as InfoResultType[]).sort(
+          const data = (response as InfoResultType[]).sort(
             (a, b) => b.count - a.count
           );
-          const mostType = result[0].title;
-          const myType = result.filter((value) => value.title === type)[0];
-          const chartData = result.map((data) =>
+          const mostType = data[0].title;
+          const myType = data.filter(
+            (value) => value.title === result.title
+          )[0];
+          const chartData = data.map((data) =>
             parseInt(data.percent.substring(0, data.percent.length - 1))
           );
-          console.log("[DonutChart]", result, mostType, myType, chartData);
           setDonutChartData({
-            data: result,
+            data: data,
             donutData: chartData,
             mostType: mostType,
             myPercent: parseInt(
@@ -252,23 +252,22 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
     } catch (e) {
       console.error(e);
     }
-  }, [age, gender, setDonutChartData, type]);
+  }, [age, gender, setDonutChartData, result.title]);
 
   const getColumnChartData = useCallback(async () => {
     try {
-      await fetch(`https://byenolan.shop/surveyResult?title=${type}`)
+      await fetch(`https://byenolan.shop/surveyResult?title=${result.title}`)
         .then((response) => response.json())
         .then((response) => {
           const data = (response as InfoResultType[]).sort(
             (a, b) => b.count - a.count
           );
-          console.log("[ColumnChart]", data.slice(0, 3));
           setColumnChartData(data.slice(0, 3));
         });
     } catch (e) {
       console.error(e);
     }
-  }, [setColumnChartData, type]);
+  }, [setColumnChartData, result.title]);
 
   const getModalResult = useCallback(
     async (result: string[]) => {
@@ -289,7 +288,6 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
     if (id && searchParams) {
       const question = JSON.parse(decodeURIComponent(searchParams.question));
       const answer = JSON.parse(decodeURIComponent(searchParams.answer));
-      setResultUI(getTypeDesign(searchParams.type as RelationshipType));
       setModalResult({ question, answer });
       void getResultType();
       void getDonutChartData();
@@ -405,16 +403,16 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
               />
               <H3>&nbsp;유형이 가장 많아요</H3>
             </Row>
-            {donutChartData.data?.length > 0 && (
+            {donutChartData.data?.length > 0 && result.title && (
               <>
-                <DonutChart type={type} chartData={donutChartData} />
+                <DonutChart type={result.title} chartData={donutChartData} />
                 {donutChartData.data.map(({ title, percent }, idx) => (
                   <ChartLegend
                     key={`${title}_${idx}`}
                     type={title}
                     percent={percent}
                     color={getTypeDesign(title).color}
-                    active={type === title}
+                    active={result.title === title}
                     lastIndex={idx === donutChartData.data.length}
                   />
                 ))}
@@ -422,18 +420,20 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
             )}
           </Content>
           {/* 3. 사용자 유형별 연령대 */}
-          <Content index={3}>
-            <Row>
-              <Stroke
-                title={type}
-                typeColor={resultUI.stroke}
-                stroke={2}
-                size="md"
-              />
-              <H3>&nbsp;유형이 많은 연령대는?</H3>
-            </Row>
-            <ColumnChart type={type} data={columnChartData} />
-          </Content>
+          {result.title && (
+            <Content index={3}>
+              <Row>
+                <Stroke
+                  title={result.title}
+                  typeColor={resultUI.stroke}
+                  stroke={2}
+                  size="md"
+                />
+                <H3>&nbsp;유형이 많은 연령대는?</H3>
+              </Row>
+              <ColumnChart type={result.title} data={columnChartData} />
+            </Content>
+          )}
           <ModalButton onClick={handleModal}>
             <Image src={AnswerIcon} alt="answers" />
             <H6>전체 답변 보기</H6>
