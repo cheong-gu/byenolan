@@ -55,15 +55,15 @@ const COLUMN_CHART_COLOR = {
 const RESET_CHART = new Array(3).fill(0);
 
 interface ColumnChartProps {
-  type: RelationshipType;
-  data: InfoResultType[];
+  type?: RelationshipType;
+  data?: InfoResultType[];
 }
 
 const ColumnChart = ({ type, data }: ColumnChartProps) => {
   const [percentageState, setPercentageState] = useState<number[]>(RESET_CHART);
 
   const drawColumnChart = useCallback(() => {
-    if (data.length > 0) {
+    if (data && data.length > 0) {
       setPercentageState(RESET_CHART);
       setTimeout(() => {
         setPercentageState([1, 2, 3]);
@@ -81,13 +81,14 @@ const ColumnChart = ({ type, data }: ColumnChartProps) => {
 
   return (
     <Wrapper>
-      {data.length > 0 &&
-        data?.map(({ age, gender }, idx) => (
+      {data &&
+        data.length > 0 &&
+        data.map(({ age, gender }, idx) => (
           <ColumnBox key={`${age}_${idx}`} lastIndex={idx === 2}>
             <ColumnBackground>
               <Column
                 idx={percentageState[idx]}
-                columnColor={COLUMN_CHART_COLOR[type]}
+                columnColor={COLUMN_CHART_COLOR[type ?? "사리곰탕"]}
               />
             </ColumnBackground>
             <H6>

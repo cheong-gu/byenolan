@@ -403,7 +403,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
               />
               <H3>&nbsp;유형이 가장 많아요</H3>
             </Row>
-            {donutChartData.data?.length > 0 && result.title && (
+            {donutChartData.data?.length > 0 && (
               <>
                 <DonutChart type={result.title} chartData={donutChartData} />
                 {donutChartData.data.map(({ title, percent }, idx) => (
@@ -420,20 +420,18 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
             )}
           </Content>
           {/* 3. 사용자 유형별 연령대 */}
-          {result.title && (
-            <Content index={3}>
-              <Row>
-                <Stroke
-                  title={result.title}
-                  typeColor={resultUI.stroke}
-                  stroke={2}
-                  size="md"
-                />
-                <H3>&nbsp;유형이 많은 연령대는?</H3>
-              </Row>
-              <ColumnChart type={result.title} data={columnChartData} />
-            </Content>
-          )}
+          <Content index={3}>
+            <Row>
+              <Stroke
+                title={result.title}
+                typeColor={resultUI.stroke}
+                stroke={2}
+                size="md"
+              />
+              <H3>&nbsp;유형이 많은 연령대는?</H3>
+            </Row>
+            <ColumnChart type={result.title} data={columnChartData} />
+          </Content>
           <ModalButton onClick={handleModal}>
             <Image src={AnswerIcon} alt="answers" />
             <H6>전체 답변 보기</H6>
