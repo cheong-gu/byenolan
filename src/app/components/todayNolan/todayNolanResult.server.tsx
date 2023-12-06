@@ -2,9 +2,9 @@ import TodayNolanKeepButton from "./todayNolanKeepButton.client";
 import TodayNolanProgressBar from "./toddayNolanProgressBar.client";
 
 export default async function TodayNolanResultServer() {
-  const res = await fetch("https://byenolan.shop/nolan/todayNolan").then(
-    (res) => res.json()
-  );
+  const res = await fetch("https://byenolan.shop/nolan/todayNolan", {
+    next: { revalidate: 0 },
+  }).then((res) => res.json());
 
   const answers = res[0].survey;
 

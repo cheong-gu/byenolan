@@ -1,7 +1,7 @@
 export default async function TodayNolanAswersServer() {
-  const res = await fetch("https://byenolan.shop/nolan/todayNolan").then(
-    (res) => res.json()
-  );
+  const res = await fetch("https://byenolan.shop/nolan/todayNolan", {
+    next: { revalidate: 0 },
+  }).then((res) => res.json());
 
   const answers = res[0].survey;
 
