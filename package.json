@@ -1,12 +1,14 @@
 {
   "name": "byenolan",
   "version": "0.1.0",
+  "homepage": "https://cheong-gu.github.io/byenolan",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "next build && next export && touch out/.nojekyll && git add -f out/ && git commit -m 'deploy to gh-pages' && git subtree push --prefix out origin gh-pages"
   },
   "dependencies": {
     "@emotion/css": "^11.11.2",
@@ -15,13 +17,20 @@
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "clsx": "^2.0.0",
+    "d3": "^7.8.5",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "keen-slider": "^6.8.6",
-    "next": "13.4.19",
+    "next": "^13.5.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "recoil": "^0.7.7",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
+    "@types/d3": "^7.4.0",
+    "gh-pages": "^6.0.0"
   }
 }

@@ -1,0 +1,23 @@
+.wrapS {
+  margin: 64px auto 0 auto;
+  width: 240px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 80px;
+  grid-row-gap: 40px;
+}
+
+.itemS {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.labelS {
+  width: 80px;
+  display: inline-block;
+  text-align: center;
+  font-size: 20px;
+  font-family: NeoDunggeunmo Pro;
+  color: #5b3a09;
+}

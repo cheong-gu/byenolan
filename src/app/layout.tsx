@@ -1,18 +1,6 @@
-"use client";
-import styled from "@emotion/styled";
-import { RecoilRoot } from "recoil";
-
-const Body = styled.body`
-  background-color: black;
-`;
-
-const Main = styled.main`
-  background-color: white;
-  width: 440px;
-  margin: 0 auto;
-  height: 100vh;
-  overflow-y: auto;
-`;
+import "../styles/global.css";
+import { HomeLayout } from "./components/layout/HomeLayout.client";
+import { StateManagementProvider } from "./components/layout/RecoilProvider.client";
 
 export default function RootLayout({
   children,
@@ -20,12 +8,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <RecoilRoot>
-      <html lang="en">
-        <Body>
-          <Main>{children}</Main>
-        </Body>
-      </html>
-    </RecoilRoot>
+    <StateManagementProvider>
+      <HomeLayout>{children}</HomeLayout>
+    </StateManagementProvider>
   );
 }
