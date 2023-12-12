@@ -1,6 +1,6 @@
-import "../styles/global.css";
-import { HomeLayout } from "./components/layout/HomeLayout.client";
-import { StateManagementProvider } from "./components/layout/RecoilProvider.client";
+import '../styles/global.css';
+import { HomeLayout } from './components/layout/HomeLayout.client';
+import { StateManagementProvider } from './components/layout/RecoilProvider.client';
 
 export default function RootLayout({
   children,

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Image from "next/image";
+import Image from 'next/image';
 
-import SelectAIconImg from "../../../public/home/1_select_icon_A_84x84.svg";
-import SelectBIconImg from "../../../public/home/1_select_icon_B_84x84.svg";
-import { useTimer } from "@/hooks/homeTimer.hook";
-import { useRecoilState } from "recoil";
-import { homeNolanState, homeShowModalState } from "@/store/home/atoms";
-import { formatTime } from "@/utils/utils";
+import SelectAIconImg from '../../../public/home/1_select_icon_A_84x84.svg';
+import SelectBIconImg from '../../../public/home/1_select_icon_B_84x84.svg';
+import { useTimer } from '@/hooks/homeTimer.hook';
+import { useRecoilState } from 'recoil';
+import { homeNolanState, homeShowModalState } from '@/store/home/atoms';
+import { formatTime } from '@/utils/utils';
 
 export default function TodayNolanAswers({
   children,
@@ -15,32 +15,33 @@ export default function TodayNolanAswers({
   children: React.ReactNode;
 }) {
   const timer = useTimer();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setShowModal] = useRecoilState(homeShowModalState);
   const [nolan, setNolan] = useRecoilState(homeNolanState);
   return (
-    <div className={nolan.isSelected ? "hide" : "show"}>
+    <div className={nolan.isSelected ? 'hide' : 'show'}>
       {children}
       <div
         style={{
-          display: "flex",
-          position: "absolute",
-          alignItems: "center",
-          top: "63px",
-          width: "392px",
-          justifyItems: "center",
+          display: 'flex',
+          position: 'absolute',
+          alignItems: 'center',
+          top: '63px',
+          width: '392px',
+          justifyItems: 'center',
         }}
       >
         <div
           style={{
-            alignItems: "center",
-            textAlign: "center",
+            alignItems: 'center',
+            textAlign: 'center',
             marginLeft: 51,
             width: 124,
-            cursor: "pointer",
+            cursor: 'pointer',
           }}
           onClick={() => {
             setShowModal(true);
-            setNolan({ ...nolan, selectedAnswer: "A" });
+            setNolan({ ...nolan, selectedAnswer: 'A' });
           }}
         >
           <Image
@@ -52,21 +53,21 @@ export default function TodayNolanAswers({
         </div>
         <div
           style={{
-            height: "120px",
-            width: "1px",
-            backgroundColor: "#E0DDDC",
-            margin: "0 20px",
+            height: '120px',
+            width: '1px',
+            backgroundColor: '#E0DDDC',
+            margin: '0 20px',
           }}
         ></div>
         <div
           style={{
-            alignItems: "center",
-            textAlign: "center",
-            cursor: "pointer",
+            alignItems: 'center',
+            textAlign: 'center',
+            cursor: 'pointer',
           }}
           onClick={() => {
             setShowModal(true);
-            setNolan({ ...nolan, selectedAnswer: "B" });
+            setNolan({ ...nolan, selectedAnswer: 'B' });
           }}
         >
           <Image
@@ -79,19 +80,19 @@ export default function TodayNolanAswers({
       </div>
       <span
         style={{
-          position: "absolute",
-          fontFamily: "DOSGothic",
-          top: "226px",
-          width: " 392px",
+          position: 'absolute',
+          fontFamily: 'DOSGothic',
+          top: '226px',
+          width: ' 392px',
           left: 0,
-          textAlign: "center",
+          textAlign: 'center',
         }}
       >
         <span
           style={{
             fontSize: 14,
-            fontFamily: "Pretendard",
-            color: "#5B3A09",
+            fontFamily: 'Pretendard',
+            color: '#5B3A09',
           }}
         >
           남은 시간
@@ -99,8 +100,8 @@ export default function TodayNolanAswers({
         <span
           style={{
             fontSize: 16,
-            color: "#5B3A09",
-            letterSpacing: "0.64px",
+            color: '#5B3A09',
+            letterSpacing: '0.64px',
           }}
         >{` ${formatTime(timer.hours)}:${formatTime(
           timer.minutes

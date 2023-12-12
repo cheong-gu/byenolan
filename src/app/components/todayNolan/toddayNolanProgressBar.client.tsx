@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import CheckImg from "../../../public/home/FiCheck.svg";
-import clsx from "clsx";
-import { useRecoilState } from "recoil";
-import { homeNolanState } from "@/store/home/atoms";
+import Image from 'next/image';
+import CheckImg from '../../../public/home/FiCheck.svg';
+import clsx from 'clsx';
+import { useRecoilState } from 'recoil';
+import { homeNolanState } from '@/store/home/atoms';
 
 type HomeProgressProps = {
   percent: number;
@@ -22,7 +22,7 @@ export default function TodayNolanProgressBar({
   return (
     <div
       style={{
-        position: "relative",
+        position: 'relative',
         width: 312,
         height: 64,
 
@@ -31,40 +31,40 @@ export default function TodayNolanProgressBar({
     >
       <div
         style={{
-          display: "flex",
+          display: 'flex',
           width: (312 * percent) / 100,
-          background: nolan.selectedAnswer == answer ? "#FFD8F2" : "#EBECF0",
-          justifyContent: "space-between",
+          background: nolan.selectedAnswer == answer ? '#FFD8F2' : '#EBECF0',
+          justifyContent: 'space-between',
           height: 64,
-          padding: "0 20px",
-          alignItems: "center",
-          border: "1px solid #5B3A09",
-          position: "absolute",
+          padding: '0 20px',
+          alignItems: 'center',
+          border: '1px solid #5B3A09',
+          position: 'absolute',
         }}
       ></div>
       <div
         style={{
           top: 0,
-          display: "flex",
+          display: 'flex',
           width: 312,
-          justifyContent: "space-between",
+          justifyContent: 'space-between',
           height: 64,
-          padding: "0 20px",
-          alignItems: "center",
-          border: "1px solid #5B3A09",
-          position: "absolute",
+          padding: '0 20px',
+          alignItems: 'center',
+          border: '1px solid #5B3A09',
+          position: 'absolute',
         }}
       >
         <div
           style={{
-            color: "#5B3A09",
-            fontFamily: "Pretendard",
-            display: "flex",
+            color: '#5B3A09',
+            fontFamily: 'Pretendard',
+            display: 'flex',
           }}
         >
           <div
             className={clsx(
-              nolan.selectedAnswer == answer ? "show-inline" : "hide"
+              nolan.selectedAnswer == answer ? 'show-inline' : 'hide'
             )}
           >
             <Image src={CheckImg} width={18} height={18} alt="check" />
@@ -73,8 +73,8 @@ export default function TodayNolanProgressBar({
         </div>
         <div
           style={{
-            fontFamily: "DOSGothic",
-            color: "#5B3A09",
+            fontFamily: 'DOSGothic',
+            color: '#5B3A09',
           }}
         >
           {percent}%
