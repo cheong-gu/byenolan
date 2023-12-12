@@ -15,7 +15,6 @@ export default function TodayNolanAswers({
   children: React.ReactNode;
 }) {
   const timer = useTimer();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setShowModal] = useRecoilState(homeShowModalState);
   const [nolan, setNolan] = useRecoilState(homeNolanState);
   return (
