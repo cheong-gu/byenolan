@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import styled from "@emotion/styled";
-import modalImg from "../../../public/home/1_modal_img_248x148.svg";
-import { useRecoilState } from "recoil";
-import { homeNolanState, homeShowModalState } from "@/store/home/atoms";
-import { HomeModalFrame } from "./HomeModalframe.server";
+import Image from 'next/image';
+import styled from '@emotion/styled';
+import modalImg from '../../../public/home/1_modal_img_248x148.svg';
+import { useRecoilState } from 'recoil';
+import { homeNolanState, homeShowModalState } from '@/store/home/atoms';
+import { HomeModalFrame } from './HomeModalframe.server';
 
 export function HomeModal() {
   const [showModal, setShowModal] = useRecoilState(homeShowModalState);
@@ -14,28 +14,28 @@ export function HomeModal() {
     <HomeModalFrame isOpen={showModal}>
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
         <Image src={modalImg} alt="modalHand" width={248} height={148}></Image>
         <span
           style={{
-            fontFamily: "NeoDunggeunmo Pro",
+            fontFamily: 'NeoDunggeunmo Pro',
             fontSize: 18,
-            letterSpacing: "-0.18px",
+            letterSpacing: '-0.18px',
           }}
         >
           마음을 정하셨나요?
         </span>
         <ModalConfirm
           onClick={async () => {
-            await fetch("https://byenolan.shop/survey", {
+            await fetch('https://byenolan.shop/survey', {
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
-              method: "POST",
+              method: 'POST',
               body: JSON.stringify({
                 question_id: nolan.questionId,
                 answer_no: nolan.selectedAnswer,
@@ -43,7 +43,7 @@ export function HomeModal() {
             });
 
             const res = await fetch(
-              "https://byenolan.shop/nolan/todayNolan"
+              'https://byenolan.shop/nolan/todayNolan'
             ).then((res) => res.json());
 
             const participants = res[0].totalcount;

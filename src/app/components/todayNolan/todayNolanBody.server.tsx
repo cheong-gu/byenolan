@@ -1,12 +1,12 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-import SelectImg from "../../../public/home/1_select_392x308.svg";
-import TodayNolanAswers from "./todayNolanAnswer.client";
+import SelectImg from '../../../public/home/1_select_392x308.svg';
+import TodayNolanAswers from './todayNolanAnswer.client';
 
-import styles from "./styles/todayNolanBody.module.css";
-import TodayNolanResult from "./todayNolanResult.client";
-import TodayNolanAswersServer from "./todayNolanAnswer.server";
-import TodayNolanResultServer from "./todayNolanResult.server";
+import styles from './styles/todayNolanBody.module.css';
+import TodayNolanResult from './todayNolanResult.client';
+import TodayNolanAswersServer from './todayNolanAnswer.server';
+import TodayNolanResultServer from './todayNolanResult.server';
 
 export default function TodayNolanBody() {
   const { body } = styles;

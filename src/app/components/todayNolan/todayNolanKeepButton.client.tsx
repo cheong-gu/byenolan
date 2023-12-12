@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
 export default function TodayNolanKeepButton() {
   function scrollToCategory() {
-    console.log("test");
+    console.log('test');
     window.scrollTo({
       top: 568,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   }
 

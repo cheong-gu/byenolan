@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from 'keen-slider/react';
+import 'keen-slider/keen-slider.min.css';
 
 export default function HomeSLiderClient({
   children,
@@ -10,9 +10,9 @@ export default function HomeSLiderClient({
 }) {
   const [sliderRef] = useKeenSlider(
     {
-      mode: "free-snap",
+      mode: 'free-snap',
       loop: true,
-      slides: { origin: "center", perView: 1.1, spacing: 8 },
+      slides: { origin: 'center', perView: 1.1, spacing: 8 },
     },
     [sliderFunction]
   );
@@ -30,20 +30,20 @@ export default function HomeSLiderClient({
         slider.next();
       }, 4000);
     }
-    slider.on("created", () => {
-      slider.container.addEventListener("mouseover", () => {
+    slider.on('created', () => {
+      slider.container.addEventListener('mouseover', () => {
         mouseOver = true;
         clearNextTimeout();
       });
-      slider.container.addEventListener("mouseout", () => {
+      slider.container.addEventListener('mouseout', () => {
         mouseOver = false;
         nextTimeout();
       });
       nextTimeout();
     });
-    slider.on("dragStarted", clearNextTimeout);
-    slider.on("animationEnded", nextTimeout);
-    slider.on("updated", nextTimeout);
+    slider.on('dragStarted', clearNextTimeout);
+    slider.on('animationEnded', nextTimeout);
+    slider.on('updated', nextTimeout);
   }
 
   return (

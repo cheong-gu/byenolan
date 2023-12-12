@@ -1,6 +1,6 @@
-"use client";
-import { ReactNode } from "react";
-import { RecoilRoot } from "recoil";
+'use client';
+import { ReactNode } from 'react';
+import { RecoilRoot } from 'recoil';
 
 export function StateManagementProvider({ children }: { children: ReactNode }) {
   return <RecoilRoot>{children}</RecoilRoot>;
