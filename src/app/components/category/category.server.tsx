@@ -44,8 +44,8 @@ export default function Categorys() {
 
   return (
     <div className={wrapS}>
-      {categories.map((category) => (
-        <Link key={category.src} href={category.link}>
+      {categories.map((category, index) => (
+        <Link key={category.src + index.toString()} href={category.link}>
           <div className={itemS}>
             <Image
               src={category.src}
