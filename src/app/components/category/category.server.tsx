@@ -18,25 +18,25 @@ export default function Categorys() {
       alt: 'categoryHot',
       title: 'HOT',
       src: CategoryIconHotImg,
-      link: 'survey/info',
+      link: 'survey',
     },
     {
       alt: 'categoryLove',
       title: '연애',
       src: CategoryIconLoveImg,
-      link: 'survey/info',
+      link: 'survey',
     },
     {
       alt: 'categoryLock',
       title: '썸',
       src: CategoryIconLockImg,
-      link: 'survey/info',
+      link: 'survey',
     },
     {
       alt: 'categoryLock',
       title: '꼰대력',
       src: CategoryIconLockImg,
-      link: 'survey/info',
+      link: 'survey',
     },
   ];
 
