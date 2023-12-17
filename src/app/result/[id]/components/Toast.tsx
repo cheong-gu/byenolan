@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import React from "react";
-import { Body3 } from "../../../../styles/font";
+import styled from '@emotion/styled';
+import React from 'react';
+import { Body3 } from '../../../../styles/font';
 
 const ToastWrapper = styled.div<{ isOpen: boolean }>`
   position: absolute;
@@ -13,7 +13,9 @@ const ToastWrapper = styled.div<{ isOpen: boolean }>`
   justify-content: center;
   z-index: 999;
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
-  transition: opacity 300ms, transform 300ms;
+  transition:
+    opacity 300ms,
+    transform 300ms;
 `;
 
 const MessageBox = styled.div`

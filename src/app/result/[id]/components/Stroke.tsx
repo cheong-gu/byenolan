@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
-import React from "react";
+import styled from '@emotion/styled';
+import React from 'react';
 
 interface StrokeStyleProps {
   stroke: number;
   typeColor: string;
-  size: "lg" | "md";
+  size: 'lg' | 'md';
 }
 
 interface StrokeProps extends StrokeStyleProps {
@@ -12,11 +12,11 @@ interface StrokeProps extends StrokeStyleProps {
 }
 
 const Font = styled.h3<StrokeStyleProps>`
-  font-family: "NeoDunggeunmo Pro";
-  font-size: ${(props) => (props.size === "lg" ? "30px" : "20px")};
+  font-family: 'NeoDunggeunmo Pro';
+  font-size: ${(props) => (props.size === 'lg' ? '30px' : '20px')};
   font-weight: 400;
   line-height: 100%;
-  letter-spacing: ${(props) => (props.size === "lg" ? "-0.3px" : "-0.2px")};
+  letter-spacing: ${(props) => (props.size === 'lg' ? '-0.3px' : '-0.2px')};
 `;
 
 const StrokeFont = styled(Font)<StrokeStyleProps>`
@@ -26,7 +26,7 @@ const StrokeFont = styled(Font)<StrokeStyleProps>`
 
 const Stroke = ({ title, stroke, typeColor, size }: StrokeProps) => {
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: 'relative' }}>
       <StrokeFont typeColor={typeColor} stroke={stroke} size={size}>
         {title}
       </StrokeFont>
@@ -34,7 +34,7 @@ const Stroke = ({ title, stroke, typeColor, size }: StrokeProps) => {
         typeColor={typeColor}
         stroke={stroke}
         size={size}
-        style={{ position: "absolute", top: 0 }}
+        style={{ position: 'absolute', top: 0 }}
       >
         {title}
       </Font>

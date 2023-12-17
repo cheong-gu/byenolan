@@ -1,45 +1,45 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import Content from "./components/Content";
-import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
-import Modal from "./components/Modal";
-import Toast from "./components/Toast";
-import Answer from "./components/Answer";
-import BarGraph from "./components/BarGraph";
-import DonutChart from "./components/DonutChart";
-import ChartLegend from "./components/ChartLegend";
-import ColumnChart from "./components/ColumnChart";
-import { Body3, H3, H5, H6 } from "../../../styles/font";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import styled from '@emotion/styled';
+import Content from './components/Content';
+import { useCallback, useEffect, useState } from 'react';
+import Link from 'next/link';
+import Modal from './components/Modal';
+import Toast from './components/Toast';
+import Answer from './components/Answer';
+import BarGraph from './components/BarGraph';
+import DonutChart from './components/DonutChart';
+import ChartLegend from './components/ChartLegend';
+import ColumnChart from './components/ColumnChart';
+import { Body3, H3, H5, H6 } from '../../../styles/font';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import {
   ColumnChartState,
   donutChartState,
   modalQuestionState,
   modalResultState,
   resultState,
-} from "../../../store/survey_result/atoms";
-import SariGomtang from "../../../public/result/sarigomtang.svg";
-import SinRamen from "../../../public/result/sinramen.svg";
-import SesameRamen from "../../../public/result/sesameramen.svg";
-import JinRamen from "../../../public/result/jinramen.svg";
-import BuldakRamen from "../../../public/result/buldakramen.svg";
-import HaekBuldakRamen from "../../../public/result/haekbuldakramen.svg";
-import HeaderImage from "../../../public/result/header.png";
-import ShareIcon from "../../../public/result/share.svg";
-import AnswerIcon from "../../../public/result/answers.svg";
-import HomeIcon from "../../../public/result/home.svg";
-import RepeatIcon from "../../../public/result/repeat.svg";
-import YellowButton from "../../../public/result/yellow_button.svg";
-import GreyButton from "../../../public/result/grey_button.svg";
-import BlueButton from "../../../public/result/blue_button.svg";
+} from '../../../store/survey_result/atoms';
+import SariGomtang from '../../../public/result/sarigomtang.svg';
+import SinRamen from '../../../public/result/sinramen.svg';
+import SesameRamen from '../../../public/result/sesameramen.svg';
+import JinRamen from '../../../public/result/jinramen.svg';
+import BuldakRamen from '../../../public/result/buldakramen.svg';
+import HaekBuldakRamen from '../../../public/result/haekbuldakramen.svg';
+import HeaderImage from '../../../public/result/header.png';
+import ShareIcon from '../../../public/result/share.svg';
+import AnswerIcon from '../../../public/result/answers.svg';
+import HomeIcon from '../../../public/result/home.svg';
+import RepeatIcon from '../../../public/result/repeat.svg';
+import YellowButton from '../../../public/result/yellow_button.svg';
+import GreyButton from '../../../public/result/grey_button.svg';
+import BlueButton from '../../../public/result/blue_button.svg';
 import {
   InfoResultType,
   RelationshipType,
-} from "../../../store/survey_result/atoms.type";
-import Image from "next/image";
-import Stroke from "./components/Stroke";
+} from '../../../store/survey_result/atoms.type';
+import Image from 'next/image';
+import Stroke from './components/Stroke';
 import {
   answersState,
   everageState,
@@ -47,28 +47,28 @@ import {
   questionsState,
   selectedQuestionIndexState,
   selectedState,
-} from "../../../store/survey_choose/atoms";
-import { infoState } from "../../../store/survey_info/atoms";
+} from '../../../store/survey_choose/atoms';
+import { infoState } from '../../../store/survey_info/atoms';
 
 const INITIAL_TYPE_DESIGN = {
-  color: "#edeef5",
-  stroke: "#edeef5",
+  color: '#edeef5',
+  stroke: '#edeef5',
   image: SariGomtang,
 };
 const getTypeDesign = (title: RelationshipType) => {
   switch (title) {
-    case "핵불닭볶음면":
-      return { color: "#191f28", stroke: "#eff1f9", image: HaekBuldakRamen };
-    case "불닭볶음면":
-      return { color: "#1c47b5", stroke: "#eff1f9", image: BuldakRamen };
-    case "신라면":
-      return { color: "#ec4747", stroke: "#ffeeea", image: SinRamen };
-    case "진라면":
-      return { color: "#ff881b", stroke: "#ffeddc", image: JinRamen };
-    case "참깨라면":
-      return { color: "#ffe072", stroke: "#fff8b6", image: SesameRamen };
-    case "사리곰탕":
-      return { color: "#edeef5", stroke: "#edeef5", image: SariGomtang };
+    case '핵불닭볶음면':
+      return { color: '#191f28', stroke: '#eff1f9', image: HaekBuldakRamen };
+    case '불닭볶음면':
+      return { color: '#1c47b5', stroke: '#eff1f9', image: BuldakRamen };
+    case '신라면':
+      return { color: '#ec4747', stroke: '#ffeeea', image: SinRamen };
+    case '진라면':
+      return { color: '#ff881b', stroke: '#ffeddc', image: JinRamen };
+    case '참깨라면':
+      return { color: '#ffe072', stroke: '#fff8b6', image: SesameRamen };
+    case '사리곰탕':
+      return { color: '#edeef5', stroke: '#edeef5', image: SariGomtang };
     default:
       return INITIAL_TYPE_DESIGN;
   }
@@ -163,7 +163,7 @@ interface ResultPageProps {
   searchParams: {
     type: RelationshipType;
     age: string;
-    gender: "W" | "M";
+    gender: 'W' | 'M';
     question: string;
     answer: string;
   };
@@ -217,7 +217,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
         .then((response) => response.json())
         .then((response) => {
           setResult(response[0]);
-          console.log("[Result]", response[0]);
+          console.log('[Result]', response[0]);
         });
     } catch (e) {
       console.error(e);
@@ -239,7 +239,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
           const chartData = result.map((data) =>
             parseInt(data.percent.substring(0, data.percent.length - 1))
           );
-          console.log("[DonutChart]", result, mostType, myType, chartData);
+          console.log('[DonutChart]', result, mostType, myType, chartData);
           setDonutChartData({
             data: result,
             donutData: chartData,
@@ -262,7 +262,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
           const data = (response as InfoResultType[]).sort(
             (a, b) => b.count - a.count
           );
-          console.log("[ColumnChart]", data.slice(0, 3));
+          console.log('[ColumnChart]', data.slice(0, 3));
           setColumnChartData(data.slice(0, 3));
         });
     } catch (e) {
@@ -371,14 +371,14 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
             </ShareButton>
             <ButtonWrapper>
               <LinkButton
-                href={"/survey/info"}
+                href={'/survey/info'}
                 onClick={resetData}
                 about="repeat"
               >
                 <Image src={RepeatIcon} alt="repeat" />
                 <H6>다시하기</H6>
               </LinkButton>
-              <LinkButton href={"/"} onClick={resetData} about="to home">
+              <LinkButton href={'/'} onClick={resetData} about="to home">
                 <Image src={HomeIcon} alt="home" />
                 <H6>홈 화면</H6>
               </LinkButton>
@@ -388,7 +388,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
           <Content index={2}>
             <Row>
               <Stroke
-                title={`${age}대 ${gender === "W" ? "여성" : "남성"}`}
+                title={`${age}대 ${gender === 'W' ? '여성' : '남성'}`}
                 typeColor={resultUI.stroke}
                 stroke={2}
                 size="md"

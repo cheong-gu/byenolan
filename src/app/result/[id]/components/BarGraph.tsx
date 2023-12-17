@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import React from "react";
-import Label from "./Label";
-import { Element4 } from "../../../../styles/font";
+import styled from '@emotion/styled';
+import React from 'react';
+import Label from './Label';
+import { Element4 } from '../../../../styles/font';
 
 const Wrapper = styled.div`
   position: relative;

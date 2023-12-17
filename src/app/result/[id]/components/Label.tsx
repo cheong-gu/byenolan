@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { Element2, Element3 } from "../../../../styles/font";
+import React from 'react';
+import styled from '@emotion/styled';
+import { Element2, Element3 } from '../../../../styles/font';
 
 const Polygon = () => (
   <svg
@@ -40,13 +40,13 @@ const PolygonBox = styled.div`
 `;
 
 interface LabelProps {
-  type: "string" | "number";
+  type: 'string' | 'number';
   polygon?: boolean;
   children: React.ReactNode;
 }
 
 const Label = ({ type, polygon, children }: LabelProps) => {
-  const Text = type === "number" ? Element3 : Element2;
+  const Text = type === 'number' ? Element3 : Element2;
   return (
     <Wrapper>
       <LabelBox>
