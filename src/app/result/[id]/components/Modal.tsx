@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import React, { useRef } from "react";
-import HeaderImg from "../../../../public/result/modal_header.png";
-import ArrowUp from "../../../../public/result/arrow_up.svg";
-import Image from "next/image";
-import { H6 } from "../../../../styles/font";
+import styled from '@emotion/styled';
+import React, { useRef } from 'react';
+import HeaderImg from '../../../../public/result/modal_header.png';
+import ArrowUp from '../../../../public/result/arrow_up.svg';
+import Image from 'next/image';
+import { H6 } from '../../../../styles/font';
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -80,7 +80,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     if (modalRef.current) {
       modalRef.current.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   };
