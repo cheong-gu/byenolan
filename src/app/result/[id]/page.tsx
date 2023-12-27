@@ -366,7 +366,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
               <H6>결과 공유</H6>
               <Toast
                 isOpen={showToast}
-                message="복사 완료! 친구에게 공유해 보세요!"
+                message="링크 복사 완료! 친구에게 공유해 보세요!"
               />
             </ShareButton>
             <ButtonWrapper>
