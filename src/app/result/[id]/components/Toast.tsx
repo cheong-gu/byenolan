@@ -23,7 +23,6 @@ const MessageBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 234px;
   height: 30px;
   padding: 4px 8px;
   background-color: #000;

@@ -26,7 +26,7 @@ import SesameRamen from '../../../public/result/sesameramen.svg';
 import JinRamen from '../../../public/result/jinramen.svg';
 import BuldakRamen from '../../../public/result/buldakramen.svg';
 import HaekBuldakRamen from '../../../public/result/haekbuldakramen.svg';
-import HeaderImage from '../../../public/result/header.png';
+import HeaderImage from '../../../public/result/header.svg';
 import ShareIcon from '../../../public/result/share.svg';
 import AnswerIcon from '../../../public/result/answers.svg';
 import HomeIcon from '../../../public/result/home.svg';
@@ -366,7 +366,7 @@ export default function ResultPage({ params, searchParams }: ResultPageProps) {
               <H6>결과 공유</H6>
               <Toast
                 isOpen={showToast}
-                message="복사 완료! 친구에게 공유해 보세요!"
+                message="링크 복사 완료! 친구에게 공유해 보세요!"
               />
             </ShareButton>
             <ButtonWrapper>
