@@ -151,9 +151,9 @@ export default function ChoosePage() {
           const answerNo = answers.selected.map((value) => value.answer_no);
 
           router.push(
-            `/result/${resultArray.percent}?type=${resultArray.title}&age=${
-              resultArray.age
-            }&gender=${resultArray.gender}&question=${encodeURIComponent(
+            `/result/${resultArray.percent}?&age=${resultArray.age}&gender=${
+              resultArray.gender
+            }&question=${encodeURIComponent(
               JSON.stringify(questionId)
             )}&answer=${encodeURIComponent(JSON.stringify(answerNo))}`
           );
