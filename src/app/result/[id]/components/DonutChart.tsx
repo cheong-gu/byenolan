@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import * as d3 from "d3";
-import styled from "@emotion/styled";
+import React, { useCallback, useEffect, useRef } from 'react';
+import * as d3 from 'd3';
+import styled from '@emotion/styled';
 import {
   DonutChartDataType,
   RelationshipType,
-} from "../../../../store/survey_result/atoms.type";
+} from '../../../../store/survey_result/atoms.type';
 
 const DonutLabel = `
   <svg
@@ -27,12 +27,12 @@ const DonutLabel = `
 `;
 
 const DONUT_CHART_COLOR = {
-  핵불닭볶음면: "#191f28",
-  불닭볶음면: "#1c47b5",
-  신라면: "#ec4747",
-  진라면: "#ff881b",
-  참깨라면: "#ffe072",
-  사리곰탕: "#edeef5",
+  핵불닭볶음면: '#191f28',
+  불닭볶음면: '#1c47b5',
+  신라면: '#ec4747',
+  진라면: '#ff881b',
+  참깨라면: '#ffe072',
+  사리곰탕: '#edeef5',
 };
 
 const CHART_WIDTH = 208;
@@ -51,7 +51,7 @@ interface DonutChartProps {
 }
 
 const DonutChart = ({ type, chartData }: DonutChartProps) => {
-  const { data, donutData, myPercent } = chartData;
+  const { data, donutData } = chartData;
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -63,43 +63,43 @@ const DonutChart = ({ type, chartData }: DonutChartProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const drawDonutChart = () => {
+  const drawDonutChart = useCallback(() => {
     const svg = d3.select(svgRef.current);
 
-    svg.selectAll("*").remove();
+    svg.selectAll('*').remove();
 
-    svg.append("defs").append("g").attr("id", "donutLabel").html(DonutLabel);
+    svg.append('defs').append('g').attr('id', 'donutLabel').html(DonutLabel);
 
     svg
-      .attr("width", CHART_WIDTH)
-      .attr("height", CHART_HEIGHT)
-      .attr("id", "graphWrap");
+      .attr('width', CHART_WIDTH)
+      .attr('height', CHART_HEIGHT)
+      .attr('id', 'graphWrap');
 
     const g = svg
-      .append("g")
-      .attr("transform", `translate(${CHART_WIDTH / 2},${CHART_HEIGHT / 2})`);
+      .append('g')
+      .attr('transform', `translate(${CHART_WIDTH / 2},${CHART_HEIGHT / 2})`);
 
     // 파이 레이아웃 정의
     const pie = d3.pie();
 
     // 부채꼴 그리기 (도넛 섹션)
     const arcs = g
-      .selectAll(".arc")
+      .selectAll('.arc')
       .data(pie(donutData))
       .enter()
-      .append("g")
-      .attr("class", "arc");
+      .append('g')
+      .attr('class', 'arc');
 
     const arcGenerator = d3
       .arc()
       .innerRadius(CHART_RADIUS / 3.5)
       .outerRadius(CHART_RADIUS);
 
-    arcs.selectAll("path").remove();
+    arcs.selectAll('path').remove();
 
     arcs
-      .append("path")
-      .attr("fill", (_, i) => {
+      .append('path')
+      .attr('fill', (_, i) => {
         return DONUT_CHART_COLOR[data[i].title];
       })
       .each(function (this: any, d: any) {
@@ -107,45 +107,46 @@ const DonutChart = ({ type, chartData }: DonutChartProps) => {
       })
       .transition()
       .duration(1000)
-      .attrTween("d", function (d: any) {
-        var interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+      .attrTween('d', function (d: any) {
+        const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
         return function (t: any) {
-          return arcGenerator(interpolate(t)) || "";
+          return arcGenerator(interpolate(t)) || '';
         };
       })
-      .on("end", function (_, i) {
+      .on('end', function (_, i) {
         if (i === data.length - 1) {
-          let labelsGroup = g
-            .selectAll(".label-group")
+          const labelsGroup = g
+            .selectAll('.label-group')
             .data(pie(donutData))
             .enter()
-            .append("g")
+            .append('g')
             .filter((value) => {
               return (
-                value.data === myPercent && data[value.index].title === type
+                `${value.data}%` === data[value.index].percent &&
+                data[value.index].title === type
               );
             });
 
           labelsGroup
-            .append("use")
-            .attr("xlink:href", "#donutLabel")
-            .attr("x", function (d: any) {
-              var [x] = arcGenerator.centroid(d);
+            .append('use')
+            .attr('xlink:href', '#donutLabel')
+            .attr('x', function (d: any) {
+              const [x] = arcGenerator.centroid(d);
               return x - 13;
             })
-            .attr("y", function (d: any) {
-              var [, y] = arcGenerator.centroid(d);
+            .attr('y', function (d: any) {
+              const [, y] = arcGenerator.centroid(d);
               return y - 12;
             })
-            .attr("width", 26)
-            .attr("height", 24)
-            .style("opacity", 0)
+            .attr('width', 26)
+            .attr('height', 24)
+            .style('opacity', 0)
             .transition()
             .duration(300)
-            .style("opacity", 1);
+            .style('opacity', 1);
         }
       });
-  };
+  }, [data, donutData, type]);
 
   return (
     <Wrapper>

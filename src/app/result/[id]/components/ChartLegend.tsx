@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "@emotion/styled";
-import Label from "./Label";
-import { Element3, H6 } from "../../../../styles/font";
-import { RelationshipType } from "../../../../store/survey_result/atoms.type";
+import React from 'react';
+import styled from '@emotion/styled';
+import Label from './Label';
+import { Element3, H6 } from '../../../../styles/font';
+import { RelationshipType } from '../../../../store/survey_result/atoms.type';
 
 const Wrapper = styled.div<{ lastIndex?: boolean }>`
   display: flex;
@@ -10,7 +10,7 @@ const Wrapper = styled.div<{ lastIndex?: boolean }>`
   align-items: center;
   justify-content: space-between;
   width: 266px;
-  margin-bottom: ${({ lastIndex }) => (lastIndex ? 0 : "2px")};
+  margin-bottom: ${({ lastIndex }) => (lastIndex ? 0 : '2px')};
   padding: 4px;
 `;
 
@@ -25,7 +25,7 @@ const Tag = styled.div<{ color: string }>`
   width: 8px;
   height: 8px;
   border-radius: 1000px;
-  background-color: ${({ color }) => (color ? color : "#000")};
+  background-color: ${({ color }) => (color ? color : '#000')};
 `;
 
 const Margin = styled.div`

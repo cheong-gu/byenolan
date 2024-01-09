@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import React from "react";
-import { Body1, Element2, Element3, H5 } from "../../../../styles/font";
-import { ModalAnswerType } from "../../../../store/survey_result/atoms.type";
-import CheckedImg from "../../../../public/result/select.svg";
-import Image from "next/image";
+import styled from '@emotion/styled';
+import React from 'react';
+import { Body1, Element2, Element3, H5 } from '../../../../styles/font';
+import { ModalAnswerType } from '../../../../store/survey_result/atoms.type';
+import CheckedImg from '../../../../public/result/select.svg';
+import Image from 'next/image';
 
 const Container = styled.div`
   width: 100%;
@@ -45,8 +45,8 @@ const Content = styled.div<{ active?: boolean }>`
   height: 64px;
   padding: 0px 20px;
   margin-bottom: 16px;
-  border: ${(props) => (props.active ? "1px solid #2a3351" : "0px")};
-  color: ${(props) => (props.active ? "#191F28" : "#7A8289")};
+  border: ${(props) => (props.active ? '1px solid #2a3351' : '0px')};
+  color: ${(props) => (props.active ? '#191F28' : '#7A8289')};
   background: #fff;
 `;
 
@@ -57,7 +57,7 @@ const Gauge = styled.div<{ active?: boolean; gauge: string }>`
   right: 0;
   width: ${(props) => props.gauge};
   height: 100%;
-  background-color: ${(props) => (props.active ? "#94E3FF" : "#DBDFEC")};
+  background-color: ${(props) => (props.active ? '#94E3FF' : '#DBDFEC')};
   z-index: 1;
 `;
 

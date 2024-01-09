@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
-import React, { useCallback, useEffect, useState } from "react";
-import { H6 } from "../../../../styles/font";
+import styled from '@emotion/styled';
+import React, { useCallback, useEffect, useState } from 'react';
+import { H6 } from '../../../../styles/font';
 import {
   InfoResultType,
   RelationshipType,
-} from "../../../../store/survey_result/atoms.type";
+} from '../../../../store/survey_result/atoms.type';
 
 const Wrapper = styled.div`
   width: 288px;
@@ -21,7 +21,7 @@ const ColumnBox = styled.div<{ lastIndex?: boolean }>`
   align-items: center;
   justify-content: space-between;
   width: 80px;
-  margin-right: ${(props) => (props.lastIndex ? "0px" : "24px")};
+  margin-right: ${(props) => (props.lastIndex ? '0px' : '24px')};
 `;
 
 const ColumnBackground = styled.div`
@@ -37,19 +37,19 @@ const ColumnBackground = styled.div`
 const Column = styled.div<{ idx: number; columnColor: string }>`
   width: 100%;
   height: ${(props) =>
-    props.idx === 1 ? "112px" : props.idx === 2 ? "67px" : "32px"};
+    props.idx === 1 ? '112px' : props.idx === 2 ? '67px' : '32px'};
   border-radius: 6px 6px 0px 0px;
   background-color: ${(props) => props.columnColor};
   transition: height 0.5s ease-in-out;
 `;
 
 const COLUMN_CHART_COLOR = {
-  핵불닭볶음면: "#191f28",
-  불닭볶음면: "#1c47b5",
-  신라면: "#ec4747",
-  진라면: "#ff881b",
-  참깨라면: "#ffe072",
-  사리곰탕: "#dadde6",
+  핵불닭볶음면: '#191f28',
+  불닭볶음면: '#1c47b5',
+  신라면: '#ec4747',
+  진라면: '#ff881b',
+  참깨라면: '#ffe072',
+  사리곰탕: '#dadde6',
 };
 
 const RESET_CHART = new Array(3).fill(0);
@@ -92,7 +92,7 @@ const ColumnChart = ({ type, data }: ColumnChartProps) => {
               />
             </ColumnBackground>
             <H6>
-              {age}대 {gender === "M" ? "남성" : "여성"}
+              {age}대 {gender === 'M' ? '남성' : '여성'}
             </H6>
           </ColumnBox>
         ))}

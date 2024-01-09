@@ -1,9 +1,9 @@
-import CategoryIconHotImg from "../../../public/home/1_category_icon_Hot_80x80.svg";
-import CategoryIconLoveImg from "../../../public/home/1_category_icon_love_80x80.svg";
-import CategoryIconLockImg from "../../../public/home/1_category_icon_Lock_80x80.svg";
-import Link from "next/link";
-import Image from "next/image";
-import styles from "./category.module.css";
+import CategoryIconHotImg from '../../../public/home/1_category_icon_Hot_80x80.svg';
+import CategoryIconLoveImg from '../../../public/home/1_category_icon_love_80x80.svg';
+import CategoryIconLockImg from '../../../public/home/1_category_icon_Lock_80x80.svg';
+import Link from 'next/link';
+import Image from 'next/image';
+import styles from './category.module.css';
 
 type Cetegory = {
   src: string;
@@ -15,28 +15,28 @@ type Cetegory = {
 export default function Categorys() {
   const categories: Array<Cetegory> = [
     {
-      alt: "categoryHot",
-      title: "HOT",
+      alt: 'categoryHot',
+      title: 'HOT',
       src: CategoryIconHotImg,
-      link: "survey/info",
+      link: 'survey',
     },
     {
-      alt: "categoryLove",
-      title: "연애",
+      alt: 'categoryLove',
+      title: '연애',
       src: CategoryIconLoveImg,
-      link: "survey/info",
+      link: 'survey',
     },
     {
-      alt: "categoryLock",
-      title: "썸",
+      alt: 'categoryLock',
+      title: '썸',
       src: CategoryIconLockImg,
-      link: "survey/info",
+      link: 'survey',
     },
     {
-      alt: "categoryLock",
-      title: "꼰대력",
+      alt: 'categoryLock',
+      title: '꼰대력',
       src: CategoryIconLockImg,
-      link: "survey/info",
+      link: 'survey',
     },
   ];
 
@@ -44,8 +44,8 @@ export default function Categorys() {
 
   return (
     <div className={wrapS}>
-      {categories.map((category) => (
-        <Link key={category.src} href={category.link}>
+      {categories.map((category, index) => (
+        <Link key={category.src + index.toString()} href={category.link}>
           <div className={itemS}>
             <Image
               src={category.src}

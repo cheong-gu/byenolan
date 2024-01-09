@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
-import Content1 from "../../../../public/result/subtitle_header1.png";
-import Content2 from "../../../../public/result/subtitle_header2.png";
-import Content3 from "../../../../public/result/subtitle_header3.png";
-import Image from "next/image";
+import styled from '@emotion/styled';
+import Content1 from '../../../../public/result/subtitle_header1.png';
+import Content2 from '../../../../public/result/subtitle_header2.png';
+import Content3 from '../../../../public/result/subtitle_header3.png';
+import Image from 'next/image';
 
 const Box = styled.div`
   width: 100%;

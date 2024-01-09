@@ -1,9 +1,10 @@
-import styled from "@emotion/styled";
-import React, { useRef } from "react";
-import HeaderImg from "../../../../public/result/modal_header.png";
-import ArrowUp from "../../../../public/result/arrow_up.svg";
-import Image from "next/image";
-import { H6 } from "../../../../styles/font";
+import styled from '@emotion/styled';
+import React, { useRef } from 'react';
+import HeaderImg from '../../../../public/result/modal_header.svg';
+import CloseIcon from '../../../../public/result/modal_close.svg';
+import ArrowUp from '../../../../public/result/arrow_up.svg';
+import Image from 'next/image';
+import { H6 } from '../../../../styles/font';
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -18,6 +19,10 @@ const ModalContainer = styled.div`
 `;
 
 const ModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   max-width: 440px;
   width: 100%;
   height: 100%;
@@ -31,15 +36,21 @@ const ModalHeader = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
   width: 100%;
   height: 40px;
 `;
 
 const Button = styled.button`
   position: absolute;
+  right: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
   width: 60px;
   height: 40px;
+  padding: 0px;
 `;
 
 const ModalContent = styled.div`
@@ -80,7 +91,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     if (modalRef.current) {
       modalRef.current.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   };
@@ -89,8 +100,21 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     <ModalContainer>
       <ModalWrapper ref={modalRef}>
         <ModalHeader>
-          <Image src={HeaderImg} alt="modal_header" />
-          <Button onClick={onClose} />
+          <Image
+            src={HeaderImg}
+            alt="modal_header"
+            style={{ width: '100%', height: '40px' }}
+          />
+          <Button onClick={onClose}>
+            <Image
+              src={CloseIcon}
+              alt="close_icon"
+              style={{
+                width: '24px',
+                height: '24px',
+              }}
+            />
+          </Button>
         </ModalHeader>
         <ModalContent>
           {children}

@@ -1,9 +1,9 @@
-import { atom, selector } from "recoil";
-import { resultState } from "./atoms";
+import { selector } from 'recoil';
+import { resultState } from './atoms';
 
 export const resultDataSelector = selector({
-  key: "resultStateSelector",
+  key: 'resultStateSelector',
   get: ({ get }) => {
-    const result = get(resultState);
+    const _ = get(resultState);
   },
 });
