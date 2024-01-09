@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import styled from '@emotion/styled';
 import {
@@ -51,7 +51,7 @@ interface DonutChartProps {
 }
 
 const DonutChart = ({ type, chartData }: DonutChartProps) => {
-  const { data, donutData, myPercent } = chartData;
+  const { data, donutData } = chartData;
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const DonutChart = ({ type, chartData }: DonutChartProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const drawDonutChart = () => {
+  const drawDonutChart = useCallback(() => {
     const svg = d3.select(svgRef.current);
 
     svg.selectAll('*').remove();
@@ -122,7 +122,8 @@ const DonutChart = ({ type, chartData }: DonutChartProps) => {
             .append('g')
             .filter((value) => {
               return (
-                value.data === myPercent && data[value.index].title === type
+                `${value.data}%` === data[value.index].percent &&
+                data[value.index].title === type
               );
             });
 
@@ -145,7 +146,7 @@ const DonutChart = ({ type, chartData }: DonutChartProps) => {
             .style('opacity', 1);
         }
       });
-  };
+  }, [data, donutData, type]);
 
   return (
     <Wrapper>

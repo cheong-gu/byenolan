@@ -1,10 +1,10 @@
 export type RelationshipType =
-  | "핵불닭볶음면"
-  | "불닭볶음면"
-  | "신라면"
-  | "진라면"
-  | "참깨라면"
-  | "사리곰탕";
+  | '핵불닭볶음면'
+  | '불닭볶음면'
+  | '신라면'
+  | '진라면'
+  | '참깨라면'
+  | '사리곰탕';
 
 export interface ResultType {
   content: string;
@@ -22,13 +22,12 @@ export interface ModalResultType {
 export interface InfoResultType {
   count: number;
   age: string;
-  gender: "M" | "W";
+  gender: 'M' | 'W';
   title: RelationshipType;
   percent: string;
 }
 
 export interface DonutChartDataType {
-  myPercent: number;
   mostType: RelationshipType;
   data: InfoResultType[];
   donutData: number[];

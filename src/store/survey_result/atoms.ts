@@ -4,30 +4,30 @@ import {
   ModalResultType,
   ModalQuestionType,
   DonutChartDataType,
-} from "./atoms.type";
-import { atom } from "recoil";
+} from './atoms.type';
+import { atom } from 'recoil';
 
 export const resultState = atom({
-  key: "resultState",
+  key: 'resultState',
   default: {} as ResultType,
 });
 
 export const modalResultState = atom({
-  key: "modalResultState",
+  key: 'modalResultState',
   default: {} as ModalResultType,
 });
 
 export const modalQuestionState = atom({
-  key: "modalQuestionState",
+  key: 'modalQuestionState',
   default: {} as ModalQuestionType[],
 });
 
 export const donutChartState = atom({
-  key: "donutChartState",
+  key: 'donutChartState',
   default: {} as DonutChartDataType,
 });
 
 export const ColumnChartState = atom({
-  key: "ColumnChartState",
+  key: 'ColumnChartState',
   default: {} as InfoResultType[],
 });
