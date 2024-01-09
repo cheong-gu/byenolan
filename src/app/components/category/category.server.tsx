@@ -18,25 +18,25 @@ export default function Categorys() {
       alt: 'categoryHot',
       title: 'HOT',
       src: CategoryIconHotImg,
-      link: 'survey/info',
+      link: 'survey',
     },
     {
       alt: 'categoryLove',
       title: '연애',
       src: CategoryIconLoveImg,
-      link: 'survey/info',
+      link: 'survey',
     },
     {
       alt: 'categoryLock',
       title: '썸',
       src: CategoryIconLockImg,
-      link: 'survey/info',
+      link: 'survey',
     },
     {
       alt: 'categoryLock',
       title: '꼰대력',
       src: CategoryIconLockImg,
-      link: 'survey/info',
+      link: 'survey',
     },
   ];
 
@@ -44,8 +44,8 @@ export default function Categorys() {
 
   return (
     <div className={wrapS}>
-      {categories.map((category) => (
-        <Link key={category.src} href={category.link}>
+      {categories.map((category, index) => (
+        <Link key={category.src + index.toString()} href={category.link}>
           <div className={itemS}>
             <Image
               src={category.src}
