@@ -5,6 +5,7 @@ import Background from '../../../public/home/1_bg_img_440x1620.png';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { homeNolanState } from '@/store/home/atoms';
+import Metrics from '../metrics';
 
 const Body = styled.body`
   background-color: #313131;
@@ -44,6 +45,7 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <Body>
+        <Metrics />
         <Main>{children}</Main>
       </Body>
     </html>
